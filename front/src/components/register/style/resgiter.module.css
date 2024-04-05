@@ -1,0 +1,45 @@
+/* style/resgiter.module.css */
+.main {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.header {
+  background-color: black;
+  width: 95vw;
+  height: 50px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  padding: 1px;
+  color: #000;
+}
+
+.formContainer {
+  width: 95vw;
+  margin: auto;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+#input:hover {
+  background-color: rgb(20, 19, 19);
+  color: white;
+}
+#input {
+  width: 90%;
+  display: flex;
+  flex-direction: row-reverse;
+  text-align: start;
+}
+#input:disabled {
+  background-color: #f0f0f0; /* Cor de fundo quando desabilitado */
+  color: #666666; /* Cor do texto quando desabilitado */
+}

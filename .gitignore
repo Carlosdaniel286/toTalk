@@ -1,0 +1,25 @@
+
+**/node_modules/
+
+
+# next.js
+**/.next/
+**/out/
+**/dist/
+**/public/image/
+# production
+**/build
+**/ecosystem.config.js
+
+# debug
+
+
+# local env files
+**/.env
+**/next-env.d.ts
+
+
+# vercel
+
+
+# typescript

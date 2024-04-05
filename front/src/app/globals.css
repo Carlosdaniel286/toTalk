@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'myFont';
+    src: url('/pro/SF-Compact-Rounded-Semibold.ttf') format('truetype'); /* Formato TTF */
+    /* Adicione outros formatos de arquivo, se necessário */
+  }
+  @font-face {
+    font-family: 'myFontBold';
+    src: url('/pro/SF-Compact-Rounded-Heavy.ttf') format('truetype'); /* Formato TTF */
+    /* Adicione outros formatos de arquivo, se necessário */
+  }
+  
+  .main{
+    font-family: "myFont";
+  }
+  
