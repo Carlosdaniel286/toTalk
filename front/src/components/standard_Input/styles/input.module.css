@@ -1,5 +1,5 @@
 #input {
-  background: white;
+  background-color: white;
   border: 0px;
   border: 1px solid #ccc;
   width: 100%;
@@ -23,9 +23,19 @@
   font-family: 'myFontBold';
   color: black;
   font-size: 16px;
+ 
 }
 
 #id::placeholder{
   font-size: 30px;
+}
+.error{
+  min-width:90%;
+  max-width: 90%;
+  word-break:keep-all;
+  padding: 0%;
+  margin: 0px;
+  display: block;
+  font-family: 'myFont';
 }
 

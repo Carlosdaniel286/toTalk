@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+.containerImage {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  
+}
+.content {
+  font-weight: 800;
+  margin: 0px;
+  padding: 0px;
+  font-size: 14px;
+  font-family: 'myFont';
+  
+}
+.hover {
+  background-color: white;
+  border: 1px solid #ccc;
+  width: 100%;
+  height: 40px;
+  border-radius: 6px; /* Corrigido para usar hifenização em propriedades CSS */
+  cursor: pointer;
+  display: flex;
+  align-items: center; /* Corrigido para usar hifenização em propriedades CSS */
+  color: black;
+}
+.hover:hover{
+  background-color: rgb(158, 157, 157,0.4);
+}
+

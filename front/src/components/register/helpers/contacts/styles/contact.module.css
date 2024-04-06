@@ -1,9 +1,9 @@
 .contact {
-  width: 40%;
+  width: 100%;
   display: flex;
   align-items: center;
-  height: 500px;
-  display: none;
+  height: 100%;
+ 
 }
 
 .contact_p {
@@ -12,7 +12,7 @@
   font-weight: 600;
   margin: 0px;
   padding: 0px;
-  word-break: break-all;
+  word-break:keep-all;
   width: 70%;
   font-family: 'myFont';
 }
@@ -21,26 +21,29 @@
   margin-bottom: 4px;
   padding: 0px;
   font-family: 'myFont';
+  font-weight: 900;
 }
 .sections_contacts {
-  height: 90px;
+ background-color: white;
 }
 .containerInfo {
   background-color: white;
-  height: 450px;
-  width: 390px;
+  height: 100%;
+  width: 100%;
   border: 1px solid #ccc;
   border-radius: 4px;
+  
 }
 .info {
   padding-left: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 70%;
+  height: 60%;
 }
 .options_contacts {
   display: grid;
+ 
 }
 
 .conatinerContacts {

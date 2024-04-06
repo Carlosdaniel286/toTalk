@@ -1,12 +1,11 @@
 import styles from './styles/contact.module.css'
-import { Contacts } from '@/components/contacts/contacts'
+import { RegisterContacts } from '@/components/Register_contacts/register_contacts'
 
 export function Contact() {
   return (
     <div className={styles.contact}>
       <div className={styles.containerInfo}>
-       
-        <div className={styles.info}>
+       <div className={styles.info}>
           <header>
             <h2 className={styles.contact_h2}>Contate-nos</h2>
             <p className={styles.contact_p}>
@@ -17,22 +16,20 @@ export function Contact() {
           <section className={styles.sections_contacts}>
             <div className={styles.options_contacts}>
              <div className={styles.conatinerContacts} >  
-              <Contacts
-                link='/telefone'
-                content='897875564543'
+              <RegisterContacts
+               type='phone'
+                content='+55 (62)9 94809880'
               /></div>
                <div className={styles.conatinerContacts} >  
-              <Contacts
-                link='/telefone'
-                content='897875564543'
+              <RegisterContacts
+                type='email'
+                content='carlosdaniiel286@gmail.com'
               /></div>
                <div className={styles.conatinerContacts} >  
-              <Contacts
-                link='/telefone'
-                content='897875564543'
+              <RegisterContacts
+                type='local'
+                content='Qualquer lugar'
               /></div>
-            
-               
             </div>
           </section>
         </div>

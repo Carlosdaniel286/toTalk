@@ -2,37 +2,31 @@
 import { typeValidations, errorValidation } from '@/@types/validations/validations';
 import validator, { isEmpty } from 'validator';
 import { initError } from '@/constants/validations';
-import { z } from 'zod';
 
 interface validations extends typeValidations{
   value:string
 }
-const userSchema = z.object({
-    username: z.string().regex(/^[A-Za-z]+$/, {
-      message: 'O nome deve conter apenas letras.',
-     }).trim().transform((name)=>{
-          return name.charAt(0).toUpperCase()
-     }),
-})
-type User = z.infer<typeof userSchema>;
-export const validations = ({value,typeValidation}:validations): errorValidation => {
+
+export const validations = ({value,inputType}:validations): errorValidation => {
    if(value=='') return initError
-    switch (typeValidation) {
-         case 'stringName':
+    switch (inputType) {
+        case 'name':
             return isName(value);
+        case 'lastName':
+           return isName(value);
         case 'email':
             return isEmail(value);
-        case 'number':
+        case 'numberPhone':
             return isMobilePhone(value);
-        
-                  
-         default:
+        case 'password':
+            return isStrongPassword(value)
+        default:
             return initError
     }
 };
 
 const isName = (value: string): errorValidation => {
-    console.log(validator.isAlpha(value))
+   
     if (validator.isAlpha(value)) {
         return initError
     } else {
@@ -44,6 +38,7 @@ const isName = (value: string): errorValidation => {
 };
 
 const isEmail = (value: string): errorValidation => {
+
     if (validator.isEmail(value)) {
         return initError
     } else {
@@ -55,12 +50,29 @@ const isEmail = (value: string): errorValidation => {
 };
 
 const isMobilePhone = (value: string): errorValidation => {
-    if (validator.isMobilePhone(value, 'pt-BR')) {
+    const validNumberPhone = validator.isMobilePhone(value, 'pt-BR')
+    const numberPhoneMin = value.length==11
+    if (validNumberPhone && numberPhoneMin ) {
         return initError
     } else {
         return {
             isError: true,
             errorMessage: 'Não é um número de celular válido'
+        };
+    }
+};
+const isStrongPassword = (value: string): errorValidation => {
+    const isValidPassword = validator.isStrongPassword(value);
+    
+    if (isValidPassword) {
+        return {
+            isError: false,
+            errorMessage: ''
+        };
+    } else {
+        return {
+            isError: true,
+            errorMessage: 'caracteres especiais e letras maiúsculas.'
         };
     }
 };

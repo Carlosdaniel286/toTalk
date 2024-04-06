@@ -1,5 +1,5 @@
 export type typeValidations ={
-    typeValidation:'email' | 'number' | 'stringName'| undefined 
+    inputType:'email' | 'numberPhone' | 'name'| 'password' | 'lastName' | undefined;
 }
 
 
