@@ -1,7 +1,6 @@
-//import { validations } from './validation';
 import { typeValidations, errorValidation } from '@/@types/validations/validations';
-import validator, { isEmpty } from 'validator';
-import { initError } from '@/constants/validations';
+import validator from 'validator';
+import { initError } from '@/constants';
 
 interface validations extends typeValidations{
   value:string
@@ -16,7 +15,7 @@ export const validations = ({value,inputType}:validations): errorValidation => {
            return isName(value);
         case 'email':
             return isEmail(value);
-        case 'numberPhone':
+        case 'phone':
             return isMobilePhone(value);
         case 'password':
             return isStrongPassword(value)
@@ -31,8 +30,8 @@ const isName = (value: string): errorValidation => {
         return initError
     } else {
         return {
-            isError: true,
-            errorMessage: 'Apenas letras são permitidas'
+            error:true,
+            message: 'Apenas letras são permitidas'
         };
     }
 };
@@ -43,8 +42,8 @@ const isEmail = (value: string): errorValidation => {
         return initError
     } else {
         return {
-            isError: true,
-            errorMessage: 'Esse email não é válido'
+            error: true,
+            message: 'Esse email não é válido'
         };
     }
 };
@@ -56,8 +55,8 @@ const isMobilePhone = (value: string): errorValidation => {
         return initError
     } else {
         return {
-            isError: true,
-            errorMessage: 'Não é um número de celular válido'
+            error: true,
+            message: 'Não é um número de celular válido'
         };
     }
 };
@@ -66,13 +65,13 @@ const isStrongPassword = (value: string): errorValidation => {
     
     if (isValidPassword) {
         return {
-            isError: false,
-            errorMessage: ''
+            error: false,
+            message: ''
         };
     } else {
         return {
-            isError: true,
-            errorMessage: 'caracteres especiais e letras maiúsculas.'
+            error: true,
+            message: 'caracteres especiais e letras maiúsculas.'
         };
     }
 };

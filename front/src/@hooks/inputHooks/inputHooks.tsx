@@ -1,71 +1,24 @@
 import { useState } from 'react';
-
-interface InputValue {
-  value: string;
-  valid: boolean;
-}
-
-interface CustomInputState {
-  name: InputValue;
-  lastName: InputValue;
-  phone: InputValue;
-  password: InputValue;
-  email: InputValue;
-}
-
-export type PropsCustomInputs={
-  value: string;
-  valid: boolean;
-  inputType: 'email' | 'numberPhone' | 'name' | 'password' | 'lastName' | undefined;
-}
+import { initInputValue } from '@/constants';
+import { validations } from '@/functions/validations/validation';
+import validator from 'validator';
+export type inputType = 'email' | 'phone' | 'name'| 'password' | 'lastName' 
 
 export function useCustomInput() {
-  const [inputValue, setInputValue] = useState<CustomInputState>({
-    name: { value: '', valid: false },
-    lastName: { value: '', valid: false },
-    phone: { value: '', valid: false },
-    password: { value: '', valid: false },
-    email: { value: '', valid: false },
-  });
-
-  const getValueInput = ({ value, valid, inputType }: PropsCustomInputs) => {
-    switch (inputType) {
-      case 'name':
-        setInputValue((prevInputValue) => ({
-          ...prevInputValue,
-          name: { value, valid },
-        }));
-        break;
-        case 'lastName':
-            setInputValue((prevInputValue) => ({
-              ...prevInputValue,
-              lastName: { value, valid },
-            }));
-            break;
-      case 'email':
-        setInputValue((prevInputValue) => ({
-          ...prevInputValue,
-          email: { value, valid },
-        }));
-        break;
-      case 'numberPhone':
-        setInputValue((prevInputValue) => ({
-          ...prevInputValue,
-          phone: { value, valid },
-        }));
-        break;
-      case 'password':
-        setInputValue((prevInputValue) => ({
-          ...prevInputValue,
-          password: { value, valid },
-        }));
-        break;
-        case undefined:
-         break;
-      default:
-        break;
-    }
-  };
-
-  return { inputValue, getValueInput };
+  const [inputValue, setInputValue] = useState(initInputValue);
+  
+  const checkInputs =()=>{
+    let check = true
+    const arr = Object.entries(inputValue);
+    arr.map((value)=>{
+      const inputType:inputType = value[0] as inputType
+      const values = value[1] as string
+      if(validator.isEmpty(values)) check =false
+      const erros = validations({value:values,inputType})
+      if(erros.error) check =false
+       
+    })
+    return check
+  }
+  return { inputValue, setInputValue,checkInputs};
 }

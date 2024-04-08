@@ -5,71 +5,66 @@ import InfoOutlined from '@mui/icons-material/InfoOutlined';
 import Input from '@mui/joy/Input';
 import FormHelperText from '@mui/joy/FormHelperText';
 import Stack from '@mui/joy/Stack';
-import { ChangeEvent, useEffect, useState } from 'react';
-import { typeValidations,errorValidation } from '@/@types/validations/validations';
+import { errorValidation,typeValidations} from '@/@types/validations/validations';
+import { useEffect, useState } from 'react';
+import { initError } from '@/constants';
+import { inputType } from '@/@hooks/inputHooks/inputHooks';
 import { validations } from '@/functions/validations/validation';
-import { initError } from '@/constants/validations';
-type typeValidation = 'email' | 'numberPhone' | 'name' | 'password'| 'lastName' | undefined;
+import { SxProps } from '@mui/joy/styles/types/theme';
 
 interface propsInputStandard extends typeValidations{
   label?: string,
   placeholder?: string,
   id?:string,
-  getValueInput:((value:string,valid:boolean,inputType:typeValidation)=>void),
-  cleanInput?:boolean,
-  }
-
-export function InputStandard({ label, placeholder,inputType,id,getValueInput,cleanInput }: propsInputStandard) {
-  const [inputValue, setInputValue] = useState<string>('');
-  const [errorState, setErrorState] = useState<errorValidation>(initError);
+  onChange:((ev:string)=>void)
+  value:string,
+  checkError?:((ev:inputType)=>errorValidation),
+  height?:string
   
-
-const onChange=(ev: ChangeEvent<HTMLInputElement>)=>{
-  const value = ev.target.value
-    setInputValue(value)
-  }
-useEffect(()=>{
-  const checkInputs = validations({value:inputValue,inputType})
-  setErrorState({...errorState,isError:checkInputs.isError,
-  errorMessage:checkInputs.errorMessage
-})
-getValueInput(inputValue,checkInputs.isError,inputType)
- 
-
-},[inputType,inputValue])
   
-  return (
+}
+
+export function InputStandard({ label, placeholder,id,onChange,value,inputType,height}: propsInputStandard) {
+  const[isError ,setIsError]=useState(initError)
+  useEffect(()=>{
+   const erros = validations({value,inputType})
+   setIsError({...erros})
+   },[value])
+  
+   const styles = {
+   
+  };
+  
+  
+  
+  
+   return (
     <>
       <Stack spacing={0}  id={id}>
-        <FormControl error={errorState.isError}
+        <FormControl error={isError.error}
         sx={{width:'100%'}}
         >
           <FormLabel  className={style.label}
            sx={{fontWeight:'1000',fontSize:'16px',fontFamily: 'myFont',wordBreak:'break-all'}}
           >{label}</FormLabel>
           <Input
-           value={inputValue}
-            type={inputType}
-            onChange={((ev)=>onChange(ev))}
+           value={value}
+           type={inputType}
+            onChange={((ev)=>onChange(ev.target.value))}
             id={style.input}
-            error={errorState.isError}
-            defaultValue={errorState.errorMessage}
+            error={isError.error}
+            defaultValue={isError.message}
             placeholder={placeholder}
-            style={{
-              fontFamily: 'myFont',
-              textTransform: 'capitalize',
-              fontSize: '17px',
-              height: '40px',
-              textDecoration: 'none'
-              }}
-            sx={{
-              color: 'black',
-               textTransform: 'capitalize',
-              '&:focus-within': {
-               '--Input-focusedHighlight': errorState.isError ? 'red' : 'black',
-               color: errorState.isError ? 'red' : 'black',
-              },
-            }}
+             sx={{ color: 'black',
+             fontSize: '17px',
+             height: height ? height : '46px' ,
+             fontFamily: 'myFont',
+             textDecoration: 'none',
+             textTransform: 'capitalize',
+             '&:focus-within': {
+               '--Input-focusedHighlight': isError.error ? 'red' : 'black',
+               color: isError.error ? 'red' : 'black',
+             },}}
           />
           
           <FormHelperText sx={{
@@ -84,8 +79,8 @@ getValueInput(inputValue,checkInputs.isError,inputType)
             width:"100%",
            
           }} >
-         {errorState.isError && <InfoOutlined />}
-          <p className={style.error}>{errorState.errorMessage}</p>
+         {isError.error && <InfoOutlined />}
+          <p className={style.error}>{isError.message}</p>
             </FormHelperText>
          </FormControl>
       </Stack>

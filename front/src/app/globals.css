@@ -8,8 +8,10 @@
     src: url('/pro/SF-Compact-Rounded-Heavy.ttf') format('truetype'); /* Formato TTF */
     /* Adicione outros formatos de arquivo, se necessário */
   }
-  
-  .main{
-    font-family: "myFont";
+  body{
+    box-sizing: border-box;
+    
   }
+  
+  
   

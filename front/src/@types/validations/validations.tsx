@@ -1,10 +1,12 @@
-export type typeValidations ={
-    inputType:'email' | 'numberPhone' | 'name'| 'password' | 'lastName' | undefined;
+export type inputType = 'email' | 'phone' | 'name'| 'password' | 'lastName' 
+
+export interface typeValidations {
+    inputType:'email' | 'phone' | 'name'| 'password' | 'lastName' 
 }
 
 
 export type errorValidation = {
-    isError: boolean,
-    errorMessage: string | undefined;
+    error:boolean,
+    message:string| undefined
     
   }

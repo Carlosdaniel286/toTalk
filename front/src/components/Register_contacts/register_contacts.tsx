@@ -1,4 +1,3 @@
-import { CSSProperties, useState } from 'react'
 import style from './style/moduleCss/contacts.module.css'
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneRoundedIcon from '@mui/icons-material/PhoneRounded';
@@ -7,9 +6,6 @@ type propsConatcts ={
   type:'email' | 'phone' | 'local',
   content:string
 }
-
-
-
 export function RegisterContacts({type,content}:propsConatcts) {
  return (
     <div
