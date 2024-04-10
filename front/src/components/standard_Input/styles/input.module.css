@@ -23,7 +23,7 @@
   font-family: 'myFontBold';
   color: black;
   font-size: 16px;
- 
+ display: none;
 }
 
 #id::placeholder{
@@ -37,5 +37,6 @@
   margin: 0px;
   display: block;
   font-family: 'myFont';
+  font-size: 0.7rem;
 }
 

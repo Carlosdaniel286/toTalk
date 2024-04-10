@@ -18,26 +18,34 @@ interface propsInputStandard extends typeValidations{
   id?:string,
   onChange:((ev:string)=>void)
   value:string,
-  checkError?:((ev:inputType)=>errorValidation),
+  onCheckError?:((error:boolean)=>void),
   height?:string
   
   
 }
 
-export function InputStandard({ label, placeholder,id,onChange,value,inputType,height}: propsInputStandard) {
+export function InputStandard({ label, placeholder,id,onChange,value,inputType,height,onCheckError}: propsInputStandard) {
   const[isError ,setIsError]=useState(initError)
   useEffect(()=>{
-   const erros = validations({value,inputType})
-   setIsError({...erros})
+   // if(value.trim()=='') return
+    const erros = validations({value,inputType})
+    if(onCheckError!==undefined){
+      if(value.trim()==''){
+        console.log('sim')
+       onCheckError(true)
+      }else{
+        console.log('nao')
+      onCheckError(erros.error)
+      }
+    }
+    setIsError({...erros})
    },[value])
-  
-   const styles = {
    
-  };
-  
-  
-  
-  
+   
+   
+   
+   
+   
    return (
     <>
       <Stack spacing={0}  id={id}>
@@ -50,7 +58,10 @@ export function InputStandard({ label, placeholder,id,onChange,value,inputType,h
           <Input
            value={value}
            type={inputType}
-            onChange={((ev)=>onChange(ev.target.value))}
+            onChange={((ev)=>{
+              onChange(ev.target.value)
+              
+            })}
             id={style.input}
             error={isError.error}
             defaultValue={isError.message}
@@ -73,13 +84,17 @@ export function InputStandard({ label, placeholder,id,onChange,value,inputType,h
             justifyItems:'center',
             justifyContent:'center',
             margin:'0px',
-            height:'24px',
-            marginBottom:'5px',
+            height:'20px',
+            marginBottom:'1px',
             paddingleft:'20px',
             width:"100%",
-           
+          // background:'black'
           }} >
-         {isError.error && <InfoOutlined />}
+         {isError.error && <InfoOutlined 
+          style={{
+            fontSize:'0.8rem'
+          }}
+         />}
           <p className={style.error}>{isError.message}</p>
             </FormHelperText>
          </FormControl>

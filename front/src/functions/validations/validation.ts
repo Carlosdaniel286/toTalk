@@ -2,12 +2,14 @@ import { typeValidations, errorValidation } from '@/@types/validations/validatio
 import validator from 'validator';
 import { initError } from '@/constants';
 
+
+
 interface validations extends typeValidations{
-  value:string
+  value:string 
 }
 
 export const validations = ({value,inputType}:validations): errorValidation => {
-   if(value=='') return initError
+    if(value =='') return initError
     switch (inputType) {
         case 'name':
             return isName(value);
@@ -25,9 +27,9 @@ export const validations = ({value,inputType}:validations): errorValidation => {
 };
 
 const isName = (value: string): errorValidation => {
-   
-    if (validator.isAlpha(value)) {
-        return initError
+    console.log(validator.isAlpha(value))
+   if (validator.isAlpha(value)) {
+       return initError
     } else {
         return {
             error:true,
@@ -37,7 +39,6 @@ const isName = (value: string): errorValidation => {
 };
 
 const isEmail = (value: string): errorValidation => {
-
     if (validator.isEmail(value)) {
         return initError
     } else {
