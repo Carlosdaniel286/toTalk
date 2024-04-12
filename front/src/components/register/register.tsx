@@ -5,7 +5,7 @@ import style from './style/resgiter.module.css'
 import { useCustomInput } from '@/@hooks/inputHooks/inputHooks'
 import { FormControl } from '../from/from'
 export function Register() {
-  const{inputValue,setInputValue,checkInputs}=useCustomInput()
+  const{inputValue,setInputValue}=useCustomInput()
   
   
   

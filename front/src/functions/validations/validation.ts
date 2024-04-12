@@ -1,4 +1,4 @@
-import { typeValidations, errorValidation } from '@/@types/validations/validations';
+import { typeValidations, errorValidation,inputType } from '@/@types/validations/validations';
 import validator from 'validator';
 import { initError } from '@/constants';
 
@@ -8,8 +8,8 @@ interface validations extends typeValidations{
   value:string 
 }
 
-export const validations = ({value,inputType}:validations): errorValidation => {
-    if(value =='') return initError
+export const validations = (value:string,inputType:inputType): errorValidation => {
+    if(validator.isEmpty(value)) return initError
     switch (inputType) {
         case 'name':
             return isName(value);
@@ -27,7 +27,7 @@ export const validations = ({value,inputType}:validations): errorValidation => {
 };
 
 const isName = (value: string): errorValidation => {
-    console.log(validator.isAlpha(value))
+   
    if (validator.isAlpha(value)) {
        return initError
     } else {
@@ -62,6 +62,22 @@ const isMobilePhone = (value: string): errorValidation => {
     }
 };
 const isStrongPassword = (value: string): errorValidation => {
+    const isValidPassword = validator.isStrongPassword(value);
+    
+    if (isValidPassword) {
+        return {
+            error: false,
+            message: ''
+        };
+    } else {
+        return {
+            error: true,
+            message: 'caracteres especiais e letras maiúsculas.'
+        };
+    }
+};
+
+const isEmpty = (value: string): errorValidation => {
     const isValidPassword = validator.isStrongPassword(value);
     
     if (isValidPassword) {

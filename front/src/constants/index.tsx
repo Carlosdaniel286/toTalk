@@ -1,4 +1,4 @@
-import { initInputValue } from "./inputValue/inputValue";
+import { initInputValue,initInputValidation } from "./inputValue/inputValue";
 import { initError } from "./validations/validations";
 
-export{initError,initInputValue}
+export{initError,initInputValue,initInputValidation}

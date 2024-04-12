@@ -5,12 +5,9 @@ import InfoOutlined from '@mui/icons-material/InfoOutlined';
 import Input from '@mui/joy/Input';
 import FormHelperText from '@mui/joy/FormHelperText';
 import Stack from '@mui/joy/Stack';
-import { errorValidation,typeValidations} from '@/@types/validations/validations';
-import { useEffect, useState } from 'react';
-import { initError } from '@/constants';
-import { inputType } from '@/@hooks/inputHooks/inputHooks';
-import { validations } from '@/functions/validations/validation';
-import { SxProps } from '@mui/joy/styles/types/theme';
+import { typeValidations } from '@/@types/validations/validations';
+
+
 
 interface propsInputStandard extends typeValidations{
   label?: string,
@@ -18,38 +15,18 @@ interface propsInputStandard extends typeValidations{
   id?:string,
   onChange:((ev:string)=>void)
   value:string,
-  onCheckError?:((error:boolean)=>void),
-  height?:string
-  
+  height?:string,
+  error?:boolean,
+  errorMessage?:string 
   
 }
 
-export function InputStandard({ label, placeholder,id,onChange,value,inputType,height,onCheckError}: propsInputStandard) {
-  const[isError ,setIsError]=useState(initError)
-  useEffect(()=>{
-   // if(value.trim()=='') return
-    const erros = validations({value,inputType})
-    if(onCheckError!==undefined){
-      if(value.trim()==''){
-        console.log('sim')
-       onCheckError(true)
-      }else{
-        console.log('nao')
-      onCheckError(erros.error)
-      }
-    }
-    setIsError({...erros})
-   },[value])
-   
-   
-   
-   
-   
-   
-   return (
+export function InputStandard({ label, placeholder,id,onChange,value,inputType,height,error,errorMessage}: propsInputStandard) {
+  
+  return (
     <>
       <Stack spacing={0}  id={id}>
-        <FormControl error={isError.error}
+        <FormControl error={error}
         sx={{width:'100%'}}
         >
           <FormLabel  className={style.label}
@@ -60,11 +37,11 @@ export function InputStandard({ label, placeholder,id,onChange,value,inputType,h
            type={inputType}
             onChange={((ev)=>{
               onChange(ev.target.value)
+              })}
               
-            })}
             id={style.input}
-            error={isError.error}
-            defaultValue={isError.message}
+            error={error}
+            defaultValue={errorMessage}
             placeholder={placeholder}
              sx={{ color: 'black',
              fontSize: '17px',
@@ -73,8 +50,8 @@ export function InputStandard({ label, placeholder,id,onChange,value,inputType,h
              textDecoration: 'none',
              textTransform: 'capitalize',
              '&:focus-within': {
-               '--Input-focusedHighlight': isError.error ? 'red' : 'black',
-               color: isError.error ? 'red' : 'black',
+               '--Input-focusedHighlight': error ? 'red' : 'black',
+               color: error ? 'red' : 'black',
              },}}
           />
           
@@ -90,12 +67,12 @@ export function InputStandard({ label, placeholder,id,onChange,value,inputType,h
             width:"100%",
           // background:'black'
           }} >
-         {isError.error && <InfoOutlined 
+         {error && <InfoOutlined 
           style={{
             fontSize:'0.8rem'
           }}
          />}
-          <p className={style.error}>{isError.message}</p>
+          <p className={style.error}>{errorMessage}</p>
             </FormHelperText>
          </FormControl>
       </Stack>
