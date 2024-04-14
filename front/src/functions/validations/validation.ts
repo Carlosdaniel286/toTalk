@@ -1,9 +1,6 @@
 import { typeValidations, errorValidation,inputType } from '@/@types/validations/validations';
 import validator from 'validator';
 import { initError } from '@/constants';
-
-
-
 interface validations extends typeValidations{
   value:string 
 }
@@ -65,10 +62,7 @@ const isStrongPassword = (value: string): errorValidation => {
     const isValidPassword = validator.isStrongPassword(value);
     
     if (isValidPassword) {
-        return {
-            error: false,
-            message: ''
-        };
+        return initError
     } else {
         return {
             error: true,
@@ -77,18 +71,3 @@ const isStrongPassword = (value: string): errorValidation => {
     }
 };
 
-const isEmpty = (value: string): errorValidation => {
-    const isValidPassword = validator.isStrongPassword(value);
-    
-    if (isValidPassword) {
-        return {
-            error: false,
-            message: ''
-        };
-    } else {
-        return {
-            error: true,
-            message: 'caracteres especiais e letras maiúsculas.'
-        };
-    }
-};
