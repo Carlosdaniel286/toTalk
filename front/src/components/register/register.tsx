@@ -1,52 +1,29 @@
 'use client'
 import style from './styles/register.module.css';
 import { InputStandard } from '../standard_Input/inputs';
-import { Button } from '@mui/joy';
-import { useCustomInput } from '@/@hooks/inputHooks/inputHooks';
-import {useState } from 'react';
 import { validations } from '@/functions/validations/validation';
 import { FormControl } from '../form/form';
-import { errorValidation } from '@/@types/validations/validations';
-
+import { useCustomRegister} from '@/@hooks';
 
 export function RegisterFrom() {
-  const { setInputValue, inputValue, handleInputsEmpty,setErros,erros } = useCustomInput();
-  const [inputsConfirmed, setInputsConfirmed] = useState(false);
-  const[styles,setStyles]=useState(style.container)
+   const{
+    onSubmit,
+    styles,
+    setErros,
+    erros,
+    inputValue,
+    setInputValue,
+    texts,
+    inputsConfirmed,
+    }=useCustomRegister(style)
   
-  const onSubmit=()=>{
-    const inputsIsEmpty = handleInputsEmpty(inputValue,['name']);
-     if(inputsIsEmpty && !inputsConfirmed) {
-      setStyles(style.transition)
-        setTimeout(() => {
-        setStyles(style.container)
-        setInputsConfirmed(inputsIsEmpty)
-        }, 1000);
-        return
-      }
-       const isEmptyEmail = handleInputsEmpty(inputValue, ['email']);
-        const errosValid: errorValidation = {
-          error: true,
-          message: 'Existem campos vazios'
-        };
-    
-        if (!isEmptyEmail) {
-          setErros('email', errosValid);
-        }
-    
-        const isEmptyPassword = handleInputsEmpty(inputValue, ['password']);
-        if (!isEmptyPassword) {
-          setErros('password', errosValid);
-        }
-      
-       
-    
-  }
   
 return (
     <div className={styles}>
       <FormControl
        type='resgister'
+       text={texts.text}
+       buttonText={texts.button}
        onSubmit={(()=>{
        onSubmit()
        })}

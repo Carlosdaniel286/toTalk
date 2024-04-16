@@ -1,5 +1,5 @@
 import {  useState } from 'react';
-import {  initInputValue,initInputValidation} from '@/constants'
+import {  initInputValue,initInputValidation, initError} from '@/constants'
 import { propsInputValue  } from '@/@types/inputs/inputs';
 import { validations } from '@/functions/validations/validation';
 import validator from 'validator';
@@ -20,10 +20,8 @@ export function useCustomInput() {
     }));
   }
  
-  
-  
-  const handleInputsEmpty =(inputValue:propsInputValue,value?:inputType[])=>{
-    let check = true
+ const handleInputsEmpty =(inputValue:propsInputValue,value?:inputType[])=>{
+    let check = false
     const types:inputType[] =['name','email','password','phone']
     const values = value ?  value : types
 
@@ -31,7 +29,8 @@ export function useCustomInput() {
      if( item  &&  validator.isEmpty(inputValue[item] )){
       const validation = validations('%%',item)
       setErros(item,validation)
-      check = false
+      check = true
+     
     }
     
   })

@@ -5,20 +5,15 @@ import {useState } from 'react';
 type propsFormControl={
     type:'resgister'|'login'
     onSubmit:(()=>void),
-    content:React.ReactNode
+    content:React.ReactNode,
+    text:string,
+    buttonText:string,
 }
-
-
-export function FormControl({type,onSubmit,content}:propsFormControl) {
-  const [text, setText] = useState({
-    text:'Crie sua conta',
-    buttonText:'Próximo',
-  });
- 
+export function FormControl({type,onSubmit,content,text,buttonText}:propsFormControl) {
   return (
       <form className={style.form}>
         <header className={style.header}>
-          <h1>{ type=='login'? 'Login': text.text}</h1>
+          <h1>{ type=='login'? 'Login': text}</h1>
         </header>
         <p className={style.slogan}> {type=='login'? 'Entre na sua conta': 'Crie seu cadastro no toTalk e entre em um novo universo'}</p>
          <div className={style.conatinerInputs}>
@@ -29,23 +24,14 @@ export function FormControl({type,onSubmit,content}:propsFormControl) {
              id={style.button}
              onClick={() => {
              onSubmit()
-             if(type=='login') return
-             setTimeout(() => {
-              setText({...text,text:'Termine sua conta',
-              buttonText:'Criar conta'
-            })
-              }, 1000);
-            
-           
-             
             }}
           >
-          {type=='login'? 'Entrar': text.buttonText}
+          {type=='login'? 'Entrar': buttonText}
           </Button>
           <nav className={style.nav}>
             <ul>
               <Link href={type=='login'?`/${'register'}`:`/${'login'}`}>
-                <li > {type=='login'? 'Não tenho conta': 'ja tenho conta'}</li>
+                <li > {type=='login'? 'Não tenho conta': 'já tenho conta'}</li>
               </Link>
             </ul>
           </nav>

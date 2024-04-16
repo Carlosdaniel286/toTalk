@@ -19,8 +19,8 @@
     "@mui/icons-material": "^5.15.15",
     "@mui/joy": "^5.0.0-beta.32",
     "@mui/material": "^5.15.15",
-     "br-phone-validator-lib": "^1.0.2",
-     "next": "14.1.4",
+    "br-phone-validator-lib": "^1.0.2",
+    "next": "14.1.4",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.51.2",
@@ -32,6 +32,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/validator": "^13.11.9",
+    "eslint": "^9.0.0",
     "typescript": "^5.4.3"
   }
 }

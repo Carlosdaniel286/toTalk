@@ -1,37 +1,21 @@
 'use client'
-import { useCustomInput } from "@/@hooks/inputHooks/inputHooks";
 import { FormControl } from "../form/form";
 import { InputStandard } from "../standard_Input/inputs";
 import { validations } from "@/functions/validations/validation";
 import style from './style/login.module.css';
-import { errorValidation } from "@/@types/validations/validations";
 import { initError } from "@/constants";
+import { useCustomLogin } from "@/@hooks";
 
 export default function LoginForm() {
-  const { setInputValue, inputValue, handleInputsEmpty, setErros, erros } = useCustomInput();
-  
-  const onSubmit = () => {
-    const isEmptyEmail = handleInputsEmpty(inputValue, ['email']);
-    const errosValid: errorValidation = {
-      error: true,
-      message: 'Existem campos vazios'
-    };
-
-    if (!isEmptyEmail) {
-      setErros("email", errosValid);
-    }
-
-    const isEmptyPassword = handleInputsEmpty(inputValue, ['password']);
-    if (!isEmptyPassword) {
-      setErros('password', errosValid);
-    }
-  };
+  const{onSubmit,setInputValue, inputValue, setErros, erros}=useCustomLogin()
 
   return (
     <div className={style.container}>
       <FormControl
         type='login'
         onSubmit={() => onSubmit()}
+        text=""
+        buttonText=""
         content={
           <>
             <InputStandard
