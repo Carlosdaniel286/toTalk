@@ -1,0 +1,58 @@
+.container{
+    margin-top: 40px;
+    height: 100%;
+    max-height: 700px;
+   
+   
+ }
+
+
+.CreatBody{
+    width: 500px;
+    max-height: 550px;
+    min-height: 400px;
+    background-color: white;
+    border-radius: 10px;
+    display:flex;
+    flex-direction: column;
+    
+}
+.header{
+    text-align: center;
+    border-bottom: 1px solid rgb(160, 157, 157,0.7);
+}
+.user{
+    display: flex;
+    align-items: center;
+}
+.user p{
+    font-family: 'myFont';
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+.write{
+ min-height: 200px;
+ padding-bottom: 10px;
+}
+
+.button{
+  display: flex;
+  padding: 2px;
+}
+
+.p{
+    font-family: 'myFont';
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin: 0%;
+    padding: 0px;
+}
+@media screen and  (max-width: 513px) {
+    .CreatBody{
+        width: 100%;
+    }
+    .container{
+        width: 100%;
+    }
+}
+

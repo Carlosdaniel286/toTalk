@@ -1,0 +1,18 @@
+.asideBody{
+    background-color:white;
+    height: 600px;
+    width: 300px;
+}
+
+.li{
+    list-style: none;
+    display:inline-flex;
+    align-items: center;
+    cursor: pointer;
+    
+}
+.li span{
+  font-family:'myFont';
+  font-weight: 700;
+  font-size: 1.1rem;
+}

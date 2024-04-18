@@ -1,0 +1,5 @@
+.side{
+    display: flex;
+    align-items: center;
+    background-color: rgba(141, 228, 240);
+}

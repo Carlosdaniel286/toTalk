@@ -1,8 +1,10 @@
+'use client'
+
 import { CSSProperties, HTMLAttributes, ReactNode } from "react"
 import styles from './style/scroll.module.css'
 type propsScroll ={
     contents:ReactNode[],
-    contentStyle:CSSProperties,
+    contentStyle:string,
     height?:string,
     maxHeight?:string,
 }
@@ -18,7 +20,7 @@ export const Scroll =({contents,contentStyle,height,maxHeight}:propsScroll)=>{
        }}
       >
         {contents.map((item,index)=>(
-            <div  key={index}  style={contentStyle}>
+            <div  key={index}  className={contentStyle}>
               {item} 
             </div>
         ))}
