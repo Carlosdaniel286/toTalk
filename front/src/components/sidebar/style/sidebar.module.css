@@ -1,7 +1,7 @@
 .asideBody{
     background-color:white;
-    height: 600px;
-    width: 300px;
+    border-radius: 10px;
+    
 }
 
 .li{
@@ -15,4 +15,17 @@
   font-family:'myFont';
   font-weight: 700;
   font-size: 1.1rem;
+}
+
+@media screen and (max-width: 810px) {
+  .asideBody{
+    border-radius: 0px;
+    display: flex;
+    align-items: center;
+}
+  .ul{
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
 }

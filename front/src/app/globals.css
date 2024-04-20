@@ -8,6 +8,19 @@
     src: url('/pro/SF-Compact-Rounded-Heavy.ttf') format('truetype'); /* Formato TTF */
     /* Adicione outros formatos de arquivo, se necessário */
   }
+  @font-face {
+    font-family: 'myFontSemi';
+    src: url('/pro/SF-Compact-Text-Semibold.ttf') format('truetype'); /* Formato TTF */
+    /* Adicione outros formatos de arquivo, se necessário */}
+
+
+    @font-face {
+      font-family: 'myFontRegular';
+      src: url('/pro/SF-Compact-Rounded-Medium.ttf') format('truetype'); /* Formato TTF */
+      /* SF-Pro-Display-Light */}
+
+
+
   body{
     box-sizing: border-box;
     overflow: hidden;

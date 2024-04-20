@@ -8,7 +8,7 @@ export default function RootLayout({
   return (
     <>
      <div className={style.side} >
-       <Sidebar/>
+       <div className={style.containerSideBar}><Sidebar/></div>
       {children}
     </div>
     </>

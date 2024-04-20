@@ -1,14 +1,22 @@
 import style from './style/creatPosts.module.css'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Textarea from '@mui/joy/Textarea';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { Button } from '@mui/joy';
-
+import {P,BoxGrid} from '@/components/index'
 export const CreatPost = () => {
-    const[textarea, setTextarea]=useState('')
-    const[scroll, setScroll]=useState('auto')
+ const[textarea, setTextarea]=useState('')
+ const[ fontSize, setFontSize]=useState('1.3rem')   
+const controlTextArea =(ev: ChangeEvent<HTMLTextAreaElement>)=>{
+   const text = ev.target.value
+   if(text.length>800) return
+   if(text.length==200) setFontSize('1.1rem')
+   if(text.length==300) setFontSize('1rem')
+   setTextarea(text)
+}
     
-    return (
+    
+  return (
         <div className={style.container}>
         <div className={style.CreatBody}>
           <header className={style.header}><h2>Criar publicação</h2></header>
@@ -16,44 +24,52 @@ export const CreatPost = () => {
            <AccountCircleIcon
             sx={{paddingRight:'10px',height:'40px',width:'40px'}}
             />
-            <p>carlos289</p>
+            <P>carlos289</P>
            </div>
            <div className={style.write} >
            <Textarea
-            value={textarea}
-            
-            onChange={((ev)=>setTextarea(ev.target.value))}
+           value={textarea}
+            onChange={((ev)=>controlTextArea(ev))}
              sx={{
-            border: '0px', 
+            border:'0px', 
             '--Textarea-focusedThickness': '0rem',
             '&:focus-within': {
                color:'rgb(18, 18, 19,0.9)',
                "::placeholder":''
               },
-             fontFamily:'myFont',
-             fontSize:'1.3rem',
-             minHeight:'200px'
-             
+             fontFamily:'myFontRegular',
+             fontSize,
+             minHeight:'200px',
+             margin:'0px',
+             padding:'0px'
            }}
              color="neutral"
              disabled={false}
              placeholder={'O que você estar pensando?'}
-             size="lg"
+             size="sm"
              variant="outlined"
              
              id={style.textarea}
+             
              maxRows={11}
           />
         </div>
-        <div className={style.button} >
+        <BoxGrid>
          <Button
           sx={{
-            width:'100%'
+            width:'100%',
+            marginBottom:'22px'
           }}
          >
-            <p className={style.p}>publicar</p>
+        <P 
+        fontSize='1.3rem'
+        color='white'
+        
+        >
+          Publicar
+        </P>
          </Button>
-        </div>
+        </BoxGrid>
         </div>
         </div>
     );

@@ -1,5 +1,18 @@
 .side{
     display: flex;
     align-items: center;
-    background-color: rgba(141, 228, 240);
+    background-color: #ECECEC;
+    
 }
+.containerSideBar{
+    display: flex;
+}
+
+@media screen and (max-width: 810px) {
+    .side{
+     display: 'none';
+    } 
+    .containerSideBar{
+        display: none;
+    }
+  }

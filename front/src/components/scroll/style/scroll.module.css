@@ -15,3 +15,29 @@
    overflow-x: hidden;
    
 }
+
+.contentStyle{
+   
+    
+}
+.scroll::-webkit-scrollbar {
+    width: 10px; /* largura da barra de rolagem */
+    
+  }
+  .scroll::-webkit-scrollbar-track {
+    background: rgb(199, 191, 191); /* cor do fundo da barra de rolagem */
+  }
+  .scroll::-webkit-scrollbar-thumb {
+    background: #888; /* cor do indicador da barra de rolagem */
+  }
+  .scroll::-webkit-scrollbar-thumb:hover {
+    background: #555; /* cor do indicador da barra de rolagem ao passar o mouse */
+  }
+
+  @media screen and (max-width: 810px) {
+    .scroll::-webkit-scrollbar {
+        width: 0px; /* largura da barra de rolagem */
+        display: none;
+      }
+  }
+  
