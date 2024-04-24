@@ -1,7 +1,8 @@
 import style from './style/p.module.css'
+import { ReactNode } from 'react'
 
 type propsP={
-    children:string,
+    children:ReactNode[] | ReactNode  
     margin?: string,
     padding?: string,
     fontSize?:string,

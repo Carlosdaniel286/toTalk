@@ -4,21 +4,30 @@
     justify-content: center;
     align-items: center;
    
+    
+   
 }
 .scroll{
    display: flex;
    flex-direction: column;
    justify-content:space-between;
-   align-items: center;
    width: 100%;
    overflow-y: scroll;
    overflow-x: hidden;
-   
-}
+  }
+  
 
-.contentStyle{
-   
-    
+.last{
+  min-height: 250px;
+  max-height: 250px;
+  
+  
+}
+.floatingActionButtons{
+  position: fixed;
+  bottom: 60px;
+  right: 10px;
+  display: none;
 }
 .scroll::-webkit-scrollbar {
     width: 10px; /* largura da barra de rolagem */
@@ -34,10 +43,21 @@
     background: #555; /* cor do indicador da barra de rolagem ao passar o mouse */
   }
 
+  
+  
+  
+  
+  
+  
+  
   @media screen and (max-width: 810px) {
     .scroll::-webkit-scrollbar {
         width: 0px; /* largura da barra de rolagem */
         display: none;
       }
   }
-  
+  @media screen and (max-width: 600px) {
+    .floatingActionButtons{
+      display: block;
+    }
+  }

@@ -2,6 +2,7 @@
 import { useSidebar } from '@/contexts';
 import style from './style/sidebar.module.css';
 import PostAddRoundedIcon from '@mui/icons-material/PostAddRounded';
+import { SiderBarCreatePost } from './components/siderCreatePost/siderCreatePost';
 type propsSidebar={
     height?: string;
     width?: string;  
@@ -9,7 +10,7 @@ type propsSidebar={
 
 
 export const Sidebar = ({height,width}:propsSidebar) => {
-    const { displayCreatePost, toggleDisplayCreatePost } = useSidebar();
+   
     return (
         <aside className={style.asideBody}
          style={{
@@ -18,22 +19,7 @@ export const Sidebar = ({height,width}:propsSidebar) => {
          }}
         >
             <ul className={style.ul}>
-                <li onClick={(()=> toggleDisplayCreatePost(!displayCreatePost))} className={style.li}>
-                    <div className={style.iconContainer}>
-                        <PostAddRoundedIcon
-                         style={{
-                         width: "40px",
-                         height: '40px',
-                       
-                         
-                        }}
-                        />
-                    </div>
-                    <span 
-                    style={{color:''}}
-                    
-                    >POSTAR</span>
-                </li>
+                <SiderBarCreatePost/>
             </ul>
         </aside>
     );

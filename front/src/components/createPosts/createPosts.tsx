@@ -1,31 +1,50 @@
-import style from './style/creatPosts.module.css'
+'use client'
+import style from './style/createPosts.module.css'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Textarea from '@mui/joy/Textarea';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { Button } from '@mui/joy';
-import {P,BoxGrid} from '@/components/index'
+import {P} from '@/components/index'
 import { proposSiderbar } from '@/@types/propsSiderBar/proposSiderBar';
 import React from 'react';
 type propsCreatePost = Omit<proposSiderbar,'onClick'|'visible'>;
 
-
-
-
 export const CreatPost = ({onClose}:propsCreatePost) => {
- 
  const[textarea, setTextarea]=useState('')
  const[ fontSize, setFontSize]=useState('1.3rem')   
+ const [height, setHeight] = useState(window.innerHeight);
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    function handleResize() {
+      setHeight(window.innerHeight);
+      setWidth(window.innerWidth);
+    }
 
- const controlTextArea =(ev: ChangeEvent<HTMLTextAreaElement>)=>{
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  useEffect(() => {
+     console.log(width)
+  }, [width]);
+ 
+ 
+const maxRows = width >= 500 ? 30 : 11;
+const minHeight = width >= 500 ? '200px' : '400px'
+ 
+ 
+const controlTextArea =(ev: ChangeEvent<HTMLTextAreaElement>)=>{
    const text = ev.target.value
+   const isWidth = width <= 500
    if(text.length>800) return
    if(text.length==200) setFontSize('1.1rem')
-   if(text.length==300) setFontSize('1rem')
+   if(text.length==300 && !isWidth) {
+    setFontSize('1rem')
+  }
    setTextarea(text)
 }
-    
-    
-  return (
+ return (
+     <div className={style.container}>
         <div className={style.CreatBody}>
           <header className={style.header}>
             <h2 className={style.h2} >Criar publicação</h2>
@@ -59,26 +78,26 @@ export const CreatPost = ({onClose}:propsCreatePost) => {
               },
              fontFamily:'myFontRegular',
              fontSize,
-             minHeight:'200px',
+             minHeight:{minHeight},
              margin:'0px',
-             padding:'0px'
+             padding:'10px'
            }}
              color="neutral"
              disabled={false}
              placeholder={'O que você estar pensando?'}
              size="sm"
              variant="outlined"
-             
              id={style.textarea}
-             
-             maxRows={11}
+             maxRows={maxRows}
+            
           />
         </div>
-        <BoxGrid>
+        <div className={style.button}>
          <Button
           sx={{
             width:'100%',
-            marginBottom:'22px'
+            marginBottom:'22px',
+            maxHeight:'50px'
           }}
          >
         <P 
@@ -89,8 +108,8 @@ export const CreatPost = ({onClose}:propsCreatePost) => {
           Publicar
         </P>
          </Button>
-        </BoxGrid>
         </div>
-       
+        </div>
+      </div>
     );
 };

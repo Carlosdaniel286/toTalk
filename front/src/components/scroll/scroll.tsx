@@ -1,15 +1,15 @@
 'use client'
-
-import { CSSProperties, HTMLAttributes, ReactNode } from "react"
+import {  ReactNode } from "react"
 import styles from './style/scroll.module.css'
+import { FloatingActionButtons } from "./components/floatingActionButton/floatingActionButton"
+import { P } from "../p/p"
 type propsScroll ={
     children:ReactNode[],
-    contentStyle?:string,
     height?:string,
     maxHeight?:string,
 }
 
-export const Scroll =({children,contentStyle,height,maxHeight}:propsScroll)=>{
+export const Scroll =({children,height,maxHeight}:propsScroll)=>{
    
     return(
     <div className={styles.body}>
@@ -19,13 +19,17 @@ export const Scroll =({children,contentStyle,height,maxHeight}:propsScroll)=>{
         maxHeight:maxHeight? maxHeight:"100%"
        }}
       >
-        {children.map((item,index)=>(
-           
-              <div key={index} className={contentStyle}>
-                {item}
+              <div >
+                {children}
               </div> 
-           
-        ))}
+          <div className={styles.last}>
+           <P
+           fontSize="50px"
+           >{""}</P>
+        </div>
+        <div className={styles.floatingActionButtons} >
+          <FloatingActionButtons/>
+        </div>
       </div>
     
     </div>

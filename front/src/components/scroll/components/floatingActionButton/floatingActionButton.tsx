@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import style from './style/floatingActionButtons.module.css'
+import style from './style/floatingActionButton.module.css'
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import { SiderBarCreatePost } from '@/components/sidebar/components/siderCreatePost/siderCreatePost';

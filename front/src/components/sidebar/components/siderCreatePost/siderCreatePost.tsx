@@ -1,5 +1,5 @@
 'use client'
-import style from './style/createPost.module.css';
+import style from './style/createPosts.module.css'
 import { useState } from "react";
 import { Overlay } from '@/components/overlay/overlay';
 import PostAddRoundedIcon from '@mui/icons-material/PostAddRounded';

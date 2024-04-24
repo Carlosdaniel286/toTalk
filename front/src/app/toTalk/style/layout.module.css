@@ -1,18 +1,9 @@
 .side{
     display: flex;
-    align-items: center;
-    background-color: #ECECEC;
+   padding-top: 20px;
     
-}
-.containerSideBar{
-    display: flex;
 }
 
 @media screen and (max-width: 810px) {
-    .side{
-     display: 'none';
-    } 
-    .containerSideBar{
-        display: none;
-    }
+    
   }

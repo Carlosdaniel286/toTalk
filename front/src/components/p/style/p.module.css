@@ -1,3 +1,5 @@
 .p{
     word-break: keep-all;
+    padding: 2px;
+    background-color: antiquewhite;
 }

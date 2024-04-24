@@ -1,0 +1,12 @@
+.floatingButtonBody{
+    display: flex;
+    flex-direction: column;
+    
+}
+.options{
+  position: fixed;
+  bottom: 130px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+}

@@ -4,9 +4,10 @@ import  style from './style/overlay.module.css'
 type propsOverlay ={
     children:ReactNode
     onClose:(()=>void)
+    background?:string
 }
 
-export const Overlay = ({ children ,onClose }:propsOverlay) => {
+export const Overlay = ({ children ,onClose,background }:propsOverlay) => {
     const handleClickOverlay = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
        if (event.target === event.currentTarget) {
             onClose(); 
@@ -14,8 +15,11 @@ export const Overlay = ({ children ,onClose }:propsOverlay) => {
     };
     return (
         <div className={style.bodyOverLay}
-        onClick={handleClickOverlay}
-        >
+         onClick={handleClickOverlay}
+         style={{
+            background:background?background:'rgba(0, 0, 0, 0.5)'
+         }}
+       >
         <>
             {children}
         </> 

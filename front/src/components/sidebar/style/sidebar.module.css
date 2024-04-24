@@ -1,7 +1,14 @@
 .asideBody{
-    background-color:white;
     border-radius: 10px;
+    max-width: 200px;
+    box-sizing: border-box;
+    padding-left: 10px;
+    padding-top: 10px;
     
+}
+.ul{
+  padding: 0%;
+  margin: 0px;
 }
 
 .li{
@@ -17,15 +24,14 @@
   font-size: 1.1rem;
 }
 
-@media screen and (max-width: 810px) {
+@media screen and (max-width: 600px) {
   .asideBody{
-    border-radius: 0px;
-    display: flex;
-    align-items: center;
+   display: none;
+  
 }
-  .ul{
-    display: flex;
-    align-items: center;
-    height: 100%;
+}
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .asideBody {
+    display: none;
   }
 }

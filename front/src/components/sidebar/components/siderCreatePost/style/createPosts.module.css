@@ -1,0 +1,12 @@
+.li span{
+    font-family:'myFont';
+    font-weight: 900;
+    font-size: 1.1rem;
+  }
+ .li{
+    list-style: none;
+    display:inline-flex;
+    align-items: center;
+    cursor: pointer;
+    
+}

@@ -1,30 +1,34 @@
 'use client'
-import style from './style/post.module.css'
+import styles from './style/post.module.css'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { useEffect, useState } from 'react';
+import { CSSProperties, useEffect, useState } from 'react';
 import {P} from '../index'
+import { propsPost } from '@/@types/post';
 
-type propsPost={
-  height?:string
-  content:string
-}
 
 type contentPost ={
   content:string,
   textFull:'...mais' |'...menos'
 }
 
-export function Post({height,content}:propsPost){
+export function Post({height,content,borderBottom,id,style}:propsPost){
   const [dataAtual, setDataAtual] = useState("");
   const [showFullContent, setShowFullContent] = useState<contentPost>({
     content:'',
     textFull:'...mais'
   });
-
+ const styleDone:CSSProperties ={
+  height,
+  content,
+  borderBottom:borderBottom?borderBottom:undefined,
+ }
+ const newStyle = {...styleDone,...style}
   
-  useEffect(()=>{
+  
+ 
+ useEffect(()=>{
     const data = new Date()
     setDataAtual(data.toLocaleString())
     spliceText()
@@ -49,26 +53,39 @@ const toggleText =()=>{
    }
  } 
 return (
-   <div className={style.BodyPost}
-    style={{height: height? height: height}}
+   <div 
+     id={id}
+     className={styles.BodyPost}
+     style={newStyle}
    >
-    <header className={style.header} >
+    <header className={styles.header} >
       <AccountCircleIcon
-       sx={{paddingRight:'10px'}}
+       sx={{paddingRight:'10px',
+        fontSize:'2.4rem'
+       }}
       />
       <h4>Carlos289</h4>
+      <div className={styles.moment}>
+      <P
+      color='rgb(68, 65, 65,0.5)'
+      fontSize='0.8rem'
+      >{dataAtual}</P>
+      
+     </div>
      </header>
-     <div className={style.contentPost}>
+     <div className={styles.contentPost}>
       <P 
-      id={style.content}
-       fontSize='1.1rem'
+      id={styles.content}
+       fontSize='1rem'
        color='#333'
        fontFamily='myFontRegular'
+       padding='0px 0px 0px 0px'
+       
       >
-        {showFullContent.content}
+      {showFullContent.content}
       </P>
       <P
-      id={style.more}
+      id={styles.more}
       color='rgb(68, 65, 65)'
       fontSize='1'
       onClick={(()=>{
@@ -77,24 +94,29 @@ return (
       >{content.length<600?'': showFullContent.textFull}</P>
      </div>
      
-     <div className={style.moment}>
-      <P
-      color='rgb(68, 65, 65,0.5)'
-      fontSize='0.8rem'
-      >{dataAtual}</P>
-      
-     </div>
-     <div className={style.info}>
-     <P>like 0</P>
-     </div>
-    <div className={style.containerReaction} > 
+    <div className={styles.containerReaction} > 
      <ChatBubbleOutlineIcon
-      sx={{cursor:'pointer'}}
+      sx={{
+      cursor:'pointer',
+      fontSize:'1.1rem'
+      }}
      />
+     <div className={styles.info}>
      <FavoriteBorderIcon
-     sx={{cursor:'pointer'}}
-     color='error'
+      sx={{
+      cursor:'pointer',
+      fontSize:'1.1rem'
+
+      }}
+      color='error'
+    
      />
+     <P
+     fontSize='1rem'
+     color='rgb(185, 180, 180)'
+     fontFamily='myFontRegular'
+     >10</P>
+     </div>
      </div>
    </div>
   );

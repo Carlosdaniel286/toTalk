@@ -1,5 +1,8 @@
+
 import style from './style/layout.module.css'
 import { Sidebar } from '@/components/sidebar/sidebar';
+
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -8,7 +11,9 @@ export default function RootLayout({
   return (
     <>
      <div className={style.side} >
-       <div className={style.containerSideBar}><Sidebar/></div>
+       <div className={style.containerSideBar}>
+        <Sidebar/>
+        </div>
       {children}
     </div>
     </>
