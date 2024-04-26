@@ -1,9 +1,6 @@
 .side{
     display: flex;
-   padding-top: 20px;
+   padding-top: 0px;
     
 }
 
-@media screen and (max-width: 810px) {
-    
-  }

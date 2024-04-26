@@ -1,14 +1,3 @@
-
-
-
-#textarea{
- color: aqua;
- margin: 0%;  
- padding: 0px; 
- max-height: 400px;
-}
-
-
 .CreatBody{
     width: 500px;
     max-height: 550px;
@@ -22,11 +11,11 @@
 }
 .header{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid rgb(160, 157, 157,0.7);
+    justify-content:space-between;
+    align-items:center;
     display: flex;
-
+    padding-left: 11px;
+    padding-right: 11px;
 }
 .h2{
   width: 90%;
@@ -38,10 +27,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgb(161, 158, 158,0.6);
-    border-radius: 50%;
-    height: 40px;
-    width: 40px;
     cursor: pointer;
 }
 .user{
@@ -55,7 +40,7 @@
 }
 .write{
  min-height: 200px;
- padding-bottom: 10px;
+ 
 }
 
 .button{

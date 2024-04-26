@@ -14,6 +14,7 @@ export const CreatPost = ({onClose}:propsCreatePost) => {
  const[ fontSize, setFontSize]=useState('1.3rem')   
  const [height, setHeight] = useState(window.innerHeight);
   const [width, setWidth] = useState(window.innerWidth);
+ 
   useEffect(() => {
     function handleResize() {
       setHeight(window.innerHeight);
@@ -30,7 +31,7 @@ export const CreatPost = ({onClose}:propsCreatePost) => {
  
  
 const maxRows = width >= 500 ? 30 : 11;
-const minHeight = width >= 500 ? '200px' : '400px'
+const minHeight = width >= 500 ? '200px' : '400px';
  
  
 const controlTextArea =(ev: ChangeEvent<HTMLTextAreaElement>)=>{
@@ -47,8 +48,7 @@ const controlTextArea =(ev: ChangeEvent<HTMLTextAreaElement>)=>{
      <div className={style.container}>
         <div className={style.CreatBody}>
           <header className={style.header}>
-            <h2 className={style.h2} >Criar publicação</h2>
-            <div className={style.visible}>
+          <div className={style.visible}>
               <P
                fontSize='2.5rem'
                onClick={(()=>{
@@ -58,6 +58,23 @@ const controlTextArea =(ev: ChangeEvent<HTMLTextAreaElement>)=>{
                 X
               </P>
             </div>
+          <div className={style.button}>
+         <Button
+          sx={{
+          borderRadius:'12px',
+          height:"20px"
+          }}
+         >
+        <P 
+        fontSize='1rem'
+        color='white'
+        
+        >
+          Publicar
+        </P>
+         </Button>
+        </div>
+           
           </header>
            <div className={style.user} >
            <AccountCircleIcon
@@ -69,18 +86,22 @@ const controlTextArea =(ev: ChangeEvent<HTMLTextAreaElement>)=>{
            <Textarea
            value={textarea}
             onChange={((ev)=>controlTextArea(ev))}
+            
              sx={{
-            border:'0px', 
-            '--Textarea-focusedThickness': '0rem',
+            border:'none', 
+            resize: 'none',
+            background:'none',
+            borderRadius:'none',
+            '--Textarea-focusedThickness': 'none',
             '&:focus-within': {
                color:'rgb(18, 18, 19,0.9)',
                "::placeholder":''
               },
              fontFamily:'myFontRegular',
              fontSize,
-             minHeight:{minHeight},
+             minHeight:'320px',
              margin:'0px',
-             padding:'10px'
+              outline: 0
            }}
              color="neutral"
              disabled={false}
@@ -89,27 +110,11 @@ const controlTextArea =(ev: ChangeEvent<HTMLTextAreaElement>)=>{
              variant="outlined"
              id={style.textarea}
              maxRows={maxRows}
-            
+             
           />
         </div>
-        <div className={style.button}>
-         <Button
-          sx={{
-            width:'100%',
-            marginBottom:'22px',
-            maxHeight:'50px'
-          }}
-         >
-        <P 
-        fontSize='1.3rem'
-        color='white'
         
-        >
-          Publicar
-        </P>
-         </Button>
-        </div>
         </div>
       </div>
-    );
+ );
 };

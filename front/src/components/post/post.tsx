@@ -10,10 +10,10 @@ import { propsPost } from '@/@types/post';
 
 type contentPost ={
   content:string,
-  textFull:'...mais' |'...menos'
+  textFull:'...mais' |''
 }
 
-export function Post({height,content,borderBottom,id,style}:propsPost){
+export function Post({height,content,borderBottom,id,style,onClick,renderFullPost}:propsPost){
   const [dataAtual, setDataAtual] = useState("");
   const [showFullContent, setShowFullContent] = useState<contentPost>({
     content:'',
@@ -26,13 +26,16 @@ export function Post({height,content,borderBottom,id,style}:propsPost){
  }
  const newStyle = {...styleDone,...style}
   
-  
- 
- useEffect(()=>{
+  useEffect(()=>{
     const data = new Date()
     setDataAtual(data.toLocaleString())
     spliceText()
   },[])
+  useEffect(()=>{
+    if(renderFullPost==undefined || renderFullPost==false) return
+      toggleText()
+     
+  },[renderFullPost])
  
   const spliceText =()=>{
    if(content.length<600) {
@@ -45,38 +48,40 @@ export function Post({height,content,borderBottom,id,style}:propsPost){
  
 const toggleText =()=>{
    if(showFullContent.textFull=='...mais'){
-    setShowFullContent({...showFullContent,content,textFull:'...menos'})
+    setShowFullContent({...showFullContent,content,textFull:''})
    }
-   if(showFullContent.textFull=='...menos'){
-    const novaString = content.slice(0, 600)
-    setShowFullContent({...showFullContent,content:novaString,textFull:'...mais'})
-   }
+   
  } 
 return (
    <div 
      id={id}
      className={styles.BodyPost}
-     style={newStyle}
-   >
-    <header className={styles.header} >
+     style={newStyle}>
+    <header className={styles.header}
+     onClick={(()=>{
+      if(onClick)onClick()
+      })}
+    >
+      <div className={styles.user}>
       <AccountCircleIcon
        sx={{paddingRight:'10px',
         fontSize:'2.4rem'
        }}
       />
       <h4>Carlos289</h4>
+      </div>
       <div className={styles.moment}>
       <P
       color='rgb(68, 65, 65,0.5)'
       fontSize='0.8rem'
       >{dataAtual}</P>
+      </div>
       
-     </div>
      </header>
      <div className={styles.contentPost}>
       <P 
       id={styles.content}
-       fontSize='1rem'
+       fontSize='1.1rem'
        color='#333'
        fontFamily='myFontRegular'
        padding='0px 0px 0px 0px'
@@ -89,9 +94,9 @@ return (
       color='rgb(68, 65, 65)'
       fontSize='1'
       onClick={(()=>{
-        toggleText()
+       if(onClick)onClick()
       })}
-      >{content.length<600?'': showFullContent.textFull}</P>
+      > { content.length<=600? '' :showFullContent.textFull}</P>
      </div>
      
     <div className={styles.containerReaction} > 

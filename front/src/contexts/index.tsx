@@ -1,4 +1,5 @@
-import { useSidebar,SiderProvider } from "./inputsValue/siderbar";
+import { useSidebar,SiderProvider } from "./siderbar";
+import { useGetPost ,GetPostProvider } from "./getPosts";
 
 
-export{useSidebar,SiderProvider}
+export{useSidebar,SiderProvider,GetPostProvider,useGetPost}

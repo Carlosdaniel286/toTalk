@@ -1,4 +1,4 @@
-import { initInputValue,initInputValidation } from "./inputValue/inputValue";
-import { initError } from "./validations/validations";
-
-export{initError,initInputValue,initInputValidation}
+import { initInputValue,initInputValidation } from "./inputValue";
+import { initError } from "./validations";
+import { initPosts } from "./posts";
+export{initError,initInputValue,initInputValidation,initPosts}

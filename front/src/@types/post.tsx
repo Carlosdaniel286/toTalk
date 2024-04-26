@@ -4,7 +4,8 @@ export type propsPost={
     height?:string
     content:string
     borderBottom?:string
-    id?: string
+    id?: string 
     style?:CSSProperties 
-  
+    onClick?:(()=>void)
+    renderFullPost?:false | true
   }

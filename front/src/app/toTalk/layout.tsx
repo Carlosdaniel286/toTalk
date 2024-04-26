@@ -1,21 +1,28 @@
-
+'use client'
 import style from './style/layout.module.css'
 import { Sidebar } from '@/components/sidebar/sidebar';
+import { GetPostProvider } from '@/contexts';
+import { ReactNode } from 'react';
 
 
-export default function RootLayout({
+export default function Layout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
+    
     <>
      <div className={style.side} >
        <div className={style.containerSideBar}>
         <Sidebar/>
         </div>
-      {children}
+        <GetPostProvider>
+          {children}
+       </GetPostProvider>
     </div>
+   
     </>
+ 
   )
 }

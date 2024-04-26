@@ -1,4 +1,4 @@
-import { initError } from "../validations/validations"
+import { initError } from "./validations"
 
 export const initInputValue={
     name: '',
