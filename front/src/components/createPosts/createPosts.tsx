@@ -1,5 +1,5 @@
 'use client'
-import style from './style/createPosts.module.css'
+import styles from './style/createPosts.module.css'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Textarea from '@mui/joy/Textarea';
 import { ChangeEvent, useEffect, useState } from 'react';
@@ -7,36 +7,52 @@ import { Button } from '@mui/joy';
 import {P} from '@/components/index'
 import { proposSiderbar } from '@/@types/propsSiderBar/proposSiderBar';
 import React from 'react';
+import axios from 'axios';
+import { useGetPost } from '@/contexts';
+import { useCostumResize } from '@/@hooks';
+import { posts } from '@/app/toTalk/feed/[feed]/page';
 type propsCreatePost = Omit<proposSiderbar,'onClick'|'visible'>;
+import { propsPost } from '@/@types/post';
 
-export const CreatPost = ({onClose}:propsCreatePost) => {
+type comments = Omit<propsPost, 'content'> & {
+  onClose?: () => void;
+  maxRows?:number
+};
+
+export const CreatPost = ({onClose,style,id}:comments) => {
  const[textarea, setTextarea]=useState('')
  const[ fontSize, setFontSize]=useState('1.3rem')   
- const [height, setHeight] = useState(window.innerHeight);
-  const [width, setWidth] = useState(window.innerWidth);
- 
+ const {dimensions}=useCostumResize()
+ const {handlePosts}=useGetPost()
   useEffect(() => {
-    function handleResize() {
-      setHeight(window.innerHeight);
-      setWidth(window.innerWidth);
-    }
+     console.log(dimensions.width)
+  }, [dimensions.width]);
+ 
+ const maxRows = dimensions.width >= 500 ? 30 : 11;
 
-    window.addEventListener('resize', handleResize);
+ 
 
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-  useEffect(() => {
-     console.log(width)
-  }, [width]);
+  const gets = async()=>{
+    if(textarea.trim()=='') return
+    const response = await axios.post('http://localhost:3000/api/router/carlos', {content:textarea}, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const res:posts = response.data
+    console.log(res)
+     handlePosts(res)
+  
+  }
  
- 
-const maxRows = width >= 500 ? 30 : 11;
-const minHeight = width >= 500 ? '200px' : '400px';
- 
- 
+
+
+
+
+
 const controlTextArea =(ev: ChangeEvent<HTMLTextAreaElement>)=>{
    const text = ev.target.value
-   const isWidth = width <= 500
+   const isWidth = dimensions.width <= 500
    if(text.length>800) return
    if(text.length==200) setFontSize('1.1rem')
    if(text.length==300 && !isWidth) {
@@ -45,10 +61,12 @@ const controlTextArea =(ev: ChangeEvent<HTMLTextAreaElement>)=>{
    setTextarea(text)
 }
  return (
-     <div className={style.container}>
-        <div className={style.CreatBody}>
-          <header className={style.header}>
-          <div className={style.visible}>
+     <div className={styles.container}>
+        <div className={styles.CreatBody}
+        style={style}
+        >
+          <header className={styles.header}>
+          <div className={styles.visible}>
               <P
                fontSize='2.5rem'
                onClick={(()=>{
@@ -58,8 +76,12 @@ const controlTextArea =(ev: ChangeEvent<HTMLTextAreaElement>)=>{
                 X
               </P>
             </div>
-          <div className={style.button}>
+          <div className={styles.button}>
          <Button
+          onClick={(()=>{
+            gets() 
+            if(onClose)onClose()
+          })}
           sx={{
           borderRadius:'12px',
           height:"20px"
@@ -76,18 +98,17 @@ const controlTextArea =(ev: ChangeEvent<HTMLTextAreaElement>)=>{
         </div>
            
           </header>
-           <div className={style.user} >
+           <div className={styles.user} >
            <AccountCircleIcon
             sx={{paddingRight:'10px',height:'40px',width:'40px'}}
             />
             <P>carlos289</P>
            </div>
-           <div className={style.write} >
+           <div className={styles.write} >
            <Textarea
            value={textarea}
             onChange={((ev)=>controlTextArea(ev))}
-            
-             sx={{
+            sx={{
             border:'none', 
             resize: 'none',
             background:'none',
@@ -108,7 +129,7 @@ const controlTextArea =(ev: ChangeEvent<HTMLTextAreaElement>)=>{
              placeholder={'O que você estar pensando?'}
              size="sm"
              variant="outlined"
-             id={style.textarea}
+             id={styles.textarea}
              maxRows={maxRows}
              
           />

@@ -6,25 +6,19 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { CSSProperties, useEffect, useState } from 'react';
 import {P} from '../index'
 import { propsPost } from '@/@types/post';
-
-
 type contentPost ={
   content:string,
   textFull:'...mais' |''
 }
 
-export function Post({height,content,borderBottom,id,style,onClick,renderFullPost}:propsPost){
+export function Post({content,id,style,onClick,renderFullPost}:propsPost){
   const [dataAtual, setDataAtual] = useState("");
   const [showFullContent, setShowFullContent] = useState<contentPost>({
     content:'',
     textFull:'...mais'
   });
- const styleDone:CSSProperties ={
-  height,
-  content,
-  borderBottom:borderBottom?borderBottom:undefined,
- }
- const newStyle = {...styleDone,...style}
+ 
+ 
   
   useEffect(()=>{
     const data = new Date()
@@ -56,12 +50,10 @@ return (
    <div 
      id={id}
      className={styles.BodyPost}
-     style={newStyle}>
-    <header className={styles.header}
-     onClick={(()=>{
-      if(onClick)onClick()
-      })}
-    >
+     style={style}
+     
+     >
+    <header className={styles.header}>
       <div className={styles.user}>
       <AccountCircleIcon
        sx={{paddingRight:'10px',
@@ -105,6 +97,9 @@ return (
       cursor:'pointer',
       fontSize:'1.1rem'
       }}
+      onClick={(()=>{
+        if(onClick)onClick()
+        })}
      />
      <div className={styles.info}>
      <FavoriteBorderIcon

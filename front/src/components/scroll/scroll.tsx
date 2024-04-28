@@ -4,7 +4,7 @@ import styles from './style/scroll.module.css'
 import { FloatingActionButtons } from "./components/floatingActionButton/floatingActionButton"
 import { P } from "../p/p"
 type propsScroll ={
-    children:ReactNode[],
+    children:ReactNode[]|ReactNode,
     height?:string,
     maxHeight?:string,
 }

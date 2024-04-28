@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useCustomInput } from "../inputHooks/inputHooks";
+import { useCustomInput } from "./inputHooks";
 import { errorValidation } from "@/@types/validations/validations";
 
-export const useCustomRegister = (style: {readonly [key: string]: string;}) => {
+export const useCustomRegister = (style: { readonly [key: string]: string; }) => {
   const { setInputValue, inputValue, handleInputsEmpty, setErros, erros } = useCustomInput();
   const [inputsConfirmed, setInputsConfirmed] = useState(false);
   const [styles, setStyles] = useState(style.container);
@@ -51,7 +51,7 @@ export const useCustomRegister = (style: {readonly [key: string]: string;}) => {
     setErros,
     styles,
     texts,
-    inputsConfirmed, 
-    
+    inputsConfirmed,
+
   };
 };

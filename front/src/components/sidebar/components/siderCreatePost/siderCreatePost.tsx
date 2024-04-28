@@ -25,8 +25,13 @@ export const SiderBarCreatePost = ({ onClose, onClick, visible }: proposSiderbar
                     <CreatPost 
                     onClose={ (()=>{
                         toggleDisplayCreatePost(false);
-                        onClosed()
+                       onClosed()
                     })}
+                    style={{
+                        width: "500px",
+                        maxHeight:'550px',
+                        minHeight: "400px"
+                    }}
                     />
                 </Overlay>
             }

@@ -17,9 +17,9 @@ export default function Layout({
        <div className={style.containerSideBar}>
         <Sidebar/>
         </div>
-        <GetPostProvider>
+      
           {children}
-       </GetPostProvider>
+         
     </div>
    
     </>
