@@ -1,4 +1,8 @@
 .CreatBody{
+    width: 100vw;
+    max-height:610px;
+    min-height:200px;
+    max-width:600px;
     background-color: white;
     border-radius: 10px;
     display:flex;

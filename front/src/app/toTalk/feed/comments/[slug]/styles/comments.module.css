@@ -1,5 +1,15 @@
 .main{
     width: 100%;
     padding-top: 30px;
-    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 90vh;
+
+}
+.chat{
+    width: 100%;
+    max-width: 650px;
 }

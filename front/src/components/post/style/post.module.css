@@ -45,6 +45,8 @@
     grid-area: contentPost;
     box-sizing: border-box;
     padding-left: 33px;
+   
+    
 }
 .containerReaction{
     grid-area: Reaction;
@@ -61,11 +63,15 @@
   font-family:'myFont';
   word-break: keep-all;
 }
-#content{
- max-width: 100%;
- display: flex;
-}
-
+#content {
+    font-size: 1.1rem; /* Corrigido: remova as aspas */
+    color: #333;
+    font-family: 'myFontRegular'; /* Corrigido: adicione aspas se o nome da fonte contiver espaços */
+    padding: 0; /* Corrigido: reduza a sintaxe do padding */
+    border: 0; /* Corrigido: reduza a sintaxe da borda */
+    word-wrap: break-word;
+  }
+  
 .moment{
     display: flex;
     align-items: center;

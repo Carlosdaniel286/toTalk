@@ -6,14 +6,12 @@ import { useParams } from 'next/navigation';
 import style from './styles/comments.module.css'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useCostumResize } from '@/@hooks';
-import { CreatPost } from '@/components/createPosts/createPosts';
-
+import { Chat } from '@/components/chat/chat';
+import { scroller } from 'react-scroll';
 
 export default function RenderComments(){
 const params = useParams()
 const id = params.slug as string
-const {elementRef,refDimensions}=useCostumResize()
 const[posts, setPosts]=useState<posts[]>([])
 
 const gets = async()=>{
@@ -31,22 +29,24 @@ useEffect(()=>{
  gets()
 },[])
 
-useEffect(()=>{
-  console.log(refDimensions.width)
- },[refDimensions.width])
+
 
 
  return(
-    <main className={style.main}
-     ref={elementRef}
+    <main className={style.main}>
+    <Scroll 
+     style={{
+       maxHeight:'94vh',
+       minHeight:'70vh'
+     }}
+     renderFloating={false}
     >
-    <Scroll  maxHeight='94vh'>
     {posts.map((item)=>(
       <div key={item.id}>
      <Post
      style={{
       borderBottom:'1px solid rgb(185, 180, 180,0.4)',
-      width:`${refDimensions.width-2}px`,
+      width:`100%`,
       maxWidth:'650px'
      }}
     
@@ -56,8 +56,9 @@ useEffect(()=>{
   />
      </div>
       ))}
-    </Scroll>
      
+    </Scroll>
+    <div className={style.chat}><Chat/></div>
     </main>
     
 )

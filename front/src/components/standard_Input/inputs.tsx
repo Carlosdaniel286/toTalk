@@ -6,6 +6,8 @@ import Input from '@mui/joy/Input';
 import FormHelperText from '@mui/joy/FormHelperText';
 import Stack from '@mui/joy/Stack';
 import { typeValidations } from '@/@types/validations/validations';
+import { SxProps } from '@mui/material/styles';
+
 
 
 
@@ -13,22 +15,32 @@ interface propsInputStandard extends typeValidations{
   label?: string,
   placeholder?: string,
   id?:string,
-  onChange:((ev:string)=>void)
-  value:string,
-  height?:string,
+  onChange?:((ev:string)=>void)
+  value?:string,
   error?:boolean,
-  errorMessage?:string 
-  
+  errorMessage?:string, 
+  sx?:SxProps
 }
 
-export function InputStandard({ label, placeholder,id,onChange,value,inputType,height,error,errorMessage}: propsInputStandard) {
-  
+export function InputStandard({ label, placeholder,id,onChange,value,inputType,error,errorMessage,sx}: propsInputStandard) {
+  const styles:SxProps={
+    color: 'black',
+    fontSize: '17px',
+    height: '46px' ,
+    fontFamily: 'myFont',
+    textDecoration: 'none',
+    textTransform: 'capitalize',
+    '&:focus-within': {
+      '--Input-focusedHighlight': error ? 'red' : 'black',
+      color: error ? 'red' : 'black',
+  }
+}
+ const newStyle ={...styles,...sx}
+ 
   return (
     <>
-      <Stack spacing={0}  id={id}>
-        <FormControl error={error}
-        sx={{width:'100%'}}
-        >
+      <Stack spacing={0} >
+        <FormControl error={error} >
           <FormLabel  className={style.label}
            sx={{fontWeight:'1000',fontSize:'16px',fontFamily: 'myFont',wordBreak:'break-all'}}
           >{label}</FormLabel>
@@ -36,23 +48,15 @@ export function InputStandard({ label, placeholder,id,onChange,value,inputType,h
            value={value}
            type={inputType}
             onChange={((ev)=>{
+              if(!onChange) return
               onChange(ev.target.value)
               })}
               
-            id={style.input}
+            id={id}
             error={error}
             defaultValue={errorMessage}
             placeholder={placeholder}
-             sx={{ color: 'black',
-             fontSize: '17px',
-             height: height ? height : '46px' ,
-             fontFamily: 'myFont',
-             textDecoration: 'none',
-             textTransform: 'capitalize',
-             '&:focus-within': {
-               '--Input-focusedHighlight': error ? 'red' : 'black',
-               color: error ? 'red' : 'black',
-             },}}
+             sx={newStyle}
           />
           
           <FormHelperText sx={{

@@ -32,9 +32,7 @@ export default function Feed() {
     user:''
   }]);
   const{getPost}=useGetPost()
-  const {elementRef,refDimensions}=useCostumResize()
-  
-  const gets = async()=>{
+const gets = async()=>{
     const response = await axios.get('http://localhost:3000/api/router/carlos' ,{
       headers: {
         'Content-Type': 'application/json'
@@ -61,20 +59,22 @@ export default function Feed() {
   
   return (
     <main className={style.main}>
-      <div className={style.scroll}
-       ref={elementRef}
-      >
-        <Scroll maxHeight='94vh'>
+      <div className={style.scroll}>
+        <Scroll style={{
+         maxHeight:'94vh'
+        }}
+         renderFloating={true}
+        >
         {contente.map((item,index) => (
           <div key={item.id}>
             <Post
               content={item.content}
               style={
               {
-              width:`${refDimensions.width-2}px`,
               maxWidth:'650px',
               borderBottom:index == contente.length - 1 ? '1px solid rgb(185, 180, 180,0.4)' : undefined
-            }}
+             }
+            }
              onClick={(()=>{
                router.push(`/toTalk/feed/comments/${item.id}`)
               })}

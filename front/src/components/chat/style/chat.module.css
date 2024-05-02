@@ -1,0 +1,32 @@
+.body{
+    width: 100%;
+    max-width: 650px;
+    display: grid;
+    align-items: center;
+    column-gap: 10px;
+    border: 1px solid rgba(184, 179, 179, 0.6);
+    border-radius: 8px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 2px;
+    padding-right: 2px;
+    box-sizing: border-box;
+   
+   
+    grid-template-areas:
+    "input"
+    "send"
+    ;
+    
+}
+#input{
+    grid-area: input;
+    
+}
+.send{
+    grid-area: send; 
+    display: flex;
+    justify-content: flex-end;
+    box-sizing: border-box;
+    padding: 5px;
+}

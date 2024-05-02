@@ -1,32 +1,31 @@
 import style from './style/p.module.css'
-import { ReactNode } from 'react'
+import { CSSProperties, ReactNode } from 'react'
 
 type propsP={
     children:ReactNode[] | ReactNode  
-    margin?: string,
-    padding?: string,
-    fontSize?:string,
-    fontFamily?:string,
-    color?:string
     id?:string
     onClick?:(()=>void)
+    style?:CSSProperties
 }
 
-export const P=({children,margin,padding,fontSize,fontFamily,id,color,onClick}:propsP)=>{
+export const P=({children,onClick,id,style}:propsP)=>{
+    const styles:CSSProperties={
+        wordBreak:'break-word',
+        padding:'0px',
+        margin:'0px',
+        fontFamily:'myFont',
+    }
+
+    const newStyle = { ...styles, ...style };
+    
+    
+    
     return(
     <p
     onClick={(()=>{
         if(onClick)onClick()
     })}
-    style={{
-        margin:margin?margin:'0%',
-        padding:padding?padding: '0%',
-        fontSize:fontSize?fontSize:' 0.9rem',
-        fontFamily:fontFamily?fontFamily:'myFont',
-        color:color?color:"black",
-        wordBreak:'break-word',
-       
-    }}
+    style={newStyle}
       id={id}
     >
      {children}

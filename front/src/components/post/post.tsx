@@ -6,6 +6,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { CSSProperties, useEffect, useState } from 'react';
 import {P} from '../index'
 import { propsPost } from '@/@types/post';
+
 type contentPost ={
   content:string,
   textFull:'...mais' |''
@@ -14,13 +15,10 @@ type contentPost ={
 export function Post({content,id,style,onClick,renderFullPost}:propsPost){
   const [dataAtual, setDataAtual] = useState("");
   const [showFullContent, setShowFullContent] = useState<contentPost>({
-    content:'',
+    content:'ooooooo\nddddddddddddddddddddddddd\n',
     textFull:'...mais'
   });
- 
- 
-  
-  useEffect(()=>{
+ useEffect(()=>{
     const data = new Date()
     setDataAtual(data.toLocaleString())
     spliceText()
@@ -64,27 +62,30 @@ return (
       </div>
       <div className={styles.moment}>
       <P
-      color='rgb(68, 65, 65,0.5)'
-      fontSize='0.8rem'
+       style={{
+        color:'rgb(68, 65, 65,0.5)',
+        fontSize:'0.8rem'
+       }}
       >{dataAtual}</P>
       </div>
       
      </header>
      <div className={styles.contentPost}>
-      <P 
+      <P
       id={styles.content}
-       fontSize='1.1rem'
-       color='#333'
-       fontFamily='myFontRegular'
-       padding='0px 0px 0px 0px'
-       
-      >
-      {showFullContent.content}
+      style={{
+        fontFamily:'myFontRegular'
+      }}
+      >{showFullContent.content}
       </P>
+      
+      
       <P
       id={styles.more}
-      color='rgb(68, 65, 65)'
-      fontSize='1'
+     style={{ 
+      color:'rgb(68, 65, 65)',
+     fontSize:'1'
+    }}
       onClick={(()=>{
        if(onClick)onClick()
       })}
@@ -112,9 +113,11 @@ return (
     
      />
      <P
-     fontSize='1rem'
-     color='rgb(185, 180, 180)'
-     fontFamily='myFontRegular'
+    style={{
+      fontSize:'1rem',
+      color:'rgb(185, 180, 180)',
+      fontFamily:'myFontRegular'
+    }}
      >10</P>
      </div>
      </div>
