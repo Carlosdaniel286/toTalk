@@ -41,7 +41,6 @@ return (
             value={inputValue.name}
             placeholder='Digite um nome...'
             inputType={'name'}
-            height='70px'
             error={erros.name.error}
             errorMessage={erros.name.message}
           />
@@ -51,8 +50,7 @@ return (
         <div >
           <InputStandard
             label=''
-            height='70px'
-            onChange={(ev) => {
+             onChange={(ev) => {
               setInputValue({ ...inputValue, email: ev });
               const validation = validations(ev, 'email');
               setErros('email', validation);
@@ -65,7 +63,7 @@ return (
           />
           <InputStandard
             label=''
-            height='70px'
+           
             onChange={(ev) => {
               setInputValue({ ...inputValue, password: ev });
               const validation = validations(ev, 'password');

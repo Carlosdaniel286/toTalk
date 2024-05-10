@@ -6,9 +6,8 @@ import {   useEffect, useState } from 'react';
 import { useGetPost } from '@/contexts';
 import { propsPost } from '@/@types/post';
 import { useRouter } from 'next/navigation';
-
 import axios from 'axios';
-import { useCostumResize } from '@/@hooks';
+
 export type posts ={
   user?:string
   id?:number,
@@ -33,7 +32,7 @@ export default function Feed() {
   }]);
   const{getPost}=useGetPost()
 const gets = async()=>{
-    const response = await axios.get('http://localhost:3000/api/router/carlos' ,{
+    const response = await axios.get('/api/router/carlos' ,{
       headers: {
         'Content-Type': 'application/json'
       }

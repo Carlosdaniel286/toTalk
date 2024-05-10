@@ -1,7 +1,7 @@
 import { InputStandard } from "../standard_Input/inputs"
 import SendIcon from '@mui/icons-material/Send';
 import style from './style/chat.module.css'
-import { Input, Textarea } from "@mui/joy";
+import { Button, Input, Textarea } from "@mui/joy";
 export const Chat = ()=>{
   
 return(
@@ -17,6 +17,16 @@ return(
    
    />
    <div  className={style.send}>
+   <Button 
+     sx={{
+      marginRight:'50px',
+      textTransform:'capitalize',
+      fontSize:'1rem',
+      fontFamily:'myFont'
+     }}
+   >
+      cancelar
+    </Button>
    <SendIcon
    style={{
     fontSize:"1.9rem",
@@ -24,6 +34,7 @@ return(
     }}
     color="primary"
    />
+   
    </div>
   </div>
   )

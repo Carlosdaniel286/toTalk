@@ -35,7 +35,8 @@ export async function GET(req:Request) {
 
   export async function POST(req:Request) {
     try{
-      const body:posts  = await req.json()
+      const body:posts = await req.json()
+      console.log(body)
       const posts = new creatPost(body.content)
       const post = posts.save()
       return Response.json(post)

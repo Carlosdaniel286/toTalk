@@ -29,4 +29,5 @@
     justify-content: flex-end;
     box-sizing: border-box;
     padding: 5px;
+    align-items:center;
 }

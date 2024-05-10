@@ -89,7 +89,7 @@ return (
       onClick={(()=>{
        if(onClick)onClick()
       })}
-      > { content.length<=600? '' :showFullContent.textFull}</P>
+      > { content?.length<=600? '' :showFullContent.textFull}</P>
      </div>
      
     <div className={styles.containerReaction} > 
