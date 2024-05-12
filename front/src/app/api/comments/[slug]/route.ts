@@ -7,12 +7,33 @@ type posts ={
   id:number
 }
 
-export const comments:posts[]=[ {
-  id:1,
-  content:'',
-  user:'',
-  idPosts:1
-}]
+export const comment:posts[]=[]
+
+class Comments {
+ private user:string
+ private content:string
+ private idPosts:number
+ private id=1
+  constructor( {user,content,idPosts}:posts){
+   this.user= user
+   this.content =content
+   this.idPosts=idPosts
+   
+  }
+
+  save(){
+   return{
+     user:this.user,
+     content:this.content,
+     idPosts:this.idPosts,
+     id:comment.length+1
+   }
+  }
+}
+
+
+
+
 
 export async function GET( request: Request,
     { params }: { params: { slug: string } }) {
@@ -32,9 +53,10 @@ export async function GET( request: Request,
     
       try{
         const body:posts  = await req.json()
-        console.log(body)
-        comments.push(body)
-        return Response.json(comments)
+        const comments =new Comments(body)
+        const save = comments.save()
+        comment.unshift(save)
+        return Response.json(save)
       
       }catch(err){
          console.log(err)

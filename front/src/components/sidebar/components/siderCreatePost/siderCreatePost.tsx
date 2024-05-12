@@ -35,17 +35,7 @@ export const SiderBarCreatePost = ({ onClose, onClick, visible }: proposSiderbar
         throw(err)
       }
        }
-    
-       const customStyle = {
-        
-        // Defina o estilo para telas menores que 600px de largura
-        '@media (max-width: 600px)': {
-          backgroundColor: 'blue',
-        }
-      };
-    
-    
-    return (
+     return (
         <>
             {displayCreatePost &&
                 <Overlay
@@ -61,19 +51,19 @@ export const SiderBarCreatePost = ({ onClose, onClick, visible }: proposSiderbar
                         width:'100%',
                         display:'flex',
                         alignItems:'center',
-                        justifyContent:'center',
                         maxWidth:'650px',
                         minHeight:'300px' ,
-                        maxHeight:'900px',
+                       
                      }}
                     
                     >
                     <CreatPost 
                     style={{
                         borderRadius:'10px',
-                        
+                      
                        
                     }}
+                    
                     onClose={ (()=>{
                         toggleDisplayCreatePost(false);
                          onClosed()

@@ -5,7 +5,7 @@ import { Post } from '@/components/post/post';
 import { useParams } from 'next/navigation';
 import style from './styles/comments.module.css'
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CreatPost } from '@/components/createPosts/createPosts';
 import { Comments } from '@/components/comments/comments';
 type comments ={
@@ -40,6 +40,7 @@ const gets = async()=>{
     }
   });
   const res:posts = response.data
+  console.log("post unico")
   console.log(res)
   setPosts({...posts,...res})
   
@@ -87,25 +88,38 @@ const handleSubmit = async () => {
     }
   });
   console.log('sucesso')
-  const res:comments[] = response.data
-  
-  setComments([...res])
+  const res:comments = response.data; // Supondo que response.data contenha os dados do novo comentário
+ console.log(res)
+// Adicionando o novo comentário à lista de comentários existente
+const updatedComments = [...comments]; // Copiando os comentários existentes para evitar mutações diretas
+updatedComments.unshift(res); // Adicionando o novo comentário na primeira posição da lista
+
+// Atualizando o estado com a nova lista de comentários
+setComments(updatedComments);
 }catch(erro){
  console.log(erro)
 }
 };
+const myRef = useRef<HTMLDivElement>(null);
+ 
 
 
- return(
+
+
+
+
+return(
     <main className={style.main}>
     <Scroll 
      style={{
-       maxHeight:'94vh',
+       maxHeight:'93vh',
        }}
      renderFloating={false}
+     ref={myRef}
+     lastSpace={false}
     >
       
-    {posts.content!=='' &&
+    {posts.content!=='' && posts.id!=0 && 
     <Post
      style={{
       borderBottom:'1px solid rgb(185, 180, 180,0.4)',
@@ -136,7 +150,7 @@ const handleSubmit = async () => {
        />
         
         </div>
-{comments.map((item)=>(
+   {comments.length>0 && comments.map((item)=>(
     <div key={item.id}>
        <Comments
         content={item.content}
@@ -149,7 +163,7 @@ const handleSubmit = async () => {
     </div>
   ))}
 </Scroll>
-  
+
   
     </main>
     

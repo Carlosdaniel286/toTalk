@@ -1,7 +1,7 @@
 .CreatBody{
     display: grid;
     grid-template-columns: 9% 91% 100%;
-    align-items: center;
+    grid-auto-rows: 50px 1fr 50px;
     grid-template-areas:
     "header header" 
     "user textarea"
@@ -19,12 +19,14 @@
     padding-right: 11px;
     box-sizing: border-box;
     grid-area: header;
+    margin: 0%;
 }
 .h2{
   width: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0%;
 }
 .visible{
     display: flex;
@@ -35,10 +37,8 @@
 }
 .user{
     display: inline-flex;
-    align-items: center;
     grid-area: user;
-   
-    
+    align-self: center;
 }
 .user p{
     font-family: 'myFont';
@@ -48,15 +48,22 @@
 .write{
   box-sizing: border-box;
   grid-area: textarea;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
   
 }
 
 .button{
   display: flex;
-  padding: 2px;
+  align-items: center;
   justify-content: flex-end;
-  margin: 10px;
   grid-area: button;
+  padding-right: 12px;
+  
+ 
 }
 .p{
     font-family: 'myFont';

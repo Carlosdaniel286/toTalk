@@ -20,9 +20,10 @@ type Comments = Omit<propsPost, 'content'> & {
   sx?: SxProps;
   placeholder?:string
   onChange?:(ev:ChangeEvent<HTMLTextAreaElement>)=>void
+  minHeight?:string
 };
 
-export const CreatPost = ({ onClose, style ,maxRows,onChange,buttonClose,minRows,value,onClick,placeholder}: Comments) => {
+export const CreatPost = ({ onClose, style ,maxRows,onChange,buttonClose,minRows,value,onClick,placeholder,minHeight}: Comments) => {
   const renderButtonClose = buttonClose !== undefined ? buttonClose : true;
 
 const handleTextareaChange = (ev: ChangeEvent<HTMLTextAreaElement>) => {
@@ -35,8 +36,8 @@ const handleTextareaChange = (ev: ChangeEvent<HTMLTextAreaElement>) => {
        width:'100%' ,
        height:'100%',
        background:'white',
-        borderRadius:'10px',
-
+       borderRadius:'10px',
+     
        ...style
       }}
       >
@@ -68,7 +69,12 @@ const handleTextareaChange = (ev: ChangeEvent<HTMLTextAreaElement>) => {
         <div className={styles.user}>
           <AccountCircleIcon sx={{ paddingRight: '10px', height: '40px', width: '40px' }} />
          </div>
-        <div className={styles.write}>
+        <div className={styles.write}
+         style={{
+         
+         minHeight:'90%'
+         }}
+        >
           <Textarea
            minRows={minRows}
            
@@ -77,6 +83,7 @@ const handleTextareaChange = (ev: ChangeEvent<HTMLTextAreaElement>) => {
                boxShadow:'none',
                border:'0px',
                background:'none',
+               
               '--Textarea-focusedHighlight': 'rgba(13,110,253,.25)',
               fontSize:'1.2rem',
               fontFamily:'myFontRegular',
