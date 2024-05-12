@@ -75,6 +75,7 @@ const gets = async()=>{
              }
             }
              onClick={(()=>{
+              console.log(item.id)
                router.push(`/toTalk/feed/comments/${item.id}`)
               })}
             />

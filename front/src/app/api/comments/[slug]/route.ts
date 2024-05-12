@@ -38,14 +38,16 @@ class Comments {
 export async function GET( request: Request,
     { params }: { params: { slug: string } }) {
     const id = params.slug
-    const filter = arry.filter((item)=>{
-       if(item.id.toString()==id) return item
-      return arry
+     console.log(id)
+    const filter = arry.find((item)=>{
+      const itemID= item.id.toString()
+      console.log(itemID)
+      console.log(itemID==id)
+       return itemID==id
+       
     })
-    const posts = filter[0]
-    console.log(posts)
-    
-    return Response.json(posts)
+    const posts = filter?filter:[]
+ return Response.json(posts)
   
 
 }

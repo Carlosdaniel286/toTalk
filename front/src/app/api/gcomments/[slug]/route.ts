@@ -5,13 +5,12 @@ export async function GET( request: Request,
     const id = params.slug
     
     const filter = comment.filter((item)=>{
-     if(item.idPosts.toString()==id) return item
-      return []
+     return item.idPosts.toString()==id
+      
     })
     
-    
-    
-    return Response.json(filter)
+    const posts = filter?filter:[]
+    return Response.json(posts)
   
 
 }

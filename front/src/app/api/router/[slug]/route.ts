@@ -7,7 +7,7 @@ type posts ={
 }
 export const arry:posts[] =[ 
   {
-  id:1,
+  id:0.1,
   content:'bem vindo ao toTalk',
   user:''
 }]

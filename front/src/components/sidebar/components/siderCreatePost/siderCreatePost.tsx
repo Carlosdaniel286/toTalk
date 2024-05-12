@@ -22,7 +22,7 @@ export const SiderBarCreatePost = ({ onClose, onClick, visible }: proposSiderbar
     const{handlePosts}=useGetPost()
     const gets = async()=>{
         try{
-        const response = await axios.post(`http://localhost:3000/api/router/carlos`,text,{
+        const response = await axios.post(`/api/router/carlos`,text,{
           headers: {
             'Content-Type': 'application/json'
           }

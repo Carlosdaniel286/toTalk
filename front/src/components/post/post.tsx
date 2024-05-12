@@ -4,12 +4,17 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { CSSProperties, useEffect, useState } from 'react';
+import MenuIcon from '@mui/icons-material/Menu';
 import {P} from '../index'
 import { propsPost } from '@/@types/post';
+import { Options } from './component/options/options';
 
 type contentPost ={
   content:string,
   textFull:'...mais' |''
+}
+const optionStyles:CSSProperties ={
+
 }
 
 export function Post({content,id,style,onClick,renderFullPost}:propsPost){
@@ -44,7 +49,11 @@ const toggleText =()=>{
    }
    
  } 
-return (
+
+ const [options, setOptions] = useState(false);
+
+
+ return (
    <div 
      id={id}
      className={styles.BodyPost}
@@ -68,7 +77,39 @@ return (
        }}
       >{dataAtual}</P>
       </div>
-      
+     
+      <div className={styles.option}>
+        {options && 
+      <div className={styles.options} >
+           <Options
+           styles={{
+            width:'90px',
+            height:'110px'
+           }}
+           onClick={(()=>{
+            setOptions(!options)
+           })}
+           onClosed={(()=>{
+            setOptions(!options)
+           })}
+           />
+         </div>
+  }
+      <div
+       onClick={(()=>{
+        setOptions(!options)
+       })}
+      >
+        <MenuIcon
+        
+        sx={{
+          cursor:'pointer',
+         
+        }}
+        
+        />
+        </div>
+        </div>
      </header>
      <div className={styles.contentPost}>
       <P
