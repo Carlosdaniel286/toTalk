@@ -1,17 +1,17 @@
-import { typeValidations, errorValidation,inputType } from '@/@types/validations/validations';
+import { typeValidations, errorValidation, inputType } from '@/@types/validations';
 import validator from 'validator';
 import { initError } from '@/constants';
-interface validations extends typeValidations{
-  value:string 
+interface validations extends typeValidations {
+    value: string
 }
 
-export const validations = (value:string,inputType:inputType): errorValidation => {
-    if(validator.isEmpty(value)) return initError
+export const validations = (value: string, inputType: inputType): errorValidation => {
+    if (validator.isEmpty(value)) return initError
     switch (inputType) {
         case 'name':
             return isName(value);
         case 'lastName':
-           return isName(value);
+            return isName(value);
         case 'email':
             return isEmail(value);
         case 'phone':
@@ -24,12 +24,12 @@ export const validations = (value:string,inputType:inputType): errorValidation =
 };
 
 const isName = (value: string): errorValidation => {
-   
-   if (validator.isAlpha(value)) {
-       return initError
+
+    if (validator.isAlpha(value)) {
+        return initError
     } else {
         return {
-            error:true,
+            error: true,
             message: 'Apenas letras são permitidas'
         };
     }
@@ -48,8 +48,8 @@ const isEmail = (value: string): errorValidation => {
 
 const isMobilePhone = (value: string): errorValidation => {
     const validNumberPhone = validator.isMobilePhone(value, 'pt-BR')
-    const numberPhoneMin = value.length==11
-    if (validNumberPhone && numberPhoneMin ) {
+    const numberPhoneMin = value.length == 11
+    if (validNumberPhone && numberPhoneMin) {
         return initError
     } else {
         return {
@@ -60,7 +60,7 @@ const isMobilePhone = (value: string): errorValidation => {
 };
 const isStrongPassword = (value: string): errorValidation => {
     const isValidPassword = validator.isStrongPassword(value);
-    
+
     if (isValidPassword) {
         return initError
     } else {

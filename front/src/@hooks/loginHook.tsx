@@ -1,4 +1,4 @@
-import { errorValidation } from "@/@types/validations/validations";
+import { errorValidation } from "@/@types/validations";
 import { useCustomInput } from "./inputHooks";
 
 

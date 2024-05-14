@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useCustomInput } from "./inputHooks";
-import { errorValidation } from "@/@types/validations/validations";
+import { errorValidation } from "@/@types/validations";
 
 export const useCustomRegister = (style: { readonly [key: string]: string; }) => {
   const { setInputValue, inputValue, handleInputsEmpty, setErros, erros } = useCustomInput();

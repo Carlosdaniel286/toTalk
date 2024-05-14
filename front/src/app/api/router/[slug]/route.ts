@@ -1,15 +1,16 @@
 
 type posts ={
   user:string
-  id:number,
+  id:string,
   content:string,
-
+  date:Date
 }
 export const arry:posts[] =[ 
   {
-  id:0.1,
+  id:"0",
   content:'bem vindo ao toTalk',
-  user:''
+  user:'',
+  date:new Date()
 }]
 
 class creatPost {
@@ -20,9 +21,10 @@ class creatPost {
 
   save(){
     const obj ={
-      id:arry.length+1,
+      id:(arry.length+1).toString(),
       content:this.content,
-      user:'carlos'
+      user:'carlos',
+      date:new Date()
     }
     arry.unshift(obj)
     return obj

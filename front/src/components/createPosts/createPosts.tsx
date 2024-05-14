@@ -2,12 +2,10 @@
 import React, { ChangeEvent, useState } from 'react';
 import { Button} from '@mui/joy';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import axios from 'axios';
 import { P } from '@/components/index';
-import { posts } from '@/app/toTalk/feed/[feed]/page';
-import { propsPost } from '@/@types/post';
 import {  useGetPost } from '@/contexts';
-import styles from './style/createPosts.module.css';
+import styles from './style/createPosts.module.css'
+import { propsPost } from '@/@types/post';
 import { SxProps } from '@mui/material/styles';
 import Textarea from '@mui/joy/Textarea';
 
@@ -37,7 +35,6 @@ const handleTextareaChange = (ev: ChangeEvent<HTMLTextAreaElement>) => {
        height:'100%',
        background:'white',
        borderRadius:'10px',
-     
        ...style
       }}
       >
@@ -52,7 +49,6 @@ const handleTextareaChange = (ev: ChangeEvent<HTMLTextAreaElement>) => {
        
         {renderButtonClose && 
           <>
-          
           <div className={styles.visible}>
         <P
          onClick={onClose}
@@ -67,7 +63,7 @@ const handleTextareaChange = (ev: ChangeEvent<HTMLTextAreaElement>) => {
 }
 </header>
         <div className={styles.user}>
-          <AccountCircleIcon sx={{ paddingRight: '10px', height: '40px', width: '40px' }} />
+          <AccountCircleIcon sx={{  height: '40px', width: '40px' }} />
          </div>
         <div className={styles.write}
          style={{

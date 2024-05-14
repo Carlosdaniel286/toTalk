@@ -4,7 +4,8 @@ type posts ={
   user:string
   content:string,
   idPosts:number,
-  id:number
+  id:string,
+  date:Date
 }
 
 export const comment:posts[]=[]
@@ -26,7 +27,8 @@ class Comments {
      user:this.user,
      content:this.content,
      idPosts:this.idPosts,
-     id:comment.length+1
+     id:(comment.length+1).toString(),
+     date:new Date()
    }
   }
 }

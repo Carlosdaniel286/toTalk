@@ -1,5 +1,5 @@
 'use client'
-import { posts } from '../../[feed]/page';
+//import { posts } from '../../[feed]/page';
 import { Scroll } from '@/components/scroll/scroll';
 import { Post } from '@/components/post/post';
 import { useParams } from 'next/navigation';
@@ -8,11 +8,14 @@ import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { CreatPost } from '@/components/createPosts/createPosts';
 import { Comments } from '@/components/comments/comments';
+import { initPosts } from '@/constants';
+import { posts } from '@/@types/post';
 type comments ={
   user:string
-  id:number,
+  id:string,
   content:string,
   idPosts:number,
+  date:Date,
 
 }
 
@@ -21,11 +24,7 @@ type comments ={
 export default function RenderComments(){
 const params = useParams()
 const id = params.slug as string
-const[posts, setPosts]=useState<posts>({
-  user:'',
-  content:'',
-  id:0,
-})
+const[posts, setPosts]=useState<posts>(initPosts)
 const [ text , setText]=useState('')
 const[comments, setComments]=useState<comments[]>([])
 
@@ -100,14 +99,8 @@ setComments(updatedComments);
  console.log(erro)
 }
 };
-const myRef = useRef<HTMLDivElement>(null);
+
  
-
-
-
-
-
-
 return(
     <main className={style.main}>
     <Scroll 
@@ -115,18 +108,17 @@ return(
        maxHeight:'93vh',
        }}
      renderFloating={false}
-     ref={myRef}
      lastSpace={false}
     >
       
-    {posts.content!=='' && posts.id!=0 && 
+    {posts.content!=='' && posts.id!='' && 
     <Post
      style={{
       borderBottom:'1px solid rgb(185, 180, 180,0.4)',
       width:`100%`,
       maxWidth:'650px'
      }}
-      content={posts.content}
+      content={posts}
       renderFullPost={true}
      />
     }
@@ -135,7 +127,6 @@ return(
         style={{
           border:'1px solid rgb(185, 180, 180,0.4)',
          borderRadius:'none',
-         //border: '1px solid rgba(0, 0, 255, 0.6)',
           marginTop:'10px',
           fontSize:'1.2rem'
          }}
@@ -148,19 +139,19 @@ return(
           placeholder='Postar sua Resposta'
           onClick={handleSubmit}
        />
-        
-        </div>
+    </div>
+   
    {comments.length>0 && comments.map((item)=>(
     <div key={item.id}>
        <Comments
-        content={item.content}
-        style={{
-          marginTop:'10px'
+        content={item}
+         style={{
+          marginTop:'10px',
+          maxWidth:"650px",
+         
         }}
        />
-
-
-    </div>
+       </div>
   ))}
 </Scroll>
 

@@ -2,17 +2,22 @@
 
 import { Post } from "../post/post"
 import { propsPost } from "@/@types/post"
+import { posts } from "@/@types/post"
 
-export const Comments =({content,id}:propsPost)=>{
+
+export const Comments =({content,id,style}:propsPost)=>{
   return(
-    <div >
+    < >
     <Post
       content={content}
       id={id}
+      typePost={"comments"}
       style={{
-        border:'0px'
+        border:'0px',
+        wordBreak:"break-word",
+        ...style
       }}
     />
-   </div>
+   </>
   )
 }

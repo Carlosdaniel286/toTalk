@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Overlay } from '@/components/overlay/overlay';
 import PostAddRoundedIcon from '@mui/icons-material/PostAddRounded';
 import { CreatPost } from '@/components/createPosts/createPosts'
-import { proposSiderbar } from '@/@types/propsSiderBar/proposSiderBar';
+import { proposSiderbar } from '@/@types/proposSiderBar';
 import React from 'react';
 import { posts, useGetPost } from '@/contexts/getPosts';
 import axios from 'axios';

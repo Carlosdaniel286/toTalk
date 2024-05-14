@@ -1,13 +1,9 @@
 'use client'
 
 import { ReactNode, createContext, useContext, useState } from "react";
+import { posts } from "@/@types/post";
 import { initPosts } from "@/constants";
-export type posts ={
-    user?:string
-    id?:number,
-    content:string,
-  
-  }
+
 type proposGetPost={
     children:ReactNode
 }
@@ -20,9 +16,7 @@ interface getPostContext {
 const GetPostContext = createContext<getPostContext |undefined>(undefined)
 export const GetPostProvider =({children}:proposGetPost)=>{
     
-    const[ getPost , setPost]=useState<posts>({
-        content:''
-    })
+    const[ getPost , setPost]=useState<posts>(initPosts)
   
     const handlePosts = (value:posts) => {
         setPost({...getPost,...value})

@@ -1,9 +1,19 @@
 import { CSSProperties } from "react"
 
-export type propsPost={
-    id?: string 
-    style?:CSSProperties 
-    onClick?:(()=>void)
-    renderFullPost?:false | true
-    content:string
+export interface propsPost {
+  content: posts;
+  id?: string;
+  style?: React.CSSProperties;
+  onClick?: () => void;
+  renderFullPost?: boolean;
+  typePost?:'post'|'comments'
+}
+
+  export type posts ={
+    user:string
+    id:string,
+    content:string,
+    date:Date
+
+  
   }

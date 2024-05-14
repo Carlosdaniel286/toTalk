@@ -4,32 +4,19 @@ import style from './style/feed.module.css';
 import { Scroll } from '@/components/scroll/scroll';
 import {   useEffect, useState } from 'react';
 import { useGetPost } from '@/contexts';
-import { propsPost } from '@/@types/post';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { initPosts } from '@/constants';
+import { posts } from '@/@types/post';
 
-export type posts ={
-  user?:string
-  id?:number,
-  content:string,
 
-}
-type propsFeed={
-  post?:posts[],
-  renderFullPost?:boolean
-  comments?:propsPost[]
-}
 
 
 
 
 export default function Feed() {
   const router =useRouter()
-  const [contente,setConent] = useState<posts[]>([{
-    id:0,
-    content:'',
-    user:''
-  }]);
+  const [contente,setConent] = useState<posts[]>([initPosts]);
   const{getPost}=useGetPost()
 const gets = async()=>{
     const response = await axios.get('/api/router/carlos' ,{
@@ -64,10 +51,12 @@ const gets = async()=>{
         }}
          renderFloating={true}
         >
-        {contente.map((item,index) => (
+        {  contente.map((item,index) => (
+          
           <div key={item.id}>
+            {item.id!=='' && 
             <Post
-              content={item.content}
+              content={item}
               style={
               {
               maxWidth:'650px',
@@ -79,6 +68,7 @@ const gets = async()=>{
                router.push(`/toTalk/feed/comments/${item.id}`)
               })}
             />
+}
           </div>
           ))}
       </Scroll>

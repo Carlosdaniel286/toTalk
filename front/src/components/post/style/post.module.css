@@ -36,16 +36,18 @@
     display: flex;
     box-sizing: border-box;
     flex-direction: column;
-    height: 26px;
+    height:30px;
+    width: 40px;
     justify-content:flex-end;
     align-items: flex-end;
-    position: relative;
+   
 
 }
 .options{
-    position: absolute;
-    top: -60%;
-    right: 10%;
+    width: 200px;
+    height: 150px;
+    box-sizing: border-box;
+    display: inline;
     
 }
 
@@ -76,6 +78,7 @@
     margin-left: 33px;
     
     
+    
 }
 .contentPost p{
   font-family:'myFont';
@@ -103,6 +106,7 @@
 
 .info{
     display: flex;
-    align-items: center;
-    
+    align-items:flex-end;
+   
+    box-sizing: border-box;
 }

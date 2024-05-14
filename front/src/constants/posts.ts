@@ -1,8 +1,8 @@
-export const initPosts={
-    height: undefined,
+ import { posts } from "@/@types/post"
+ 
+ export const initPosts:posts={
+    user: '',
+    id: '',
     content: '',
-    borderBottom: undefined,
-    id: undefined,
-    style: undefined,
-    renderFullPost: undefined
+    date:new Date()
 }
