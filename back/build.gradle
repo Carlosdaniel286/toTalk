@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'io.quarkus'
+    id 'org.jetbrains.kotlin.jvm'
+
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+    implementation 'io.quarkus:quarkus-arc'
+    implementation 'io.quarkus:quarkus-rest'
+    testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.rest-assured:rest-assured'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation group: 'jakarta.persistence', name: 'jakarta.persistence-api', version: '3.0.0'
+    implementation("io.quarkus:quarkus-hibernate-orm")
+    implementation("io.quarkus:quarkus-jdbc-mysql")
+    implementation("io.quarkus:quarkus-hibernate-orm-panache")
+    implementation("io.quarkus:quarkus-hibernate-validator")
+
+
+}
+
+group 'com.apiTotalk'
+version '1.0-SNAPSHOT'
+
+java {
+}
+
+test {
+    systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
+}
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+kotlin {
+    jvmToolchain(21)
+}
