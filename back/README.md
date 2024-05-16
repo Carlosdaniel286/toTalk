@@ -1,38 +1,56 @@
-## Micronaut 4.4.2 Documentation
+# back
 
-- [User Guide](https://docs.micronaut.io/4.4.2/guide/index.html)
-- [API Reference](https://docs.micronaut.io/4.4.2/api/index.html)
-- [Configuration Reference](https://docs.micronaut.io/4.4.2/guide/configurationreference.html)
-- [Micronaut Guides](https://guides.micronaut.io/index.html)
----
+This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
-- [Micronaut Gradle Plugin documentation](https://micronaut-projects.github.io/micronaut-gradle-plugin/latest/)
-- [GraalVM Gradle Plugin documentation](https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html)
-- [Shadow Gradle Plugin](https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow)
-## Feature ksp documentation
+If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
-- [Micronaut Kotlin Symbol Processing (KSP) documentation](https://docs.micronaut.io/latest/guide/#kotlin)
+## Running the application in dev mode
 
-- [https://kotlinlang.org/docs/ksp-overview.html](https://kotlinlang.org/docs/ksp-overview.html)
+You can run your application in dev mode that enables live coding using:
+```shell script
+./gradlew quarkusDev
+```
 
+> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
 
-## Feature jdbc-hikari documentation
+## Packaging and running the application
 
-- [Micronaut Hikari JDBC Connection Pool documentation](https://micronaut-projects.github.io/micronaut-sql/latest/guide/index.html#jdbc)
+The application can be packaged using:
+```shell script
+./gradlew build
+```
+It produces the `quarkus-run.jar` file in the `build/quarkus-app/` directory.
+Be aware that it’s not an _über-jar_ as the dependencies are copied into the `build/quarkus-app/lib/` directory.
 
+The application is now runnable using `java -jar build/quarkus-app/quarkus-run.jar`.
 
-## Feature micronaut-aot documentation
+If you want to build an _über-jar_, execute the following command:
+```shell script
+./gradlew build -Dquarkus.package.jar.type=uber-jar
+```
 
-- [Micronaut AOT documentation](https://micronaut-projects.github.io/micronaut-aot/latest/guide/)
+The application, packaged as an _über-jar_, is now runnable using `java -jar build/*-runner.jar`.
 
+## Creating a native executable
 
-## Feature serialization-jackson documentation
+You can create a native executable using: 
+```shell script
+./gradlew build -Dquarkus.native.enabled=true
+```
 
-- [Micronaut Serialization Jackson Core documentation](https://micronaut-projects.github.io/micronaut-serialization/latest/guide/)
+Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
+```shell script
+./gradlew build -Dquarkus.native.enabled=true -Dquarkus.native.container-build=true
+```
 
+You can then execute your native executable with: `./build/back-1.0-SNAPSHOT-runner`
 
-## Feature test-resources documentation
+If you want to learn more about building native executables, please consult https://quarkus.io/guides/gradle-tooling.
 
-- [Micronaut Test Resources documentation](https://micronaut-projects.github.io/micronaut-test-resources/latest/guide/)
+## Provided Code
 
+### REST
 
+Easily start your REST Web Services
+
+[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
