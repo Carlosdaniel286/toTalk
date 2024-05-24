@@ -1,6 +1,6 @@
-export interface Published {
+export  interface  Published {
     id:number
     content:string
-    createAt:Date
+    createdAt:Date
     author:string
 }

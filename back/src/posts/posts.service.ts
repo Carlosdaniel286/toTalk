@@ -19,16 +19,16 @@ export class PostsService {
                 },
                 id:true,
                 content:true,
-                createAt:true
+                createdAt:true
             },
             
         })
-       
-    return {...published,author:published.author.name}
+       const post = {...published,author:published.author.name}
+       return post
         }catch(err){
             if (err instanceof Prisma.PrismaClientKnownRequestError) {
                 if (err.code === 'P2003') {
-                  throw new HttpException('Este Usuário não existe', HttpStatus.FORBIDDEN);
+                  throw new HttpException('Este Usuário não existe', HttpStatus.NOT_FOUND);
                 }
               }
               throw new HttpException('Erro desconhecido', HttpStatus.FORBIDDEN);

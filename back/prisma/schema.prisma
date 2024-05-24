@@ -10,25 +10,25 @@ datasource db {
 model User {
   id       Int       @id @default(autoincrement()) 
   active   Boolean?  @default(true)
-  createAt DateTime? @default(now())
+ createdAt DateTime? @default(now())
   email    String    @unique
   name     String
   password String
   posts    Post[]
-  comments  Comment[]
-  response  ResponseComment[]
+  comments Comment[]
+  Replay   Replay[]
   @@map("user")
 }
 
 model Post {
   id        Int       @id @default(autoincrement())
   content   String?
-  createAt  DateTime? @default(now())
+  createdAt  DateTime? @default(now())
   published Boolean?  @default(false)
   author    User      @relation(fields: [authorId], references: [id])
   authorId  Int
   comments  Comment[]
-  response  ResponseComment[]
+  response  Replay[]
   @@map("post")
 }
 model Comment {
@@ -39,10 +39,10 @@ model Comment {
   postId    Int
   author      User      @relation(fields: [ authorId ], references: [id])
   authorId     Int
-  response  ResponseComment[]
+  Replay      ReplayComment[]
   @@map("comment")
 }
-model ResponseComment {
+model Replay {
   id        Int       @id @default(autoincrement())
   content   String
   createdAt DateTime? @default(now())
@@ -50,7 +50,16 @@ model ResponseComment {
   postId    Int
   author      User      @relation(fields: [authorId], references: [id])
   authorId    Int
-  idComments Int
-  comments   Comment @relation(fields: [idComments], references: [id])
-  @@map("responseComments")
+  commentsId Int
+  comments   ReplayComment[]
+  @@map("replay")
+}
+
+model ReplayComment {
+  id        Int      @id @default(autoincrement())
+  replay    Replay?   @relation(fields: [replayId], references: [id])
+  replayId  Int?
+  comment   Comment  @relation(fields: [commentId], references: [id])
+  commentId Int
+   @@map("replayComment")
 }

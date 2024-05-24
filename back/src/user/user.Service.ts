@@ -5,9 +5,10 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { PrismaService } from '../prisma.service';
 import { Message } from './interface/message';
 
+
 @Injectable()
 export class CreateUserService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async createUser(createUserDto: CreateUserDto): Promise<Message> {
     try {

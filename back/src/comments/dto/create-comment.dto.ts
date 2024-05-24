@@ -1,15 +1,12 @@
-import { IsNotEmpty,IsString, IsNumber} from 'class-validator';
+import { IsNotEmpty, IsNumber,IsOptional} from 'class-validator';
+import { CreatePostDto } from 'src/posts/dto/create-post.dto/create-post.dto';
 
-export class CreateCommentDto {
-    @IsNotEmpty({message:'Existe campo vazio'})
-    @IsString()
-    readonly content:string
-    
+export class CreateCommentDto extends CreatePostDto{
     @IsNumber()
     @IsNotEmpty({message:'Existe campo vazio'})
-    readonly postId:number
-
+    readonly postId:number;
+    @IsOptional()
     @IsNumber()
     @IsNotEmpty({message:'Existe campo vazio'})
-    readonly authorId:number
+    readonly replayId:number;
 }
