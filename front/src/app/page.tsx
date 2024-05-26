@@ -2,5 +2,5 @@
 import { redirect } from 'next/navigation'
 
 export default function Home() {
-  return redirect('/toTalk/feed/carlos')
+  return redirect('/registerUser')
 }

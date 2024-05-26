@@ -1,10 +1,9 @@
 import { initError } from "./validations"
 
-export const initInputValue={
+ export const initInputValue={
     name: '',
-    lastName: '',
-    phone: '',
-    password: '',
+   phone: '',
+    password:'',
     email: '',
 }
 

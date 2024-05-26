@@ -11,7 +11,7 @@ export class LoginController {
  async login(@Res({ passthrough: true })res:Response, @Body()loginDto:LoginDto  ) {
     console.log(loginDto)
     const token =  await this.userServiceLogin.findOne(loginDto)
-    res.cookie('key', token,{httpOnly:true})
+    res.header('key', token)
    return "login feito com sucesso"
   }
 }

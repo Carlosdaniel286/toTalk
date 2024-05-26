@@ -1,12 +1,15 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber,IsOptional} from 'class-validator';
 import { CreatePostDto } from 'src/posts/dto/create-post.dto/create-post.dto';
 
 export class CreateCommentDto extends CreatePostDto{
-    @IsNumber()
+   // @ApiProperty()
     @IsNotEmpty({message:'Existe campo vazio'})
-    readonly postId:number;
+    @IsNumber()
+   readonly postId:number;
     @IsOptional()
-    @IsNumber()
+   // @ApiProperty()
     @IsNotEmpty({message:'Existe campo vazio'})
+    @IsNumber()
     readonly replayId:number;
 }

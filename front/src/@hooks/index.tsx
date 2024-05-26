@@ -1,6 +1,6 @@
 import { useCustomInput } from "./inputHooks";
-import { useCustomRegister } from "./resgisterHook";
-import { useCustomLogin } from "./loginHook";
-import { useCostumResize } from "./resizeHook";
+//import { useCustomRegister } from "./resgisterHook";
+//import { useCustomLogin } from "./loginHook";
+//import { useCostumResize } from "./resizeHook";
 
-export { useCustomInput, useCustomRegister, useCustomLogin,useCostumResize }
+export { useCustomInput }

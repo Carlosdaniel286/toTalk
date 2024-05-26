@@ -9,8 +9,8 @@ export class CommentsController {
 
   @Post('/comments')
  async create(@Body() createCommentDto: CreateCommentDto) {
-    console.log(createCommentDto)
-    return await this.commentsService.createComments(createCommentDto);
+  
+    return  await this.commentsService.createComments(createCommentDto);
   }
 
  

@@ -30,7 +30,7 @@ export function FormControl({type,onSubmit,content,text,buttonText}:propsFormCon
           </Button>
           <nav className={style.nav}>
             <ul>
-              <Link href={type=='login'?`/${'register'}`:`/${'login'}`}>
+              <Link href={type=='login'?`/${'registerUser'}`:`/${'login'}`}>
                 <li > {type=='login'? 'Não tenho conta': 'já tenho conta'}</li>
               </Link>
             </ul>
