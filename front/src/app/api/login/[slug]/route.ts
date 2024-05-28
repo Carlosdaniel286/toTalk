@@ -2,12 +2,13 @@
 import { urlServer } from "@/@variables/env"
 import axios, { AxiosError } from "axios"
 import { serialize} from 'cookie';
+import { cookies } from "next/headers";
 
 export async function POST(req: Request) {
-  const messages= await req.json()
   try{
+  const messages= await req.json()
   const res = await axios.post(`${urlServer}/login`,messages)
-  const token = res.headers['key']
+  const token = res.headers['token']
   const serializedCookie = serialize('token', token, {
     httpOnly: true,
     secure: true,
@@ -30,10 +31,8 @@ export async function POST(req: Request) {
         status:status,
        })
      }
-}
-  
- 
-  return new Response('Success!', {
-    status: 200,
-  })
-}
+     return new Response('erro', {
+      status:400,
+     })
+    }
+  }

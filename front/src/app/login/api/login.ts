@@ -14,9 +14,7 @@ export const apiLogin = async (email: string, password: string) => {
     if (error instanceof AxiosError) {
       const status = error.response?.status;
       const message = error.response?.data;
-      console.log(status);
-      console.log(message);
-      return {
+     return {
         message,
         status
       };

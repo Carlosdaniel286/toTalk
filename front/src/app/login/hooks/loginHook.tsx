@@ -1,9 +1,14 @@
-import { errorValidation } from "@/@types/validations";
+
 import { useCustomInput } from "../../../@hooks/inputHooks";
-import { validations,isEmpty } from "@/functions/validations/validation";
+import { isEmpty } from "@/functions/validations/validation";
 import { apiLogin } from "../api/login";
+import { useRouter } from "next/navigation";
+import { apiCheckToken } from "../api/checkToken";
+import { useEffect } from "react";
+
 
 export const useCustomLogin = () => {
+  const router = useRouter()
   const { setInputValue, inputValue, setErros, erros } = useCustomInput();
 
   const onSubmit = async () => {
@@ -18,10 +23,19 @@ export const useCustomLogin = () => {
       return
     }
   const{email,password}=inputValue
-  await apiLogin(email??'',password??'')
-    
+  const login = await apiLogin(email??'',password??'')
+  if(login.status==200) router.push('/toTalk/feed/carlos')
 
   };
-  return { onSubmit, setInputValue, inputValue, setErros, erros }
+  const checkToken = async()=>{
+    const token = await apiCheckToken()
+    if(token) router.push('/toTalk/feed/carlos')
+  }
+  useEffect(()=>{
+   checkToken()
+   },[])
+  
+  
+  return { onSubmit, setInputValue, inputValue, setErros, erros, }
 
 }

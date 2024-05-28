@@ -8,11 +8,12 @@ import { CommentsModule } from './comments/comments.module';
 import { ReplayModule } from './replay/replay.module';
 import { LoginModule } from './login/login.module';
 import { LoggerMiddleware} from './common/logger-middleware/logger-middleware.middleware';
+import { FeedModule } from './feed/feed.module';
 
 @Module({
   controllers: [AppController],
   providers: [AppService, PrismaService],
-  imports: [CreateUserModule, PostsModule, CommentsModule, ReplayModule,LoginModule],
+  imports: [CreateUserModule, PostsModule, CommentsModule, ReplayModule,LoginModule, FeedModule],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

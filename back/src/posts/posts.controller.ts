@@ -6,7 +6,7 @@ import { PostsService } from './posts.service';
 @Controller()
 export class PostsController {
   constructor(private readonly postsService:PostsService) {}
-  @Post('/post')
+  @Post('/createPost')
   async createPost(@Body() createPostDto:CreatePostDto){
    return await this.postsService.createPostService(createPostDto)
 

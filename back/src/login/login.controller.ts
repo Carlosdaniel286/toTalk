@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res } from '@nestjs/common';
 import { UserServiceLogin } from './login.service';
 import { Response } from 'express';
 import { LoginDto } from './dto/login.dto';
@@ -11,7 +11,13 @@ export class LoginController {
  async login(@Res({ passthrough: true })res:Response, @Body()loginDto:LoginDto  ) {
     console.log(loginDto)
     const token =  await this.userServiceLogin.findOne(loginDto)
-    res.header('key', token)
+    res.header('token', token)
    return "login feito com sucesso"
   }
+ @Get("/Token")
+  async checkToken() {
+    return "sucesso"
+   }
 }
+
+

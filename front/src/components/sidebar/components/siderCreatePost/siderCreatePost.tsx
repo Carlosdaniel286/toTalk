@@ -5,37 +5,19 @@ import { Overlay } from '@/components/overlay/overlay';
 import PostAddRoundedIcon from '@mui/icons-material/PostAddRounded';
 import { CreatPost } from '@/components/createPosts/createPosts'
 import { proposSiderbar } from '@/@types/proposSiderBar';
+import { apiCreatePost } from '../../api/apiUpdatePost';
+import { useUpdatePost } from '@/contexts';
 import React from 'react';
-import { posts, useGetPost } from '@/contexts/getPosts';
-import axios from 'axios';
-
 
 export const SiderBarCreatePost = ({ onClose, onClick, visible }: proposSiderbar) => {
+    const{UpdatePosts}=useUpdatePost()
     const [displayCreatePost, toggleDisplayCreatePost] = useState(false);
     const isVisible = visible ?? true
-    const [text, setText] = useState({
-        user:'carlos',
-        id:0,
-        content: ''
-    });
     const onClosed = onClose ?? (()=>{})
-    const{handlePosts}=useGetPost()
-    const gets = async()=>{
-        try{
-        const response = await axios.post(`/api/router/carlos`,text,{
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-        const res:posts = response.data
-        console.log(res)
-        handlePosts(res)
-        
-      }catch(err){
-        throw(err)
-      }
-       }
-     return (
+    const [content, setConent] = useState('');
+   
+     
+    return (
         <>
             {displayCreatePost &&
                 <Overlay
@@ -69,15 +51,16 @@ export const SiderBarCreatePost = ({ onClose, onClick, visible }: proposSiderbar
                          onClosed()
                     })}
                     maxRows={15}
-                    onClick={(()=>{
-                        gets()
+                    onClick={(async()=>{
+                       const res = await apiCreatePost({content})
+                       UpdatePosts(res)
                         toggleDisplayCreatePost(false);
                         onClosed()
                       
                     })}
                     onChange={((ev)=>{
                         const texts = ev.target.value
-                        setText({...text,content:texts})
+                        setConent(texts)
                     })}
                     />
                     </div>

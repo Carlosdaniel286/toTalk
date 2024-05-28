@@ -9,29 +9,29 @@ type proposGetPost={
 }
 
 interface getPostContext {
-    getPost: posts | undefined
-    handlePosts: (value:posts) => void
+    newPost: posts | undefined
+    UpdatePosts: (value:posts) => void
 }
 
-const GetPostContext = createContext<getPostContext |undefined>(undefined)
+const UpdatePostContext = createContext<getPostContext |undefined>(undefined)
 export const GetPostProvider =({children}:proposGetPost)=>{
     
-    const[ getPost , setPost]=useState<posts>(initPosts)
+    const[ newPost , setPost]=useState<posts>(initPosts)
   
-    const handlePosts = (value:posts) => {
-        setPost({...getPost,...value})
+    const UpdatePosts = (value:posts) => {
+        setPost({...newPost,...value})
       };
     
     
     return(
-    <GetPostContext.Provider value={{getPost,handlePosts}}>
+    <UpdatePostContext.Provider value={{newPost,UpdatePosts}}>
        {children}
-   </GetPostContext.Provider>
+   </UpdatePostContext.Provider>
  )
 }
 
-export const useGetPost = () => {
-    const context = useContext(GetPostContext);
+export const useUpdatePost = () => {
+    const context = useContext(UpdatePostContext);
     if (!context) {
         throw new Error("useGetPost deve ser usado dentro de um SidebarProvider");
     }

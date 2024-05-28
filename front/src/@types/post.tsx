@@ -9,11 +9,16 @@ export interface propsPost {
   typePost?:'post'|'comments'
 }
 
-  export type posts ={
-    user:string
-    id:string,
-    content:string,
-    date:Date
-
+export type newPost={
+  content: string,
+}
   
+
+
+export type posts = newPost&{
+    id: number,
+    createdAt: string,
+    published: boolean,
   }
+
+ 

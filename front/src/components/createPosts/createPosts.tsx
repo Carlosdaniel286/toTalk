@@ -3,7 +3,6 @@ import React, { ChangeEvent, useState } from 'react';
 import { Button} from '@mui/joy';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { P } from '@/components/index';
-import {  useGetPost } from '@/contexts';
 import styles from './style/createPosts.module.css'
 import { propsPost } from '@/@types/post';
 import { SxProps } from '@mui/material/styles';
@@ -21,7 +20,7 @@ type Comments = Omit<propsPost, 'content'> & {
   minHeight?:string
 };
 
-export const CreatPost = ({ onClose, style ,maxRows,onChange,buttonClose,minRows,value,onClick,placeholder,minHeight}: Comments) => {
+export const CreatPost = ({ onClose, style ,maxRows,onChange,buttonClose,minRows,value,onClick,placeholder}: Comments) => {
   const renderButtonClose = buttonClose !== undefined ? buttonClose : true;
 
 const handleTextareaChange = (ev: ChangeEvent<HTMLTextAreaElement>) => {
@@ -61,7 +60,7 @@ const handleTextareaChange = (ev: ChangeEvent<HTMLTextAreaElement>) => {
   </div>
   </>
 }
-</header>
+      </header>
         <div className={styles.user}>
           <AccountCircleIcon sx={{  height: '40px', width: '40px' }} />
          </div>

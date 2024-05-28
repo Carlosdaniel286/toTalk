@@ -1,5 +1,5 @@
 import { useSidebar,SiderProvider } from "./siderbar";
-import { useGetPost ,GetPostProvider } from "./getPosts";
+import { useUpdatePost ,GetPostProvider } from "./updatePosts";
 
 
-export{useSidebar,SiderProvider,GetPostProvider,useGetPost}
+export{useSidebar,SiderProvider,GetPostProvider,useUpdatePost}
