@@ -8,7 +8,7 @@ import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { CreatPost } from '@/components/createPosts/createPosts';
 import { Comments } from '@/components/comments/comments';
-import { initPosts } from '@/constants';
+
 import { posts } from '@/@types/post';
 type comments ={
   user:string
@@ -24,7 +24,7 @@ type comments ={
 export default function RenderComments(){
 const params = useParams()
 const id = params.slug as string
-const[posts, setPosts]=useState<posts>(initPosts)
+const[posts, setPosts]=useState<posts>()
 const [ text , setText]=useState('')
 const[comments, setComments]=useState<comments[]>([])
 
@@ -111,7 +111,7 @@ return(
      lastSpace={false}
     >
       
-    {posts.content!=='' && posts.id!='' && 
+    {posts !==undefined && 
     <Post
      style={{
       borderBottom:'1px solid rgb(185, 180, 180,0.4)',
@@ -142,9 +142,10 @@ return(
     </div>
    
    {comments.length>0 && comments.map((item)=>(
+    /*
     <div key={item.id}>
        <Comments
-        content={item}
+       content={item}
          style={{
           marginTop:'10px',
           maxWidth:"650px",
@@ -152,6 +153,9 @@ return(
         }}
        />
        </div>
+
+       */
+      <></>
   ))}
 </Scroll>
 

@@ -1,23 +1,44 @@
 import axios, { AxiosError } from "axios";
 import { urlServer } from "@/@variables/env";
 
-export const apiCreateUser = async (name:string,password:string,email:string) => {
+type Message ={
+  message:string,
+  code:number
+}
+
+export const apiCreateUser = async (name:string,password:string,email:string):Promise<Message>  => {
     try {
-      console.log(urlServer)
+      const newName = name.split(' ').join('')
       const response = await axios.post(`${urlServer}/createUser`,{
-        name,
+        name:newName,
         password,
         email,
       });
-      console.log(response.data)
-      return response.data
+      return {
+        message:'Usuário criado com sucesso',
+        code:200
+      }
       } catch (error) {
       if(error instanceof AxiosError){
-        const status = error.response?.data['statusCode']
         const message:string|string[] = error.response?.data['message']
-        console.log(message[0])
+        
+       if(typeof message=='string')  return {
+        message,
+        code:400
       }
+        const mes = message.map((ev)=>{
+         return ev
+        })
+        return {
+          message:mes.join(' '),
+          code:400
+        }
       
+      }
+      return {
+        message:'erro',
+        code:400
+      }
       
     }
   };

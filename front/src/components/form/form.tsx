@@ -1,7 +1,7 @@
 import style from './styles/form.module.css';
 import { Button } from '@mui/joy';
 import Link from 'next/link';
-import {useState } from 'react';
+
 type propsFormControl={
     type:'resgister'|'login'
     onSubmit:(()=>void),

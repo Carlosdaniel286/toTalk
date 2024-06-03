@@ -31,6 +31,8 @@ export class LoggerMiddleware implements NestMiddleware {
       const newBody = { ...dtoBody, authorId: decoded.userId };
       req.body = newBody;
 
+      
+      
       next();
     } catch (err) {
       // Trata erros específicos

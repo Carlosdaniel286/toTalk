@@ -1,62 +1,32 @@
-'use client'
-import { FormControl } from "../../components/form/form";
-import { InputStandard } from "../../components/standard_Input/inputs";
-import { validations } from "@/functions/validations/validation";
-import style from './style/login.module.css';
-import { initError } from "@/constants";
-import { useCustomLogin } from "./hooks/loginHook";
-import { Header } from "@/components/header/header";
-import { useEffect } from "react";
+import { urlServer } from "@/@variables/env";
+import { LoginForm } from "./login"
+import axios, { AxiosError} from "axios";
+import { v4 as uuidv4 } from 'uuid';
+import { redirect } from "next/navigation";
 
+async function getProjects() {
+  try {
+     await axios.get(`${urlServer}/token`, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      }
+    });
+    return 200;
+  } catch (error) {
+    console.error("Erro ao obter projetos:", error);
+    return 400;
+  }
+}
 
-export default function LoginForm() {
-  const { onSubmit, setInputValue, inputValue, setErros, erros } = useCustomLogin()
-  
-  
-  
-  
-  
-  
-  return (
-    <>
-     <Header />
-    <div className={style.container}>
-      <FormControl
-        type='login'
-        onSubmit={() => onSubmit()}
-        text=""
-        buttonText=""
-        content={
-          <>
-            <InputStandard
-              label=''
-              onChange={(ev) => {
-                setInputValue({ ...inputValue, email: ev });
-                const validation = validations(ev, 'email');
-                setErros('email', validation);
-              }}
-              value={inputValue.email}
-              placeholder='Digite um email...'
-              inputType={'email'}
-              error={erros.email.error}
-              errorMessage={erros.email.message}
-            />
-            <InputStandard
-              label=''
-              onChange={(ev) => {
-                setInputValue({ ...inputValue, password: ev });
-                setErros('password', initError);
-              }}
-              value={inputValue.password}
-              placeholder='Digite um senha...'
-              inputType={'password'}
-              error={erros.password.error}
-              errorMessage={erros.password.message}
-            />
-          </>
-        }
-      />
-    </div>
-    </>
+export default async function Login() {
+  const status = await getProjects();
+  const idTemporary = uuidv4();
+  if (status === 200) {
+    return redirect(`/toTalk/feed/${idTemporary}`);
+  }
+return (
+    <LoginForm/>
   );
 }

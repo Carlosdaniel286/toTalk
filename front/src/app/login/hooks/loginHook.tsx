@@ -3,10 +3,8 @@ import { useCustomInput } from "../../../@hooks/inputHooks";
 import { isEmpty } from "@/functions/validations/validation";
 import { apiLogin } from "../api/login";
 import { useRouter } from "next/navigation";
-import { apiCheckToken } from "../api/checkToken";
-import { useEffect } from "react";
-
-
+import { v4 as uuidv4 } from 'uuid';
+import Swal from 'sweetalert2';
 export const useCustomLogin = () => {
   const router = useRouter()
   const { setInputValue, inputValue, setErros, erros } = useCustomInput();
@@ -24,16 +22,30 @@ export const useCustomLogin = () => {
     }
   const{email,password}=inputValue
   const login = await apiLogin(email??'',password??'')
-  if(login.status==200) router.push('/toTalk/feed/carlos')
-
-  };
-  const checkToken = async()=>{
-    const token = await apiCheckToken()
-    if(token) router.push('/toTalk/feed/carlos')
+  const idTemporary = uuidv4();
+  if(login.status==400){
+    return Swal.fire({
+       title: 'ops',
+       text: login.message,
+       icon: 'warning',
+      
+     });
+     
+   }
+  if(login.status==200){
+    Swal.fire({
+     title: 'sucesso',
+     text: login.message,
+     icon:'success',
+    showConfirmButton:false,
+    timer:1000
+   });
+   
   }
-  useEffect(()=>{
-   checkToken()
-   },[])
+  if(login.status==200) router.push(`/toTalk/feed/${idTemporary}`)
+    
+  
+  }
   
   
   return { onSubmit, setInputValue, inputValue, setErros, erros, }

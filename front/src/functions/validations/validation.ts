@@ -1,13 +1,40 @@
-
 import { typeValidations, errorValidation, inputType } from '@/@types/validations';
-import validator from 'validator';
 import { initError } from '@/constants';
 import { z } from 'zod';
 interface validations extends typeValidations {
     value: string
 }
-const lettersOnlyRegex = /^[a-zA-Z]+$/;
-const name= z.string({message:'no nome'}).regex(lettersOnlyRegex).optional()
+
+const regex = /^[a-zA-Z\s]+$/
+const message = "Apenas letras e espaços são permitidos"
+const onlyEspace = /\s{2,}/
+
+const name = z.string().superRefine((ev,ctx)=>{
+    const espaceStartsWith = ev.startsWith(' ');
+    const testLetter = regex.test(ev);
+    const testOnlyEspace = onlyEspace.test(ev)
+   if (espaceStartsWith){
+        ctx.addIssue({
+            code:'custom',
+            message,
+          });
+    }
+  
+    if (!testLetter){
+        ctx.addIssue({
+            code:'custom',
+            message,
+          });
+    }
+    if (testOnlyEspace){
+        ctx.addIssue({
+            code:'custom',
+            message,
+          });
+    }
+    
+    //return true;
+}).optional();
 const phone= z.string({message:'no phone'}).min(8).optional()// Altere o valor mínimo conforme necessário
 const password= z.string({message:'no pass'}).min(6).optional()// Altere o valor mínimo conforme necessário
 const email= z.string({message:'no emial'}).email().optional()
@@ -38,12 +65,14 @@ export const validations = (value: string,inputType: inputType): errorValidation
 };
 
 export const isName = (value: string): errorValidation => {
-  if (name.safeParse(value).success) {
+    const isNames = name.safeParse(value)
+   
+  if (isNames.success) {
         return initError
     } else {
         return {
             error: true,
-            message: 'Apenas letras são permitidas'
+            message: isNames.error.issues[0].message
         };
     }
 };
@@ -91,9 +120,14 @@ export const isEmpty = (value: string): errorValidation => {
     }
 };
 
+export const capitalFirstLetter = (value: string)=> {
+   const splitValue = value.split(' ')
+   const mapValue = splitValue.map((ev) => {
+    return ev.charAt(0).toUpperCase() + ev.slice(1);
+});
+   return mapValue.join(' ')
+};
 
 
 
-
-// Schema de validação
 

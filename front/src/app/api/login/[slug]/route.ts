@@ -24,7 +24,7 @@ export async function POST(req: Request) {
   
    }catch(err){
     if(err instanceof AxiosError){
-      console.log(err)
+      console.log(err.response?.headers)
       const status = err.response?.data['statusCode']
       const message = err.response?.data['message']
       return new Response(message, {

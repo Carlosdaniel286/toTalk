@@ -4,3 +4,11 @@
   padding-left: 2px;
 
 }
+.header h1 {
+  font-family: 'myFont';
+}
+@media (max-width:450px) {
+  .header h1 {
+    padding-left: 20px;
+  }
+}

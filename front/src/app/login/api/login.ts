@@ -8,21 +8,20 @@ export const apiLogin = async (email: string, password: string) => {
     });
     return {
       message: response.data,
-      status: response.status
+      status: 200
     };
   } catch (error) {
     if (error instanceof AxiosError) {
-      const status = error.response?.status;
       const message = error.response?.data;
      return {
         message,
-        status
+        status:400
       };
-    } else {
-      return {
-        error,
-        status: 400
-      };
+     
+    }
+    return{
+      message:'erro',
+      status:400
     }
   }
 };

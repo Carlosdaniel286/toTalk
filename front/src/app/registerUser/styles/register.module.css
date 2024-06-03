@@ -7,6 +7,7 @@
     transition: opacity 1s ease; 
     transition: transform 1s ease;
     transform: translateX(0);
+    box-sizing: border-box;
     
   }
 
@@ -19,6 +20,14 @@
   opacity: 0;
   transition: opacity 1s, transform 1s; 
   transform: translateX(100%);
+  }
+ 
+  @media (max-width:450px) {
+    .container{
+      padding-left: 23px;
+      padding-right: 23px;
+      
+    }
   }
  
 

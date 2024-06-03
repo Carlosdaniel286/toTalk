@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCustomInput } from "../../../@hooks/inputHooks";
 import { isEmpty} from "@/functions/validations/validation";
 import { apiCreateUser } from "../api/resgister.user";
+import Swal from 'sweetalert2';
+import { useRouter } from "next/navigation";
 
 
 export const useCustomRegister = (style: { readonly [key: string]: string; }) => {
+  const router = useRouter()
   const { setInputValue, inputValue, setErros, erros } = useCustomInput();
   const [inputsConfirmed, setInputsConfirmed] = useState(true);
   const [styles, setStyles] = useState(style.container);
@@ -13,7 +16,7 @@ export const useCustomRegister = (style: { readonly [key: string]: string; }) =>
     button: 'próximo'
   });
 
-  const onSubmit = () => {
+const onSubmit = () => {
     const inputsIsEmpty = isEmpty(inputValue.name??'')
     if(inputsIsEmpty.error){
       setErros('name',{...inputsIsEmpty})
@@ -45,13 +48,33 @@ export const useCustomRegister = (style: { readonly [key: string]: string; }) =>
         setErros("email" ,newErrors.email);
         newErrors.password = isEmptyPassword;
         setErros("password" ,newErrors.password);
-        return
+        
       }
     const{name,password,email}=inputValue
-     await apiCreateUser(name??'',password??'',email??'')
-    
+    const newUser = await apiCreateUser(name??'',password??'',email??'')
+    if(newUser.code==400){
+     return Swal.fire({
+        title: 'ops',
+        text: newUser.message,
+        icon: 'warning',
+       
+      });
       
-    };
+    }
+   if(newUser.code==200){
+     Swal.fire({
+      title: 'sucesso',
+      text: newUser.message,
+      icon:'success',
+     showConfirmButton:false,
+     timer:1000
+    });
+    router.push(`/login`)
+   }
+   
+   
+  
+  };
   return {
     onSubmit,
     onCreateAccount,

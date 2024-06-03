@@ -6,7 +6,6 @@ import { LoginDto } from './dto/login.dto';
 @Controller()
 export class LoginController {
   constructor(private readonly userServiceLogin : UserServiceLogin ) {}
-
   @Post("/login")
  async login(@Res({ passthrough: true })res:Response, @Body()loginDto:LoginDto  ) {
     console.log(loginDto)

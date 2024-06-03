@@ -8,10 +8,9 @@ export const apiCreatePost = async (post:newPost) => {
         withCredentials:true
        })
       const res:posts = response.data
-      console.log(res)
-      return res 
+       return res 
     } catch (error) {
-        throw(error)
+        throw new Error('sem posts')
       }
   };
   

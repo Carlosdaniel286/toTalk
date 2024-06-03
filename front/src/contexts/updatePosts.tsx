@@ -2,8 +2,6 @@
 
 import { ReactNode, createContext, useContext, useState } from "react";
 import { posts } from "@/@types/post";
-import { initPosts } from "@/constants";
-
 type proposGetPost={
     children:ReactNode
 }
@@ -16,7 +14,7 @@ interface getPostContext {
 const UpdatePostContext = createContext<getPostContext |undefined>(undefined)
 export const GetPostProvider =({children}:proposGetPost)=>{
     
-    const[ newPost , setPost]=useState<posts>(initPosts)
+    const[ newPost , setPost]=useState<posts>()
   
     const UpdatePosts = (value:posts) => {
         setPost({...newPost,...value})
