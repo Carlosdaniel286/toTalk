@@ -13,7 +13,6 @@ import { propsPost } from '@/@types/post';
 
 
 export function Post({ content, id, style, onClick, renderFullPost ,typePost}: propsPost) {
-  const stringData = content.date?.toLocaleString()
   const type = typePost==undefined?'post':typePost
   const {options,elementPosition,setOptions,elementRef,showFullContent}=usePostCustom(content.content,renderFullPost)
  
@@ -22,10 +21,10 @@ export function Post({ content, id, style, onClick, renderFullPost ,typePost}: p
       <header className={styles.header}>
         <div className={styles.user}>
           <AccountCircleIcon sx={{ paddingRight: '10px', fontSize: '2.4rem' }} />
-          <h4>Carlos289</h4>
+          <h4>{content.author}</h4>
         </div>
         <div className={styles.moment}>
-          <P style={{ color: 'rgba(68, 65, 65, 0.5)', fontSize: '0.8rem' }}>{stringData}</P>
+          <P style={{ color: 'rgba(68, 65, 65, 0.5)', fontSize: '0.8rem' }}>{content.createdAt}</P>
         </div>
         <div className={styles.option}>
           {options && elementPosition && (

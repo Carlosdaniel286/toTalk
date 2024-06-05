@@ -3,6 +3,8 @@ import { PrismaService } from 'src/prisma.service';
 import { CreateReplayDto } from './dto/replay.dto';
 import { Prisma } from '@prisma/client';
 import { Replay } from './interface/interface.replay';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 @Injectable()
 export class ReplayService {
@@ -40,6 +42,7 @@ export class ReplayService {
         const formattedReplay = {
             ...replay,
             author: replay.author.name,
+            createdAt: format(new Date(replay.createdAt), 'dd/MM/yyyy HH:mm:ss', { locale: ptBR })
           };
           
         return formattedReplay

@@ -14,7 +14,7 @@ export function Feed({ posts }: { posts: posts[] }) {
   const router = useRouter();
   const [content, setContent] = useState<posts[]>(posts);
   const { newPost } = useUpdatePost();
-
+  console.log(posts)
   useEffect(() => {
     if (!newPost) return;
     const updatedPosts = [newPost, ...content];
@@ -44,7 +44,7 @@ export function Feed({ posts }: { posts: posts[] }) {
                 }}
                 onClick={() => {
                   console.log(item.id);
-                  // router.push(`/toTalk/feed/comments/${item.id}`)
+                  router.push(`/toTalk/feed/comments/${item.id}`)
                 }}
               />
             </div>

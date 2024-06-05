@@ -6,6 +6,8 @@ import { posts } from "@/@types/post"
 
 
 export const Comments =({content,id,style}:propsPost)=>{
+  
+  
   return(
     < >
     <Post

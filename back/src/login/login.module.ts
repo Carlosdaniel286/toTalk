@@ -9,7 +9,7 @@ import { LoginController } from './login.controller';
   imports: [JwtModule.register({
     global: true,
     secret: jwtConstants.secret,
-    signOptions: { expiresIn: '1h' },
+    signOptions: { expiresIn: '24h' },
     
   }),],
   controllers: [LoginController],
