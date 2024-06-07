@@ -10,10 +10,10 @@ export class LoggerMiddleware implements NestMiddleware {
 
   use(req: Request, res: Response, next: () => void) {
     try {
-      console.log(req.headers)
+      console.log('middware')
       const token = req.cookies['token'];
       const dtoBody = req.body;
-    
+     console.log(token)
       // Verifica se o token está presente na solicitação
       if (!token) {
         throw new Error('Token not provided');

@@ -4,7 +4,9 @@ import { posts } from "@/@types/post"
 
 export const apiSearchPost= async(id:string):Promise<posts>=>{
   try{
-    const response = await axios.get<posts>(`${urlServer}/uniquePost/${id}`);
+    const response = await axios.get<posts>(`${urlServer}/uniquePost/${id}`,{
+      withCredentials:true
+    });
     return response.data;
   }catch(error){
     console.log(error)

@@ -7,7 +7,7 @@ import { Comments } from '@/components/comments/comments';
 
 import { useCostumComments } from '../hooks/comments';
 export default function RenderComments() {
-  const{post,commentList,contentComments,setContentComments}=useCostumComments()
+  const{post,commentList,contentComments,setContentComments,apiCreateComment}=useCostumComments()
  return (
     <main className={style.main}>
       <Scroll 
@@ -41,6 +41,7 @@ export default function RenderComments() {
             value={contentComments}
             onChange={(ev) => setContentComments(ev.target.value)}
             placeholder='Postar sua Resposta'
+            onClick={apiCreateComment}
           />
         </div>
         {commentList.length > 0 && commentList.map((item) => (

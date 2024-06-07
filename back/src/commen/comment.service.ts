@@ -1,32 +1,21 @@
 //import { comments } from '@/@types/comments';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-//import { CreateCommentDto } from './dto/create-comments.dto';
+import { CreateCommentDto } from './dto/create-comment.dto';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { Comments } from './interface/comments';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { FormatData } from 'src/common/formatData/formatData';
-//import { Comments } from './interface/comments';
+
 @Injectable()
 export class CommentsService {
   constructor(private prisma: PrismaService, private readonly formData:FormatData) {}
-  async createComments(createCommentDto: Comments,id:number): Promise<Comments> {
-  
-  
-    try {
+  async createComments(createCommentDto: CreateCommentDto): Promise<Comments> {
+  try {
     const {replayId ,...newCreateCommentDto}= createCommentDto
-    const formartComments ={...newCreateCommentDto ,authorId:id}
-    console.log(formartComments)
-   
-    const comment = await this.prisma.comment.create({
-        data:{
-          postId:formartComments.postId,
-          content:formartComments.content,
-          authorId:formartComments.authorId,
-         
-        },
-       
+      const comment = await this.prisma.comment.create({
+        data: newCreateCommentDto,
         select: {
           author: {
             select: {
@@ -70,10 +59,10 @@ export class CommentsService {
       throw new HttpException('Erro desconhecido', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
-  async getAllComments( postId:number) {
+  async getAllComments(idPost:number) {
     const comments = await this.prisma.comment.findMany({
       where:{
-       postId
+       id:idPost
       },
       orderBy: {
         createdAt: 'desc', // Ordena os resultados pela data de criação em ordem descendente

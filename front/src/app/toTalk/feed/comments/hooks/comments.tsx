@@ -14,22 +14,37 @@ export  function useCostumComments(){
     const id = params.slug as string;
     const [contentComments, setContentComments] = useState('');
     const searchPost=async()=>{
+    socket.emit('getcomment',{postId:Number(id)})
+    socket.on("getcomment", (comments:comments[]) => {
+        console.log(comments)
+        setCommentList(comments)
+    });
      const response = await apiSearchPost(id)
      setPost(response)
     }
     const apiCreateComment=()=>{
-        const idPosts = Number(id)
+        const postId = Number(id)
         const formComments={
-            idPosts,
+            postId,
             content:contentComments
         }
-        socket.emit('comments',formComments)
-        socket.on("comments", (comments:comments) => {
-           setCommentList([...commentList,comments])
+        socket.emit('comment',formComments)
+        socket.on("comment", (comments:comments) => {
+            const newComments = [...commentList]
+            newComments.unshift(comments)
+            setCommentList(newComments)
+            setContentComments('')
         });
     }
 
- useEffect(()=>{
+    
+
+
+    //getcomment
+ 
+
+
+useEffect(()=>{
   searchPost()
  },[])
     
