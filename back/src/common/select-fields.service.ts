@@ -12,7 +12,8 @@ export class SelectFieldsService {
       },
       id: true,
       content: true,
-      createdAt: true
+      createdAt: true,
+      postId:true
     };
   }
 }

@@ -1,6 +1,5 @@
 import { Published } from "src/@interface/post.interface";
-
-export interface Replay extends Published{
-    postId:number,
+import { Comments } from "src/comments/interface/comments";
+export interface Replay extends Comments{
     commentsId:number
 }

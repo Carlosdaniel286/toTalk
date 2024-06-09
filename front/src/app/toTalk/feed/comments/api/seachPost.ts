@@ -1,15 +1,14 @@
 import axios from "axios"
 import { urlServer } from "@/@variables/env"
 import { posts } from "@/@types/post"
-
-export const apiSearchPost= async(id:string):Promise<posts>=>{
+import { comments } from "@/@types/comments"
+export const apiSearchPost= async(id:string,type:string):Promise<posts | null>=>{
   try{
-    const response = await axios.get<posts>(`${urlServer}/uniquePost/${id}`,{
+    const response = await axios.get<posts>(`${urlServer}/${type}/uniquePost/${id}`,{
       withCredentials:true
     });
     return response.data;
   }catch(error){
-    console.log(error)
-    throw new Error('sem posts')
+    return null
   }
 }

@@ -5,15 +5,24 @@ import { Prisma } from '@prisma/client';
 import { Replay } from './interface/interface.replay';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { FormatData } from 'src/common/formatData/formatData';
+import { SelectFieldsService } from 'src/common/select-fields.service';
+import { Published } from 'src/@interface/post.interface';
+
+
 
 @Injectable()
 export class ReplayService {
-    constructor(private prisma:PrismaService){}
-     async createReaplyService(createReplay:CreateReplayDto):Promise<Replay>{
+    constructor(
+        private prisma:PrismaService,
+        private selectFieldsService:SelectFieldsService ,
+        private formatData:FormatData
+     ){}
+     async createReaplyService(createReplay:Replay,id:number):Promise<Replay>{
         try{
-        
+        const newReplay ={...createReplay,authorId:id}
         const replay = await this.prisma.replay.create({
-            data:createReplay,
+            data:newReplay,
             select:{
                 author:{
                     select:{
@@ -56,4 +65,21 @@ export class ReplayService {
 
         }
      }
+     
+     async getUniqueReplay(id:string): Promise<Published | string>{
+        try{
+       const post = await this.prisma.replay.findUnique({
+            where:{
+                id:Number(id)
+            },
+            select:this.selectFieldsService.getDataSelectFields()
+        })
+         if(!post) throw new Error('sem posts') 
+         return this.formatData.formatUniqueData(post)
+        
+        }catch(err){
+          throw new HttpException('Erro desconhecido', HttpStatus.NOT_FOUND);
+        
+        }
+}
 }

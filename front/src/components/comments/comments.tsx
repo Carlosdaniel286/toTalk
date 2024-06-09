@@ -5,7 +5,7 @@ import { propsPost } from "@/@types/post"
 import { posts } from "@/@types/post"
 
 
-export const Comments =({content,id,style}:propsPost)=>{
+export const Comments =({content,id,style,onClick}:propsPost)=>{
   
   
   return(
@@ -13,7 +13,8 @@ export const Comments =({content,id,style}:propsPost)=>{
     <Post
       content={content}
       id={id}
-      typePost={"comments"}
+      onClick={onClick}
+     // typePost={"comments"}
       style={{
         border:'0px',
         wordBreak:"break-word",

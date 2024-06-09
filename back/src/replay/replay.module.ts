@@ -1,12 +1,16 @@
+//import { comments } from './../../../front/src/@types/comments';
 import { Module } from '@nestjs/common';
 import { ReplayService } from './replay.service';
-import { ReplayController } from './replay.controller';
-import { PrismaService } from 'src/prisma.service';
-import { CommentModule } from 'src/commen/comment.module';
 
+import { PrismaService } from 'src/prisma.service';
+import { CommentsModule } from 'src/comments/comments.module';
+import { ReplayGateway } from './replay.gateway';
+import { SelectFieldsService } from 'src/common/select-fields.service';
+import { FormatData } from 'src/common/formatData/formatData';
+import { ReplayController } from './replay.controller';
 @Module({
   controllers: [ReplayController],
-  providers: [ReplayService, PrismaService],
-  imports: [CommentModule]
+  providers: [ReplayGateway,ReplayService, PrismaService,SelectFieldsService,FormatData ],
+  imports: [CommentsModule]
 })
 export class ReplayModule { }

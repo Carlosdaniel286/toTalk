@@ -1,12 +1,12 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { ReplayService } from './replay.service';
-import { CreateReplayDto } from './dto/replay.dto';
+import { Body, Controller, Get, Param, Post } from "@nestjs/common"
+import { ReplayService } from "./replay.service"
+
 
 @Controller()
 export class ReplayController {
-  constructor(private readonly replayService: ReplayService) {}
-  @Post('/replay')
-   async createReplayController(@Body()createReplayDto:CreateReplayDto){
-     return await this.replayService.createReaplyService(createReplayDto)
+  constructor(private readonly replayService:ReplayService) {}
+  @Get('replay/uniquePost/:id')
+   async getUniquePost(@Param('id') id: string){
+    return await this.replayService.getUniqueReplay(id)
    }
 }

@@ -7,6 +7,7 @@ import styles from './style/createPosts.module.css'
 import { propsPost } from '@/@types/post';
 import { SxProps } from '@mui/material/styles';
 import Textarea from '@mui/joy/Textarea';
+import { isEmpty } from '@/functions/validations/validation';
 
 type Comments = Omit<propsPost, 'content'> & {
   onClose?: () => void;
@@ -93,7 +94,11 @@ const handleTextareaChange = (ev: ChangeEvent<HTMLTextAreaElement>) => {
           />
         </div>
         <div className={styles.button}>
-            <Button onClick={onClick} sx={{ borderRadius: '12px', height: '20px' }}>
+            <Button onClick={(()=>{
+              const empty = isEmpty(value??'')
+              if(empty.error) return
+              onClick!==undefined?onClick():(()=>{})
+            })} sx={{ borderRadius: '12px', height: '20px' }}>
               <P  
               style={{
                 fontSize:'1rem',

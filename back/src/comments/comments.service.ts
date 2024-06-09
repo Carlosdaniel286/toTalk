@@ -7,10 +7,15 @@ import { Comments } from './interface/comments';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { FormatData } from 'src/common/formatData/formatData';
-//import { Comments } from './interface/comments';
+import { Published } from 'src/@interface/post.interface';
+import { SelectFieldsService } from 'src/common/select-fields.service';
 @Injectable()
 export class CommentsService {
-  constructor(private prisma: PrismaService, private readonly formData:FormatData) {}
+  constructor(
+    private prisma: PrismaService, 
+    private readonly formData:FormatData,
+    private readonly selectFieldsService:SelectFieldsService
+  ) {}
   async createComments(createCommentDto: Comments,id:number): Promise<Comments> {
   
   
@@ -93,5 +98,21 @@ export class CommentsService {
    return this.formData.serializeData(comments)
 
   }
+  async getUniqueComments(id:string): Promise<Published | string>{
+    try{
+   const post = await this.prisma.comment.findUnique({
+        where:{
+            id:Number(id)
+        },
+        select:this.selectFieldsService.getDataSelectFields()
+    })
+     if(!post) throw new Error('sem posts') 
+      return this.formData.formatUniqueData(post)
+    
+    }catch(err){
+      throw new HttpException('Erro desconhecido', HttpStatus.NOT_FOUND);
+    
+    }
+}
 
 }

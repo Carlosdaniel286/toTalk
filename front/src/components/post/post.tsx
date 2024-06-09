@@ -69,11 +69,11 @@ export function Post({ content, id, style, onClick, renderFullPost ,typePost}: p
         <P id={styles.content} style={{ fontFamily: 'myFontRegular' }}>{showFullContent.content}</P>
         <P id={styles.more} style={{ color: 'rgb(68, 65, 65)', fontSize: '1rem' }}
           onClick={() => {
-            if (onClick) onClick();
+           if (onClick) onClick();
           }}>{content.content.length <= 600 ? '' : showFullContent.textFull}</P>
       </div>
       <div className={styles.containerReaction}>
-        {type!=='comments' && 
+        {//type!=='comments' && 
         <div 
          style={{
           display:'flex',

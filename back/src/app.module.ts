@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { PrismaService } from './prisma.service';
 import { CreateUserModule } from './user/user.module';
 import { PostsModule } from './posts/posts.module';
-import { CommentModule } from './commen/comment.module';
+//import { CommentModule } from './commen/comment.module';
 import { ReplayModule } from './replay/replay.module';
 import { LoginModule } from './login/login.module';
 import { LoggerMiddleware } from './common/logger-middleware/logger-middleware.middleware';

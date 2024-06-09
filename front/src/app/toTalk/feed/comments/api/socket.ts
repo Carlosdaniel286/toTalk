@@ -7,7 +7,7 @@ export const socketConnect =()=>{
         withCredentials:true
       });
       connect.on('connect', (()=>{
-       console.log('usuario conectado')
+       console.log('usuário conectado')
       }));
 
       return connect

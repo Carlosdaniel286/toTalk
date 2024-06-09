@@ -7,8 +7,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { posts } from '@/@types/post';
 import { useUpdatePost } from '@/contexts';
-import { Suspense } from 'react';
-import Loading from './loading';
+
 
 export function Feed({ posts }: { posts: posts[] }) {
   const router = useRouter();
@@ -44,7 +43,7 @@ export function Feed({ posts }: { posts: posts[] }) {
                 }}
                 onClick={() => {
                   console.log(item.id);
-                  router.push(`/toTalk/feed/comments/${item.id}`)
+                  router.push(`/toTalk/feed/comments/post/${item.id}`)
                 }}
               />
             </div>

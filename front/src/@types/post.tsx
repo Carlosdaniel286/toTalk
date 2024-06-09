@@ -19,7 +19,8 @@ export type posts = newPost&{
     id: number,
     createdAt: string,
     published: boolean,
-    author:string
+    author:string,
+    postId?:string
   }
 
   
