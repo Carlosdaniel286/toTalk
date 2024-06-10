@@ -17,24 +17,24 @@ const corsOptions: CorsOptions = {
 @UseGuards(SocketAuthGuard)
 @WebSocketGateway({cors:corsOptions})
 export class ReplayGateway {
-  constructor(private readonly ReplayService:ReplayService){}
+  constructor(private readonly replayService:ReplayService){}
   @WebSocketServer()
   server: Server;
   
 @SubscribeMessage('replay')
  async handleReplay(@MessageBody() createReplay: Replay, @ConnectedSocket() client: Socket) {
-    console.log('Comentário recebido:',  createReplay);
+   // console.log('Comentário recebi:',  createReplay);
     console.log('ID do cliente:', client['user']);
     const authorId:TypeToken =client['user']
-    const replay = await this.ReplayService.createReaplyService(createReplay,authorId.userId)
+    const replay = await this.replayService.createReaplyService(createReplay,authorId.userId)
     
     this.server.emit('replay',  replay);
   }
 
-  @SubscribeMessage('getcomment')
+  @SubscribeMessage('getreplay')
   async getReplay(@MessageBody() createCommentDto:{commentsId:number}, @ConnectedSocket() client: Socket) {
-    console.log('Comentário recebido:',  createCommentDto);
-    
-    // this.server.emit('getcomment',  commented);
+    console.log('Comentário recebido replay :',  createCommentDto);
+    const replay = await this.replayService.getAllReplay(createCommentDto.commentsId)
+    this.server.emit('getreplay',  replay);
   }
 }

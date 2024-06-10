@@ -7,6 +7,7 @@ export class ReplayController {
   constructor(private readonly replayService:ReplayService) {}
   @Get('replay/uniquePost/:id')
    async getUniquePost(@Param('id') id: string){
+    console.log("id  "+ id)
     return await this.replayService.getUniqueReplay(id)
    }
 }

@@ -94,11 +94,7 @@ const handleTextareaChange = (ev: ChangeEvent<HTMLTextAreaElement>) => {
           />
         </div>
         <div className={styles.button}>
-            <Button onClick={(()=>{
-              const empty = isEmpty(value??'')
-              if(empty.error) return
-              onClick!==undefined?onClick():(()=>{})
-            })} sx={{ borderRadius: '12px', height: '20px' }}>
+            <Button onClick={onClick} sx={{ borderRadius: '12px', height: '20px' }}>
               <P  
               style={{
                 fontSize:'1rem',

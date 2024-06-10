@@ -8,6 +8,7 @@ import { apiSearchPost } from "../api/seachPost";
 import { useRouter } from 'next/navigation';
 
 export function useCustomComments() {
+    
     const [commentList, setCommentList] = useState<comments[]>([]);
     const [post, setPost] = useState<posts | null>(null); 
     const [contentComments, setContentComments] = useState('');
@@ -29,9 +30,18 @@ export function useCustomComments() {
     
 const fetchPost =  async() => {
         const response = await apiSearchPost(id,type);
+
+        console.log(response,type)
         setPost(response);
-        console.log(response)
-        socket.emit(`get${slug}`, { postId: Number(id) });
+        let object = {};
+        if (type === 'comment' || type ==='replay') {
+            object = { commentsId: Number(id) };
+        }
+        if (type === 'post') {
+            object = { postId: Number(id) };
+        }
+        
+        socket.emit(`get${slug}`, object);
         socket.on(`get${slug}`, (comments: comments[]) => {
             setCommentList(comments);
         });
@@ -52,7 +62,7 @@ const fetchPost =  async() => {
            setCommentList(newComments);
             setContentComments('');
         });
-        
+       
     }
 
     useEffect(() => {

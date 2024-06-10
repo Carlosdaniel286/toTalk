@@ -18,7 +18,7 @@ export class PostsService {
     try{
      const published = await this.prisma.post.create({
            data:createPostDto,
-            select:this.selectFieldsService.getDataSelectFields()
+            select:this.selectFieldsService.getDataSelectFields('post')
             
         })
       return this.formatData.formatUniqueData(published)
@@ -39,12 +39,13 @@ export class PostsService {
             where:{
                 id:Number(id)
             },
-            select:this.selectFieldsService.getDataSelectFields()
+            select:this.selectFieldsService.getDataSelectFields('post')
         })
          if(!post) throw new Error('sem posts') 
          return this.formatData.formatUniqueData(post)
         
         }catch(err){
+          console.log(err)
           throw new HttpException('Erro desconhecido', HttpStatus.NOT_FOUND);
         
         }

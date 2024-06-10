@@ -1,9 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { format } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
-import { PostsOut } from '../common/formatData/interface/postsOut';
-import { Published } from 'src/@interface/post.interface';
 import { FormatData } from 'src/common/formatData/formatData';
 
 @Injectable()

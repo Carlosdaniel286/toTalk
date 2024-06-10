@@ -15,7 +15,7 @@ export class FormatData {
         content: post.content,
         createdAt: format(new Date(post.createdAt), 'dd/MM/yyyy HH:mm:ss', { locale: ptBR })
     }))
-    console.log(copiedPosts)
+    
     return [...copiedPosts]
 }
       

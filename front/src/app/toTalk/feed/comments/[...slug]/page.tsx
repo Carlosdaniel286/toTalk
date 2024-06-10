@@ -100,8 +100,8 @@ export default function RenderComments() {
               }}
              onClick={(()=>{
               console.log(item.postId)
-              router.push(`/toTalk/feed/comments/comment/${item.id}`)
-              //onCloseReplay(item.id)
+              //router.push(`/toTalk/feed/comments/comment/${item.id}`)
+              onCloseReplay(item.id)
              })}
             />
           </div>

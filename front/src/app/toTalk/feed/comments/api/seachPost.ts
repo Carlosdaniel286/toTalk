@@ -9,6 +9,7 @@ export const apiSearchPost= async(id:string,type:string):Promise<posts | null>=>
     });
     return response.data;
   }catch(error){
+    console.log(error)
     return null
   }
 }

@@ -10,8 +10,9 @@ export class PostsController {
   async createPost(@Body() createPostDto:CreatePostDto){
    return await this.postsService.createPostService(createPostDto)
 }
-    @Get('post/uniquePost/:id')
+    @Get('/post/uniquePost/:id')
    async getUniquePost(@Param('id') id: string){
+    console.log(id)
     return await this.postsService.getUniquePost(id)
 
     }

@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class SelectFieldsService {
-  getDataSelectFields() {
+  getDataSelectFields(filed?:'post') {
     return {
       author: {
         select: {
@@ -13,7 +13,7 @@ export class SelectFieldsService {
       id: true,
       content: true,
       createdAt: true,
-      postId:true
+      postId:filed?false:true
     };
   }
 }

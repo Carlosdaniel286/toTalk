@@ -3,21 +3,21 @@
 import { useState } from "react";
 import { socket } from "../api/socket";
 import { comments } from "@/@types/comments";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 export function useCustomReplayComments() {
-
+    const router = useRouter();
     const params = useParams();
-    const id = params.slug as string;
+    const type = params.slug[0].toString()
+    const id = params.slug[1].toString() 
     const [contentReplay, setContentReplay] = useState('');
     const [replayList, setReplayList] = useState<comments[]>([]);
     const [closeReplay , setCloseReplay]=useState(false)
     const [commentsId,setCommentsId]=useState<undefined|number>()
     
  const apiCreateReplay =() => {
-    //router.push(`/toTalk/feed/comments/post/${item.id}`)
-    
-    if(!commentsId) return
+   
+if(!commentsId) return
          const formComments = {
             postId:Number(id),
             commentsId,
@@ -34,7 +34,8 @@ export function useCustomReplayComments() {
         
     }
     const onCloseReplay=(id?:number)=>{
-       setCloseReplay(!closeReplay)
+      const slug = type=='post'?'comment':'replay'
+        router.push(`/toTalk/feed/comments/${slug}/${id}`)
        if(!id) return
        setCommentsId(id)
     }

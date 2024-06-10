@@ -82,4 +82,28 @@ export class ReplayService {
         
         }
 }
+async getAllReplay(commentsId:number) {
+  console.log(" comentsId "+commentsId)
+    const comments = await this.prisma.replay.findMany({
+      where:{
+        commentsId
+      },
+      orderBy: {
+        createdAt: 'desc', // Ordena os resultados pela data de criação em ordem descendente
+      },
+      select:{
+        author:{
+            select:{
+                name:true
+            }
+        },
+        id:true,
+        content:true,
+        createdAt:true
+    },
+    });
+   
+   return this.formatData.serializeData(comments)
+
+  }
 }
