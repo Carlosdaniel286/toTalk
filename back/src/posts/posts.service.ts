@@ -6,6 +6,7 @@ import { Prisma } from '@prisma/client';
 import { FormatData } from 'src/common/formatData/formatData';
 import { SelectFieldsService } from 'src/common/select-fields.service';
 
+
 @Injectable()
 export class PostsService {
     constructor(
@@ -21,7 +22,7 @@ export class PostsService {
             select:this.selectFieldsService.getDataSelectFields('post')
             
         })
-      return this.formatData.formatUniqueData(published)
+      return this.formatData.formatUniqueData(published,createPostDto.authorId)
         }catch(err){
             if (err instanceof Prisma.PrismaClientKnownRequestError) {
                 if (err.code === 'P2003') {
@@ -42,13 +43,51 @@ export class PostsService {
             select:this.selectFieldsService.getDataSelectFields('post')
         })
          if(!post) throw new Error('sem posts') 
-         return this.formatData.formatUniqueData(post)
+         return this.formatData.formatUniqueData(post,Number(id))
         
         }catch(err){
           console.log(err)
           throw new HttpException('Erro desconhecido', HttpStatus.NOT_FOUND);
         
         }
+}
+
+async deletePost(authorId:number,postId:number):Promise<string>{
+  try{
+    await this.prisma.replay.deleteMany({
+      where:{
+       postId
+      }
+   })
+     await this.prisma.comment.deleteMany({
+       where:{
+        postId
+       }
+    })
+   
+   const deletedPost = await this.prisma.post.delete({
+  where:{
+    authorId,
+    id:postId,
+  },
+  select:this.selectFieldsService.getDataSelectFields('post')
+ })
+   
+ 
+ if (!deletedPost) {
+  // Lança um erro se o post não existir ou não puder ser excluído
+  throw new Error('Post not found or unable to delete post.');
+}
+   return 'post apagado'
+  
+  }catch(err){
+    console.log(err)
+    if(err instanceof Error){
+      throw new HttpException(err.message, HttpStatus.UNAUTHORIZED);
+    }
+    throw new HttpException('Erro desconhecido', HttpStatus.NOT_FOUND);
+  
+  }
 }
 }
 

@@ -18,51 +18,30 @@ export const usePostCustom = (content: string,renderFullPost?: boolean) => {
     content: '',
     textFull: '...mais'
   });
-  const [elementPosition, setElementPosition] = useState<OptionPositions | null>(null);
+  //const [elementPosition, setElementPosition] = useState<OptionPositions | null>(null);
   const [options, setOptions] = useState(false);
-  const elementRef = useRef<HTMLDivElement>(null);
+  const optionsRef = useRef<HTMLDivElement>(null);
 
-  const getElementPosition = () => {
-    if (elementRef.current) {
-      const rect = elementRef.current.getBoundingClientRect();
-      setElementPosition((prevPosition) => ({
-        ...prevPosition,
-        height: rect.height,
-        left: rect.left,
-        right: rect.right,
-        top: rect.top,
-        bottom: rect.bottom
-      }));
-    }
-  };
-
-  useEffect(() => {
+   useEffect(() => {
     spliceText();
-    getElementPosition();
-  }, []);
-
-  useEffect(() => {
-    if (renderFullPost === undefined || renderFullPost === false) return;
-    toggleText();
-  }, [renderFullPost]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      getElementPosition();
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (optionsRef.current && !optionsRef.current.contains(event.target as Node)) {
+        setOptions(false)
+      }
     };
-
-    window.addEventListener('resize', handleResize);
-
+  
+    // Adicionando o evento de clique no DOM
+    document.addEventListener('mousedown', handleOutsideClick);
+  
+    // Removendo o evento de clique no DOM quando o componente é desmontado
     return () => {
-      window.removeEventListener('resize', handleResize);
+      document.removeEventListener('mousedown', handleOutsideClick);
     };
+   
   }, []);
 
-  const toggleText = () => {
-    if (showFullContent.textFull === '...mais') {
-      setShowFullContent({ ...showFullContent, content, textFull: '' });
-    }
-  };
+
+  
 
   const spliceText = () => {
     if (content.length < 600) {
@@ -73,5 +52,5 @@ export const usePostCustom = (content: string,renderFullPost?: boolean) => {
     }
   };
 
-  return { elementPosition, options, setOptions,elementRef ,showFullContent};
+  return {  options, setOptions,optionsRef,showFullContent};
 };

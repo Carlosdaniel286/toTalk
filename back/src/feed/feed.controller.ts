@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Req } from '@nestjs/common';
 import { FeedService } from './feed.service';
 
 
@@ -6,8 +6,9 @@ import { FeedService } from './feed.service';
 export class FeedController {
   constructor(private readonly feedService: FeedService) {}
  @Get('/feed')
-  findAll() {
-    return this.feedService.findAll();
+  findAll(@Req() req:Request) {
+    const authorId = req['user'] as number
+    return this.feedService.findAll(authorId);
   }
 
  

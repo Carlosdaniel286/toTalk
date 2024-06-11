@@ -4,5 +4,6 @@ export interface PostsOut{
         createdAt: Date;
         author: {
             name: string;
+            id:number
         };
     }

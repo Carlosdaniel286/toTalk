@@ -28,12 +28,9 @@ export class LoggerMiddleware implements NestMiddleware {
       if ('authorId' in dtoBody) {
         throw new Error('The "authorId" property already exists in the request body');
       }
-
-      // Adiciona a propriedade 'authorId' com base nas informações do token decodificado
       const newBody = { ...dtoBody, authorId: decoded.userId };
       req.body = newBody;
-
-      
+     req['user']= decoded.userId
       
       next();
     } catch (err) {

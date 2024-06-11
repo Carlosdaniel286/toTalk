@@ -14,12 +14,11 @@ export class CommentsService {
   constructor(
     private prisma: PrismaService, 
     private readonly formData:FormatData,
-    private readonly selectFieldsService:SelectFieldsService
+    private readonly selectFieldsService:SelectFieldsService,
+    
   ) {}
-  async createComments(createCommentDto: Comments,id:number): Promise<Comments> {
-  
-  
-    try {
+  async createComments(createCommentDto:Comments,id:number): Promise<Comments> {
+  try {
     const {replayId ,...newCreateCommentDto}= createCommentDto
     const formartComments ={...newCreateCommentDto ,authorId:id}
     console.log(formartComments)
@@ -75,7 +74,7 @@ export class CommentsService {
       throw new HttpException('Erro desconhecido', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
-  async getAllComments( postId:number) {
+  async getAllComments( postId:number,user:number) {
     const comments = await this.prisma.comment.findMany({
       where:{
        postId
@@ -86,7 +85,8 @@ export class CommentsService {
       select:{
         author:{
             select:{
-                name:true
+                name:true,
+                id:true
             }
         },
         id:true,
@@ -95,7 +95,7 @@ export class CommentsService {
     },
     });
    
-   return this.formData.serializeData(comments)
+   return this.formData.serializeData(comments,user)
 
   }
   async getUniqueComments(id:string): Promise<Published | string>{
@@ -107,7 +107,7 @@ export class CommentsService {
         select:this.selectFieldsService.getDataSelectFields()
     })
      if(!post) throw new Error('sem posts') 
-      return this.formData.formatUniqueData(post)
+      return this.formData.formatUniqueData(post,Number(id))
     
     }catch(err){
       throw new HttpException('Erro desconhecido', HttpStatus.NOT_FOUND);

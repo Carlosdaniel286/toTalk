@@ -40,15 +40,18 @@
     width: 40px;
     justify-content:flex-end;
     align-items: flex-end;
-   
-
+    position: relative;
 }
 .options{
     width: 200px;
     height: 150px;
     box-sizing: border-box;
     display: inline;
-    
+   position: absolute;
+    top:-20%;
+    right: -18%;
+    z-index: 1000;
+
 }
 
 

@@ -7,7 +7,8 @@ export class SelectFieldsService {
     return {
       author: {
         select: {
-          name: true
+          name: true,
+          id:true
         }
       },
       id: true,

@@ -34,7 +34,8 @@ export class ReplayGateway {
   @SubscribeMessage('getreplay')
   async getReplay(@MessageBody() createCommentDto:{commentsId:number}, @ConnectedSocket() client: Socket) {
     console.log('Comentário recebido replay :',  createCommentDto);
-    const replay = await this.replayService.getAllReplay(createCommentDto.commentsId)
+    const user = client['user'] as number
+    const replay = await this.replayService.getAllReplay(createCommentDto.commentsId,user)
     this.server.emit('getreplay',  replay);
   }
 }

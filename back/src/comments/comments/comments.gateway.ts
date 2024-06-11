@@ -35,7 +35,8 @@ export class CommentsGateway {
   @SubscribeMessage('getcomment')
   async getComment(@MessageBody() createCommentDto:{postId:number}, @ConnectedSocket() client: Socket) {
     //console.log('Comentário recebido:',  createCommentDto);
-     const commented = await this.commentsService.getAllComments(createCommentDto.postId)
+    const user = client['user'] as number
+     const commented = await this.commentsService.getAllComments(createCommentDto.postId,user)
      this.server.emit('getcomment',  commented);
   }
 }

@@ -6,7 +6,10 @@ export interface propsPost {
   style?: React.CSSProperties;
   onClick?: () => void;
   renderFullPost?: boolean;
-  typePost?:'post'|'comments'
+  isCreator:boolean;
+  typePost?:'post'|'comments',
+  onClickDelete?: () => void;
+  onClickEdit?: () => void;
 }
 
 export type newPost={
@@ -20,7 +23,8 @@ export type posts = newPost&{
     createdAt: string,
     published: boolean,
     author:string,
-    postId?:string
+    postId?:string,
+    isCreator:boolean
   }
 
   

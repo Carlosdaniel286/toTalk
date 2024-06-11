@@ -75,15 +75,15 @@ export class ReplayService {
             select:this.selectFieldsService.getDataSelectFields()
         })
          if(!post) throw new Error('sem posts') 
-         return this.formatData.formatUniqueData(post)
+         return this.formatData.formatUniqueData(post,Number(id))
         
         }catch(err){
           throw new HttpException('Erro desconhecido', HttpStatus.NOT_FOUND);
         
         }
 }
-async getAllReplay(commentsId:number) {
-  console.log(" comentsId "+commentsId)
+async getAllReplay(commentsId:number,user:number) {
+ 
     const comments = await this.prisma.replay.findMany({
       where:{
         commentsId
@@ -94,7 +94,8 @@ async getAllReplay(commentsId:number) {
       select:{
         author:{
             select:{
-                name:true
+                name:true,
+                id:true
             }
         },
         id:true,
@@ -103,7 +104,7 @@ async getAllReplay(commentsId:number) {
     },
     });
    
-   return this.formatData.serializeData(comments)
+   return this.formatData.serializeData(comments,user)
 
   }
 }
