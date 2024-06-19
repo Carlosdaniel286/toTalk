@@ -23,7 +23,7 @@ type Comments = Omit<propsPost, 'content'> & {
 
 export const CreatPost = ({ onClose, style ,maxRows,onChange,buttonClose,minRows,value,onClick,placeholder}: Comments) => {
   const renderButtonClose = buttonClose !== undefined ? buttonClose : true;
-
+  const click = onClick?onClick:(()=>{})
 const handleTextareaChange = (ev: ChangeEvent<HTMLTextAreaElement>) => {
     onChange ? onChange(ev):(()=>{})
   };
@@ -94,7 +94,9 @@ const handleTextareaChange = (ev: ChangeEvent<HTMLTextAreaElement>) => {
           />
         </div>
         <div className={styles.button}>
-            <Button onClick={onClick} sx={{ borderRadius: '12px', height: '20px' }}>
+            <Button onClick={(()=>{
+            click()
+            })} sx={{ borderRadius: '12px', height: '20px' }}>
               <P  
               style={{
                 fontSize:'1rem',

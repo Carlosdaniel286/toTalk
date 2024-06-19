@@ -5,7 +5,7 @@ import { PrismaService } from './prisma.service';
 import { CreateUserModule } from './user/user.module';
 import { PostsModule } from './posts/posts.module';
 //import { CommentModule } from './commen/comment.module';
-import { ReplayModule } from './replay/replay.module';
+
 import { LoginModule } from './login/login.module';
 import { LoggerMiddleware } from './common/logger-middleware/logger-middleware.middleware';
 import { FeedModule } from './feed/feed.module';
@@ -17,7 +17,7 @@ import { CommentsModule } from './comments/comments.module';
 @Module({
   controllers: [AppController],
   providers: [AppService, PrismaService],
-  imports: [CreateUserModule, PostsModule, CommentsModule, ReplayModule, LoginModule, FeedModule],
+  imports: [CreateUserModule, PostsModule, CommentsModule, LoginModule, FeedModule],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

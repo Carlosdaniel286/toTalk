@@ -2,25 +2,28 @@
 
 import { Post } from "../post/post"
 import { propsPost } from "@/@types/post"
-import { posts } from "@/@types/post"
+
+import { useState } from "react"
 
 
-export const Comments =({content,id,style,onClick}:propsPost)=>{
-  
-  
+export const Comments =({content,id,style,onClick,onClickDelete}:propsPost)=>{
+ const[show, setShow]=useState(true)
   return(
     < >
+    {show && 
     <Post
       content={content}
       id={id}
       onClick={onClick}
-     // typePost={"comments"}
+      onClickDelete={onClickDelete}
+      isCreator={content.isCreator}
       style={{
         border:'0px',
         wordBreak:"break-word",
         ...style
       }}
     />
+  }
    </>
   )
 }

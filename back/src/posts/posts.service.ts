@@ -54,16 +54,28 @@ export class PostsService {
 
 async deletePost(authorId:number,postId:number):Promise<string>{
   try{
-    await this.prisma.replay.deleteMany({
+    
+    const comments = await this.prisma.comment.findMany({
       where:{
-       postId
-      }
-   })
-     await this.prisma.comment.deleteMany({
-       where:{
-        postId
+       postId,
        }
-    })
+   })
+   console.log(comments)
+  
+    
+ 
+ 
+
+   
+
+
+  
+  await this.prisma.comment.deleteMany({
+    where:{
+     postId
+    }
+ })
+     
    
    const deletedPost = await this.prisma.post.delete({
   where:{
@@ -76,12 +88,13 @@ async deletePost(authorId:number,postId:number):Promise<string>{
  
  if (!deletedPost) {
   // Lança um erro se o post não existir ou não puder ser excluído
-  throw new Error('Post not found or unable to delete post.');
+  //throw new Error('Post not found or unable to delete post.');
 }
+console.log('deu certo')
    return 'post apagado'
   
   }catch(err){
-    console.log(err)
+  console.log(err)
     if(err instanceof Error){
       throw new HttpException(err.message, HttpStatus.UNAUTHORIZED);
     }

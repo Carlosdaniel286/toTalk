@@ -8,58 +8,43 @@ datasource db {
 }
 
 model User {
-  id       Int       @id @default(autoincrement()) 
-  active   Boolean?  @default(true)
- createdAt DateTime? @default(now())
-  email    String    @unique
-  name     String
-  password String
-  posts    Post[]
-  comments Comment[]
-  Replay   Replay[]
+  id        Int       @id @default(autoincrement())
+  active    Boolean?  @default(true)
+  createdAt DateTime? @default(now())
+  email     String    @unique
+  name      String
+  password  String
+  posts     Post[]
+  comments  Comment[]
+
   @@map("user")
 }
 
 model Post {
   id        Int       @id @default(autoincrement())
   content   String?
-  createdAt  DateTime? @default(now())
+  createdAt DateTime? @default(now())
   published Boolean?  @default(false)
-  author    User      @relation(fields: [authorId], references: [id])
+  author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId  Int
   comments  Comment[]
-  response  Replay[]
+  likes     Int      @default(0)
+  quantityComments Int      @default(0)
   @@map("post")
 }
-model Comment {
-  id        Int       @id @default(autoincrement())
-  content   String
-  createdAt DateTime? @default(now())
-  post      Post      @relation(fields: [postId], references: [id])
-  postId    Int
-  author      User      @relation(fields: [ authorId ], references: [id])
-  authorId     Int
-  Replay      ReplayComment[]
-  @@map("comment")
-}
-model Replay {
-  id        Int       @id @default(autoincrement())
-  content   String
-  createdAt DateTime? @default(now())
-  post      Post      @relation(fields: [postId], references: [id])
-  postId    Int
-  author      User      @relation(fields: [authorId], references: [id])
-  authorId    Int
-  commentsId Int
-  comments   ReplayComment[]
-  @@map("replay")
-}
 
-model ReplayComment {
-  id        Int      @id @default(autoincrement())
-  replay    Replay?   @relation(fields: [replayId], references: [id])
-  replayId  Int?
-  comment   Comment  @relation(fields: [commentId], references: [id])
-  commentId Int
-   @@map("replayComment")
+model Comment {
+  id         Int       @id @default(autoincrement())
+  content    String
+  createdAt  DateTime? @default(now())
+  post       Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId     Int
+  author     User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId   Int
+  parentId   Int?
+  parent     Comment?  @relation("CommentReplies",fields: [parentId], references: [id],onDelete: Cascade)
+  replies    Comment[] @relation("CommentReplies")
+  quantityComments Int      @default(0)
+  likes     Int      @default(0)
+  @@map("comment")
 }

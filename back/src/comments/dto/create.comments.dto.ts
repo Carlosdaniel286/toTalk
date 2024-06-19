@@ -11,5 +11,5 @@ export class CreateCommentDto extends CreatePostDto{
    @ApiProperty()
     @IsNotEmpty({message:'Existe campo vazio'})
     @IsNumber()
-    readonly replayId:number;
+    readonly parentId:number;
 }

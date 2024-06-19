@@ -6,14 +6,10 @@ import { CreatPost } from '@/components/createPosts/createPosts';
 import { Comments } from '@/components/comments/comments';
 import { useCustomComments } from '../hooks/comments';
 import { CreateComments } from '../components/createComments';
-import { useCustomReplayComments } from '../hooks/replayComments';
-import { useParams, useRouter } from 'next/navigation';
-
-
+import { useRouter } from 'next/navigation';
 
 export default function RenderComments() {
-  const params = useParams();
-  const router = useRouter();
+  
   const{
     post,
     commentList,
@@ -23,15 +19,9 @@ export default function RenderComments() {
     onClose,
     close,
     onClick,
-   
+    deleteComment
   }=useCustomComments()
- const{
-  apiCreateReplay,
-  contentReplay,
-  setContentReplay,
-  onCloseReplay,
-  closeReplay
-}=useCustomReplayComments()
+  const router = useRouter();
  
  return (
     <main className={style.main}>
@@ -41,15 +31,6 @@ export default function RenderComments() {
        onChange={(ev) => setContentComments(ev.target.value)}
        onClick={onClick}
        onClose={onClose}
-       />
-       }
-    
-    {closeReplay && 
-       <CreateComments
-       value={contentReplay}
-       onChange={(ev) => setContentReplay(ev.target.value)}
-       onClick={apiCreateReplay}
-       onClose={onCloseReplay}
        />
        }
      <Scroll 
@@ -68,6 +49,7 @@ export default function RenderComments() {
               maxWidth: '650px',
             }}
             content={post}
+            isCreator={post.isCreator}
             renderFullPost={true}
             onClick={onClose}
           />
@@ -87,6 +69,7 @@ export default function RenderComments() {
             placeholder='Postar sua Resposta'
             onClick={apiCreateComment}
             onClose={onClose}
+            isCreator={true}
           />
         </div>
         {commentList.length > 0 && commentList.map((item) => (
@@ -98,11 +81,14 @@ export default function RenderComments() {
                 marginTop: '10px',
                 maxWidth: '650px',
               }}
-             onClick={(()=>{
+              onClickDelete={(async()=>{
+               await deleteComment(item.id)
+              })}
+              isCreator={item.isCreator}
+              onClick={(()=>{
               console.log(item.postId)
-              //router.push(`/toTalk/feed/comments/comment/${item.id}`)
-              onCloseReplay(item.id)
-             })}
+              router.push(`/toTalk/feed/comments/comment/${item.id}`)
+              })}
             />
           </div>
         ))}

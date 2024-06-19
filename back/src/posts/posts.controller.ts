@@ -20,7 +20,7 @@ export class PostsController {
     @Delete('/delete/post/:postId')
     async deletePost(@Param('postId') postId: number,@Req()req:Request){
       const authorId = req['user'] as number
-      console.log(authorId,postId)
+    //  console.log(authorId,postId)
        return await this.postsService.deletePost(authorId,postId)
    
      }
