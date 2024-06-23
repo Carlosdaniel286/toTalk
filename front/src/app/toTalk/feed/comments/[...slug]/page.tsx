@@ -9,7 +9,6 @@ import { CreateComments } from '../components/createComments';
 import { useRouter } from 'next/navigation';
 
 export default function RenderComments() {
-  
   const{
     post,
     commentList,
@@ -69,7 +68,7 @@ export default function RenderComments() {
             placeholder='Postar sua Resposta'
             onClick={apiCreateComment}
             onClose={onClose}
-            isCreator={true}
+            //isCreator={true}
           />
         </div>
         {commentList.length > 0 && commentList.map((item) => (

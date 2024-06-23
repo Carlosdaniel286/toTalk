@@ -9,7 +9,7 @@ import { SxProps } from '@mui/material/styles';
 import Textarea from '@mui/joy/Textarea';
 import { isEmpty } from '@/functions/validations/validation';
 
-type Comments = Omit<propsPost, 'content'> & {
+type Comments = Omit<propsPost, 'content'|'isCreator'> & {
   onClose?: () => void;
   buttonClose?:boolean;
   maxRows?: number;
@@ -19,9 +19,10 @@ type Comments = Omit<propsPost, 'content'> & {
   placeholder?:string
   onChange?:(ev:ChangeEvent<HTMLTextAreaElement>)=>void
   minHeight?:string
+  buttonValue?:string
 };
 
-export const CreatPost = ({ onClose, style ,maxRows,onChange,buttonClose,minRows,value,onClick,placeholder}: Comments) => {
+export const CreatPost = ({ onClose, style ,maxRows,onChange,buttonClose,minRows,value,onClick,placeholder,buttonValue}: Comments) => {
   const renderButtonClose = buttonClose !== undefined ? buttonClose : true;
   const click = onClick?onClick:(()=>{})
 const handleTextareaChange = (ev: ChangeEvent<HTMLTextAreaElement>) => {
@@ -103,7 +104,7 @@ const handleTextareaChange = (ev: ChangeEvent<HTMLTextAreaElement>) => {
                 color:'white'
               }}
               >
-                Publicar
+               {buttonValue??"Publicar"}
               </P>
             </Button>
           </div>

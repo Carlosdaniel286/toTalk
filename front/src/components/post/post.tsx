@@ -57,6 +57,11 @@ export function Post({
                     if(onClickDelete)onClickDelete()
                    })}
                   onClosed={() => setOptions(!options)}
+                  onClickEdit={(()=>{
+                    setOptions(!options)
+                    if(onClickEdit)onClickEdit()
+                      
+                  })}
                 />
               </div>
              )}

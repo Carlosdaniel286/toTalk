@@ -6,13 +6,13 @@ import { propsPost } from "@/@types/post"
 import { useState } from "react"
 
 
-export const Comments =({content,id,style,onClick,onClickDelete}:propsPost)=>{
- const[show, setShow]=useState(true)
+export const Comments =({content,id,style,onClick,onClickDelete,onClickEdit}:propsPost)=>{
+
   return(
     < >
-    {show && 
-    <Post
+     <Post
       content={content}
+      onClickEdit={onClickEdit}
       id={id}
       onClick={onClick}
       onClickDelete={onClickDelete}
@@ -23,7 +23,7 @@ export const Comments =({content,id,style,onClick,onClickDelete}:propsPost)=>{
         ...style
       }}
     />
-  }
+  
    </>
   )
 }

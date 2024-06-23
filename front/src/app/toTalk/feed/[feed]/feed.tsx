@@ -8,13 +8,17 @@ import { useRouter } from 'next/navigation';
 import { posts as PostsType } from '@/@types/post';
 import { useUpdatePost } from '@/contexts';
 import { apiDeletePost } from './api/api.post';
-// Componente Feed que recebe uma lista de posts
+import { useEditPostContext } from '@/contexts';
+import { EditPost } from '@/components/EditPost/editPost';
 export function Feed({ posts }: { posts: PostsType[] }) {
   const router = useRouter();
+  //const{displayEditPost,toggleEditPost}=useEditPostContext()
   const [content, setContent] = useState<PostsType[]>(posts);
   const { newPost} = useUpdatePost();
-  console.log(content)
-  // Atualiza a lista de posts quando um novo post é adicionado
+  const [value, setValue] = useState<string>('');
+  const [displayEditPost, setDisplayEditPost] = useState<boolean>(false);
+  
+  
   useEffect(() => {
     if (newPost) {
       setContent((prevContent) => [newPost, ...prevContent]);
@@ -29,15 +33,33 @@ export function Feed({ posts }: { posts: PostsType[] }) {
 
   return (
     <main className={style.main}>
-      <div className={style.scroll}>
+             <>
+             {displayEditPost &&
+               <EditPost
+                onClose={(()=>setDisplayEditPost(false))}
+                 value={value}
+                 onChange={((ev)=>{
+                  setValue(ev)
+                 })}
+               />
+                }
+              </>
+    <div className={style.scroll}>
         <Scroll
           style={{ maxHeight: '94vh' }}
           renderFloating={true}
         >
           {content.map((item, index) => (
             <div key={item.id}>
+               
+              
               <Post
-                isCreator={item.isCreator}
+              onClickEdit={(()=>{
+                setDisplayEditPost(true)
+                console.log(item.content)
+                setValue(item.content)
+              })}
+             isCreator={item.isCreator}
                 content={item}
                 style={{
                   maxWidth: '650px',
@@ -47,8 +69,7 @@ export function Feed({ posts }: { posts: PostsType[] }) {
                 }}
                 onClick={() => handlePostClick(item.id)}
                 onClickDelete={(async()=>{
-                  console.log('oiiii')
-                    const res = await apiDeletePost(item.id)
+                 const res = await apiDeletePost(item.id)
                     if(!res) return
                     setContent(prevContent => {
                       const deletedPost = [...prevContent];

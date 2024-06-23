@@ -15,9 +15,10 @@ type OptionsProps = {
 };
 
 // Componente Options que recebe várias props definidas pelo tipo OptionsProps
-export const Options = ({ onClickDelete, onClosed, styles }: OptionsProps) => {
+export const Options = ({ onClickDelete, onClosed, styles ,onClickEdit}: OptionsProps) => {
   // Função de clique, utiliza a prop onClick se fornecida, caso contrário, usa uma função vazia
   const handleClick = onClickDelete || (() => {});
+  const handleClickEdit =onClickEdit || (() => {});
   // Função de fechamento, utiliza a prop onClosed se fornecida, caso contrário, usa uma função vazia
   const handleClose = onClosed || (() => {});
 
@@ -65,7 +66,7 @@ export const Options = ({ onClickDelete, onClosed, styles }: OptionsProps) => {
           </ListItemDecorator>
           <P
             style={{ cursor: 'pointer', color: 'black' }}
-            //onClick={handleClick}
+            onClick={handleClickEdit}
           >
             Editar
           </P>
