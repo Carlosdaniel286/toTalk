@@ -5,7 +5,7 @@ import { Published } from '../@interface/post.interface';
 import { Prisma } from '@prisma/client';
 import { FormatData } from 'src/common/formatData/formatData';
 import { SelectFieldsService } from 'src/common/select-fields.service';
-
+import { UpdatePost } from './dto/create-post.dto/edite-post.dto';
 
 @Injectable()
 export class PostsService {
@@ -34,7 +34,7 @@ export class PostsService {
         
     
     }
-    async getUniquePost(id:string): Promise<Published | string>{
+    async getUniquePost(id:string,authorId:number): Promise<Published | string>{
         try{
        const post = await this.prisma.post.findUnique({
             where:{
@@ -43,7 +43,7 @@ export class PostsService {
             select:this.selectFieldsService.getDataSelectFields('post')
         })
          if(!post) throw new Error('sem posts') 
-         return this.formatData.formatUniqueData(post,Number(id))
+         return this.formatData.formatUniqueData(post,authorId)
         
         }catch(err){
           console.log(err)
@@ -54,44 +54,46 @@ export class PostsService {
 
 async deletePost(authorId:number,postId:number):Promise<string>{
   try{
-    
-    const comments = await this.prisma.comment.findMany({
-      where:{
-       postId,
-       }
-   })
-   console.log(comments)
-  
-    
- 
- 
-
-   
-
-
-  
-  await this.prisma.comment.deleteMany({
-    where:{
-     postId
-    }
- })
-     
-   
-   const deletedPost = await this.prisma.post.delete({
+  const deletedPost = await this.prisma.post.delete({
   where:{
     authorId,
     id:postId,
   },
   select:this.selectFieldsService.getDataSelectFields('post')
  })
-   
- 
- if (!deletedPost) {
+  if (!deletedPost) {
   // Lança um erro se o post não existir ou não puder ser excluído
-  //throw new Error('Post not found or unable to delete post.');
+  throw new Error('Post not found or unable to delete post.');
 }
-console.log('deu certo')
-   return 'post apagado'
+return 'post apagado'
+  
+  }catch(err){
+  console.log(err)
+    if(err instanceof Error){
+      throw new HttpException(err.message, HttpStatus.UNAUTHORIZED);
+    }
+    throw new HttpException('Erro desconhecido', HttpStatus.NOT_FOUND);
+  
+  }
+}
+async editPost(updatePost:UpdatePost,postId:number,):Promise<Published | string>{
+  try{
+  const editPost = await this.prisma.post.update({
+  where:{
+    authorId: updatePost.authorId,
+    id:postId,
+  },
+  data:{
+    content:updatePost.content
+  },
+  select:this.selectFieldsService.getDataSelectFields('post')
+ })
+  if (!editPost) {
+  // Lança um erro se o post não existir ou não puder ser excluído
+  throw new Error('Post not found or unable to delete post.');
+}
+return this.formatData.formatUniqueData(editPost,updatePost.authorId)
+
   
   }catch(err){
   console.log(err)

@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { urlServer } from '@/@variables/env';
 import { posts } from '@/@types/post';
-export const apiEditPost = async (postId:number,content:string) => {
+///edite/comments/:commentsId
+export const apiEditComments = async (commentsId:number,content:string) => {
  
     try {
-      const reponse = await axios.put<posts>(`${urlServer}/edite/post/${postId}`,{
+      const reponse = await axios.put<posts>(`${urlServer}/edite/comments/${commentsId}`,{
           content,
          },{
         withCredentials:true

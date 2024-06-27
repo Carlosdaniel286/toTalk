@@ -7,6 +7,7 @@ export const apiSearchPost= async(id:string,type:string):Promise<posts | null>=>
     const response = await axios.get<posts>(`${urlServer}/${type}/uniquePost/${id}`,{
       withCredentials:true
     });
+    console.log(response.data)
     return response.data;
   }catch(error){
     console.log(error)

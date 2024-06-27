@@ -13,7 +13,7 @@ type OptionPositions = {
   bottom: number;
 };
 
-export const usePostCustom = (content: string,renderFullPost?: boolean) => {
+export const usePostCustom = (content?: string,renderFullPost?: boolean) => {
   const [showFullContent, setShowFullContent] = useState<ContentPost>({
     content: '',
     textFull: '...mais'
@@ -44,10 +44,11 @@ export const usePostCustom = (content: string,renderFullPost?: boolean) => {
   
 
   const spliceText = () => {
-    if (content.length < 600) {
+    if(!content) return
+    if (content?.length < 600) {
       setShowFullContent({ ...showFullContent, content });
     } else {
-      const novaString = content.slice(0, 600);
+      const novaString = content?.slice(0, 600);
       setShowFullContent({ ...showFullContent, content: novaString });
     }
   };

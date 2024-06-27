@@ -7,10 +7,14 @@ import { Comments } from '@/components/comments/comments';
 import { useCustomComments } from '../hooks/comments';
 import { CreateComments } from '../components/createComments';
 import { useRouter } from 'next/navigation';
-
+import { EditPost } from '@/components/editPost/editPost';
+import { useState } from 'react';
+import { apiEditComments } from '../api/apiEditComments';
+import { v4 as uuidv4 } from 'uuid';
 export default function RenderComments() {
   const{
     post,
+    setPost,
     commentList,
     contentComments,
     setContentComments,
@@ -21,8 +25,17 @@ export default function RenderComments() {
     deleteComment
   }=useCustomComments()
   const router = useRouter();
+  const[showEditComments,setShowEditComments]=useState(false)
+  const[value,setValue]=useState({
+    content:'',
+    commentsId:0,
+    key:'',
+    keyComments:''
+  })
  
- return (
+ 
+ 
+  return (
     <main className={style.main}>
        {close && 
        <CreateComments
@@ -32,6 +45,42 @@ export default function RenderComments() {
        onClose={onClose}
        />
        }
+
+     {showEditComments && 
+     <EditPost
+     value={value.content}
+     onChange={((ev)=>{
+
+     setValue({
+        ...value,
+        content:ev
+        })
+      
+      
+     })}
+    
+     onClick={(async()=>{
+      const key = uuidv4();
+      await apiEditComments(value.commentsId,value.content)
+      if(!post) return
+      setPost({
+        ...post,
+        content:value.content,
+      })
+     
+      setValue({
+        ...value,
+         key,
+         keyComments:key
+        })
+      setShowEditComments(false)
+     })}
+     onClose={(()=>{
+      setShowEditComments(false)
+     })}
+     />
+     }
+
      <Scroll 
         style={{
           maxHeight: '93vh',
@@ -39,8 +88,8 @@ export default function RenderComments() {
         renderFloating={false}
         lastSpace={false}
       >
-        
-       {post && 
+        {post && 
+         <div key={`${post.id}${value.key}`} >
           <Post
             style={{
               borderBottom: '1px solid rgba(185, 180, 180, 0.4)',
@@ -51,8 +100,23 @@ export default function RenderComments() {
             isCreator={post.isCreator}
             renderFullPost={true}
             onClick={onClose}
+            onClickEdit={(()=>{
+              setValue({
+                ...value,
+                content:post.content,
+                commentsId:post.id,
+                key:'post'
+              })
+              setShowEditComments(true)
+            })}
+            onClickDelete={(async()=>{
+              console.log("osijdio")
+             // await deleteComment(40)
+             })}
           />
+          </div>
         }
+
         <div className={style.chat}>
           <CreatPost
             style={{
@@ -68,14 +132,13 @@ export default function RenderComments() {
             placeholder='Postar sua Resposta'
             onClick={apiCreateComment}
             onClose={onClose}
-            //isCreator={true}
+            
           />
         </div>
         {commentList.length > 0 && commentList.map((item) => (
-          <div key={item.id}>
+          <div key={`${item.id}-${value. keyComments}`}>
             <Comments
-              id=''
-              content={item}
+               content={item}
               style={{
                 marginTop: '10px',
                 maxWidth: '650px',
@@ -84,6 +147,15 @@ export default function RenderComments() {
                await deleteComment(item.id)
               })}
               isCreator={item.isCreator}
+              onClickEdit={(()=>{
+                setValue({
+                  ...value,
+                  content:item.content,
+                  commentsId:item.id,
+                  keyComments:'comments'
+                })
+                setShowEditComments(true)
+              })}
               onClick={(()=>{
               console.log(item.postId)
               router.push(`/toTalk/feed/comments/comment/${item.id}`)

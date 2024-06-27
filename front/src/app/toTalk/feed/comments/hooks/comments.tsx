@@ -90,6 +90,7 @@ export function useCustomComments() {
         close,
         onClose: toggleClose,
         onClick: handleCommentCreate,
-        deleteComment
+        deleteComment,
+        setPost
     };
 }

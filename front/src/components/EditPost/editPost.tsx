@@ -41,7 +41,8 @@ export function EditPost({value,onClick,onClose,onChange}:editPost) {
          onClose={(()=>{
             if(onClose)onClose()
          })}
-         onClickEdit={onClick}
+         onClick={onClick}
+         
         />
       </div>
       </Overlay>

@@ -17,32 +17,31 @@ import { useState } from 'react';
 
 
 export function Post({
+   style,
    content, 
-   id, 
-   style, 
-   onClick, 
+    onClick, 
    renderFullPost, 
    typePost,
    isCreator,
    onClickDelete,
    onClickEdit
   }: propsPost) {
- const { options, setOptions, optionsRef, showFullContent } = usePostCustom(content.content, renderFullPost);
+ const { options, setOptions, optionsRef, showFullContent } = usePostCustom(content?.content, renderFullPost);
  
  
  
  return (
      
-    <div id={id} className={styles.BodyPost} style={style}>
+    <div  className={styles.BodyPost} style={style}>
       <header className={styles.header}>
         <div className={styles.user}>
           {/* Ícone de perfil do usuário */}
           <AccountCircleIcon sx={{ paddingRight: '10px', fontSize: '2.4rem' }} />
-          <h4>{content.author}</h4>
+          <h4>{content?.author}</h4>
         </div>
         <div className={styles.moment}>
           {/* Data de criação do post */}
-          <P style={{ color: 'rgba(68, 65, 65, 0.5)', fontSize: '0.8rem' }}>{content.createdAt}</P>
+          <P style={{ color: 'rgba(68, 65, 65, 0.5)', fontSize: '0.8rem' }}>{content?.createdAt}</P>
         </div>
         <div className={styles.option}>
           {/* Renderização condicional do menu de opções */}
@@ -76,7 +75,7 @@ export function Post({
         <P id={styles.content} style={{ fontFamily: 'myFontRegular' }}>{showFullContent.content}</P>
         {/* Texto de "ver mais" se o conteúdo for longo */}
         <P id={styles.more} style={{ color: 'rgb(68, 65, 65)', fontSize: '1rem' }} onClick={onClick}>
-          {content.content.length <= 600 ? '' : showFullContent.textFull}
+          {content && content.content.length <= 600 ? '' : showFullContent.textFull}
         </P>
       </div>
       <div className={styles.containerReaction}>

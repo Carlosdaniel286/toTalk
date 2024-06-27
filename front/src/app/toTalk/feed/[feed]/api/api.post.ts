@@ -3,7 +3,7 @@ import { urlServer } from '@/@variables/env';
 
 export const apiDeletePost = async (postId:number) => {
     try {
-       const response = await axios.delete(`${urlServer}/delete/post/${postId}`,{
+        await axios.delete(`${urlServer}/delete/post/${postId}`,{
         withCredentials:true
        })
     

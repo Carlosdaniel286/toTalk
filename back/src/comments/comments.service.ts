@@ -2,12 +2,14 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { Comments } from './interface/comments';
-import { format } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
 import { FormatData } from 'src/common/formatData/formatData';
 import { SelectFieldsService } from 'src/common/select-fields.service';
 import { Published } from 'src/@interface/post.interface';
 import { CommentLikesService } from './comments.service.likes';
+import { UpdatePost } from 'src/posts/dto/create-post.dto/edite-post.dto';
+import { CommentsUpdateDto } from './dto/edit.comments.dto';
+
+
 
 @Injectable()
 export class CommentsService {
@@ -41,7 +43,7 @@ export class CommentsService {
     }
   }
 
-  async getUniqueComments(id: string): Promise<Published | string> {
+  async getUniqueComments(id: string,authorId:number): Promise<Published | string> {
     try {
       const post = await this.prisma.comment.findUnique({
         where: {
@@ -52,7 +54,7 @@ export class CommentsService {
       });
 
       if (!post) throw new Error('sem posts');
-      return this.formData.formatUniqueData(post, Number(id));
+      return this.formData.formatUniqueData(post, authorId);
     } catch (err) {
       throw new HttpException('Erro desconhecido', HttpStatus.NOT_FOUND);
     }
@@ -72,4 +74,34 @@ export class CommentsService {
       throw new HttpException('Erro desconhecido', HttpStatus.NOT_FOUND);
     }
   }
-}
+  async editComments(commentsUpdateDto:CommentsUpdateDto,postId:number,):Promise<Published | string>{
+    try{
+    const editPost = await this.prisma.comment.update({
+    where:{
+      authorId: commentsUpdateDto.authorId,
+      id:postId,
+    },
+    data:{
+      content:commentsUpdateDto.content
+    },
+    select:this.selectFieldsService.getDataSelectFields('post')
+   })
+    if (!editPost) {
+    // Lança um erro se o post não existir ou não puder ser excluído
+    throw new Error('Post not found or unable to delete post.');
+  }
+  return this.formData.formatUniqueData(editPost,commentsUpdateDto.authorId)
+  
+    
+    }catch(err){
+    console.log(err)
+      if(err instanceof Error){
+        throw new HttpException(err.message, HttpStatus.UNAUTHORIZED);
+      }
+      throw new HttpException('Erro desconhecido', HttpStatus.NOT_FOUND);
+    
+    }
+  }
+  }
+  
+

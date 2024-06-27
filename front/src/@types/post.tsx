@@ -1,8 +1,7 @@
 import { CSSProperties } from "react"
 
 export interface propsPost {
-  content: posts;
-  id?: string;
+  content?: posts;
   style?: React.CSSProperties;
   onClick?: () => void;
   renderFullPost?: boolean;
@@ -10,6 +9,8 @@ export interface propsPost {
   typePost?:'post'|'comments',
   onClickDelete?: () => void;
   onClickEdit?: () => void;
+ 
+ 
 }
 
 export type newPost={
