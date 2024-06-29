@@ -22,7 +22,7 @@ model User {
 
 model Post {
   id        Int       @id @default(autoincrement())
-  content   String?
+  content   String?   @db.Text
   createdAt DateTime? @default(now())
   published Boolean?  @default(false)
   author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
@@ -35,7 +35,7 @@ model Post {
 
 model Comment {
   id         Int       @id @default(autoincrement())
-  content    String
+  content    String    @db.Text
   createdAt  DateTime? @default(now())
   post       Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId     Int

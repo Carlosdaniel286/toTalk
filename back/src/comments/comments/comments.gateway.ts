@@ -23,6 +23,7 @@ export class CommentsGateway {
     console.log('Comentário recebido  comment :',  createCommentDto);
     const authorId:TypeToken =client['user']
     const commented = await this.commentsService.createComments(createCommentDto,authorId.userId)
+    console.log(commented)
     this.server.emit('comment',  commented);
   }
 

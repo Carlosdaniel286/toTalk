@@ -23,6 +23,7 @@ export class CommentController {
    }
    @Put('/edite/comments/:commentsId')
    async editPost(@Body() commentsUpdateDto: CommentsUpdateDto,  @Param('commentsId') commentsId:number){
+    console.log(commentsUpdateDto);
        return await this.commentsService.editComments(commentsUpdateDto,commentsId)
      }
 }

@@ -12,6 +12,7 @@ import { EditPost } from '@/components/editPost/editPost';
 import { apiEditPost } from './api/apiEditPost';
 import { getPosts } from './api/api.getPosts';
 import { v4 as uuidv4 } from 'uuid';
+import Swal from 'sweetalert2';
 
 export default function Feed() {
   const router = useRouter();
@@ -36,8 +37,10 @@ export default function Feed() {
 
   // Efeito para lidar com novos posts
   useEffect(() => {
-    if (newPost) {
-      setContent((prevContent) => (prevContent ? [...prevContent, newPost] : [newPost]));
+    if (newPost && content) {
+      const clonePost = [...content]
+      clonePost.unshift(newPost)
+      setContent(clonePost);
     }
   }, [newPost]);
 
@@ -100,10 +103,24 @@ export default function Feed() {
                   }}
                   onClick={() => handlePostClick(item.id)}
                   onClickDelete={async () => {
-                    const res = await apiDeletePost(item.id);
-                    if (res) {
-                      setContent((prevContent) => prevContent?.filter((p) => p.id !== item.id));
-                    }
+                    Swal.fire({
+                      title:'Excluir post?',
+                      text:'Essa ação não poderá ser desfeita, e o post será removido do seu perfil, da timeline de todas as contas que seguem você e dos resultados de busca. ',
+                      confirmButtonText:'exclui',
+                      showCancelButton:true,
+                      showConfirmButton:true,
+                      confirmButtonColor:'red',
+                      width:'400px',
+                      cancelButtonText:'cancelar',
+                      preConfirm:(async()=>{
+                        const res = await apiDeletePost(item.id);
+                        if (res) {
+                          setContent((prevContent) => prevContent?.filter((p) => p.id !== item.id));
+                        }
+                         router.back()  
+                      })
+                      });
+                  
                   }}
                 />
               </div>

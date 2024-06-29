@@ -86,6 +86,7 @@ export class CommentsService {
     },
     select:this.selectFieldsService.getDataSelectFields('post')
    })
+   console.log(editPost)
     if (!editPost) {
     // Lança um erro se o post não existir ou não puder ser excluído
     throw new Error('Post not found or unable to delete post.');

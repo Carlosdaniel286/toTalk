@@ -62,6 +62,7 @@ export const SiderBarCreatePost = ({ onClose, onClick, visible }: proposSiderbar
               maxRows={15}
               onClick={handleCreatePost}
               onChange={handleChangeContent}
+              
             />
           </div>
         </Overlay>
@@ -77,7 +78,7 @@ export const SiderBarCreatePost = ({ onClose, onClick, visible }: proposSiderbar
           <div className={style.iconContainer}>
             <PostAddRoundedIcon style={{ width: '40px', height: '40px' }} />
           </div>
-          <span>POSTAR</span>
+          <span>Criar Publicação</span>
         </li>
       )}
     </>

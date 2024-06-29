@@ -20,7 +20,7 @@ export function CreateComments({onClick,onClose,onChange,value}:CreateComments) 
       placeholder="sua resposta..."
       onClick={onClick}
       onClose={onClose}
-      isCreator={true}
+     
       onChange={onChange}
       value={value}
       />

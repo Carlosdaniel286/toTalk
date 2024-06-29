@@ -6,6 +6,7 @@ import { posts } from "@/@types/post";
 import { useParams } from "next/navigation";
 import { apiSearchPost } from "../api/seachPost";
 import { apiDeleteComments } from '../api/delete.comments';
+import { isEmpty } from "@/functions/validations/validation";
 
 export function useCustomComments() {
     const [commentList, setCommentList] = useState<comments[]>([]);
@@ -44,6 +45,8 @@ export function useCustomComments() {
 
     const createComment = useCallback(() => {
         const slugId = Number(id);
+        const  empty = isEmpty(contentComments)
+        if(empty.error) return
         const formComments = {
             postId: type === 'post' ? slugId : post?.postId,
             content: contentComments,
@@ -91,6 +94,7 @@ export function useCustomComments() {
         onClose: toggleClose,
         onClick: handleCommentCreate,
         deleteComment,
-        setPost
+        setPost,
+        setCommentList
     };
 }

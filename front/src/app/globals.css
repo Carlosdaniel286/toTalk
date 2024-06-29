@@ -29,6 +29,13 @@
     margin: 0%;
    
   }
-  
+  .confirmButton{
+    color: #000;
+    background-color: red;
+    display: none;
+}
+.main{
+  background-color: red;
+}
   
   

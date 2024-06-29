@@ -12,6 +12,9 @@
 
 .chat{
     max-width: 650px;
-   
-    
+}
+.confirmButton{
+    color: #000;
+    background-color: red;
+    display: none;
 }

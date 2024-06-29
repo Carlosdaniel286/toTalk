@@ -45,6 +45,8 @@ export const usePostCustom = (content?: string,renderFullPost?: boolean) => {
 
   const spliceText = () => {
     if(!content) return
+    if(renderFullPost) return setShowFullContent({ ...showFullContent, content ,textFull:""});
+   
     if (content?.length < 600) {
       setShowFullContent({ ...showFullContent, content });
     } else {

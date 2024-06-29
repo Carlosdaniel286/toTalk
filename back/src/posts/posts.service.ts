@@ -24,6 +24,7 @@ export class PostsService {
         })
       return this.formatData.formatUniqueData(published,createPostDto.authorId)
         }catch(err){
+          console.log(err)
             if (err instanceof Prisma.PrismaClientKnownRequestError) {
                 if (err.code === 'P2003') {
                   throw new HttpException('Este Usuário não existe', HttpStatus.NOT_FOUND);

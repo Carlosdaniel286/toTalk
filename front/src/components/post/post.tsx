@@ -11,7 +11,7 @@ import styles from './style/post.module.css';
 import { usePostCustom } from './hooks/hookPosts';
 import { propsPost } from '@/@types/post';
 
-import { useState } from 'react';
+
 
 
 
@@ -75,7 +75,7 @@ export function Post({
         <P id={styles.content} style={{ fontFamily: 'myFontRegular' }}>{showFullContent.content}</P>
         {/* Texto de "ver mais" se o conteúdo for longo */}
         <P id={styles.more} style={{ color: 'rgb(68, 65, 65)', fontSize: '1rem' }} onClick={onClick}>
-          {content && content.content.length <= 600 ? '' : showFullContent.textFull}
+        {content && content.content.length <= 600 ? '' : showFullContent.textFull} 
         </P>
       </div>
       <div className={styles.containerReaction}>
