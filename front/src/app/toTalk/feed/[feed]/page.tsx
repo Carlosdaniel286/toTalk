@@ -8,14 +8,16 @@ import { useRouter } from 'next/navigation';
 import { posts as PostsType } from '@/@types/post';
 import { useUpdatePost } from '@/contexts';
 import { apiDeletePost } from './api/api.post';
-import { EditPost } from '@/components/editPost/editPost';
+import { EditPost } from '../../../../components/editPost/editPost';
 import { apiEditPost } from './api/apiEditPost';
 import { getPosts } from './api/api.getPosts';
 import { v4 as uuidv4 } from 'uuid';
 import Swal from 'sweetalert2';
+import { useMediaQuery } from 'react-responsive';
 
 export default function Feed() {
   const router = useRouter();
+  
   const { newPost } = useUpdatePost();
   const [content, setContent] = useState<PostsType[]>();
   const [value, setValue] = useState({
@@ -117,7 +119,7 @@ export default function Feed() {
                         if (res) {
                           setContent((prevContent) => prevContent?.filter((p) => p.id !== item.id));
                         }
-                         router.back()  
+                        
                       })
                       });
                   

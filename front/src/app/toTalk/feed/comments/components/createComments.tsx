@@ -3,6 +3,7 @@ import { CreatPost } from "@/components/createPosts/createPosts"
 import { Overlay } from "@/components/overlay/overlay"
 import style from './create.style.module.css'
 import { ChangeEvent } from "react"
+import { useMediaQuery } from "react-responsive"
 
 type CreateComments={
  onClose?:()=>void
@@ -11,9 +12,11 @@ type CreateComments={
  value?:string
 }
 export function CreateComments({onClick,onClose,onChange,value}:CreateComments) {
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 600px)' });
    return(
     <Overlay
       onClose={onClose}
+      background={isTabletOrMobile?'white':undefined}
     >
     <div className={style.createPost}>
       <CreatPost

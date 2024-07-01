@@ -7,7 +7,7 @@ import { Comments } from '@/components/comments/comments';
 import { useCustomComments } from '../hooks/comments';
 import { CreateComments } from '../components/createComments';
 import { useParams, useRouter } from 'next/navigation';
-import { EditPost } from '@/components/editPost/editPost';
+import { EditPost } from '../../../../../components/editPost/editPost';
 import { useEffect, useState, useCallback } from 'react';
 import { apiEditComments } from '../api/apiEditComments';
 import { v4 as uuidv4 } from 'uuid';
@@ -17,6 +17,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import './alert.css'
 import Swals from 'sweetalert2';
 import Swal from 'react-sweetalert2';
+import { useMediaQuery } from 'react-responsive';
 type UpdatePosts = {
     content: string | null,
     key: string | null,
@@ -40,7 +41,7 @@ export default function RenderComments() {
   const router = useRouter();
   const { slug } = useParams();
   const type = slug[0].toString();
-
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 600px)' });
   const [showEditComments, setShowEditComments] = useState(false);
   const [postUnique, setPostUnique] = useState<UpdatePosts>({
     content: null,

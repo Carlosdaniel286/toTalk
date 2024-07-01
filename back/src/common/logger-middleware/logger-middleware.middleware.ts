@@ -20,7 +20,7 @@ export class LoggerMiddleware implements NestMiddleware {
       if (!token) {
         throw new Error('Token not provided');
       }
-
+    
       // Verifica se o token é válido e decodifica suas informações
       const decoded: TypeToken = this.jwtService.verify(token, jwtConstants);
 

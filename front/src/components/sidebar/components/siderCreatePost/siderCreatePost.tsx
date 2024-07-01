@@ -8,12 +8,14 @@ import { CreatPost } from '@/components/createPosts/createPosts';
 import { proposSiderbar } from '@/@types/proposSiderBar';
 import { apiCreatePost } from '../../api/apiUpdatePost';
 import { useUpdatePost } from '@/contexts';
-
+import { useMediaQuery } from 'react-responsive';
 export const SiderBarCreatePost = ({ onClose, onClick, visible }: proposSiderbar) => {
   const { UpdatePosts } = useUpdatePost();
   const [displayCreatePost, setDisplayCreatePost] = useState(false);
   const [content, setContent] = useState('');
   const isVisible = visible ?? true;
+
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 600px)' });
   const onClosed = onClose ?? (() => {});
 
   const handleToggleDisplayCreatePost = useCallback(() => {
@@ -38,6 +40,8 @@ export const SiderBarCreatePost = ({ onClose, onClick, visible }: proposSiderbar
     <>
       {displayCreatePost && (
         <Overlay
+         background={isTabletOrMobile ? 'white' : undefined}
+       
           onClose={() => {
             handleToggleDisplayCreatePost();
             onClosed();
@@ -46,14 +50,17 @@ export const SiderBarCreatePost = ({ onClose, onClick, visible }: proposSiderbar
           <div
             className={style.createPosts}
             style={{
-              width: '100%',
+             width:isTabletOrMobile? '92%':'100%',
               display: 'flex',
               alignItems: 'center',
               maxWidth: '650px',
               minHeight: '300px',
+              borderBottom:'1.5px solid rgb(185, 180, 180,0.4)',
+              
             }}
           >
             <CreatPost
+            
               style={{ borderRadius: '10px' }}
               onClose={() => {
                 handleToggleDisplayCreatePost();
@@ -69,6 +76,7 @@ export const SiderBarCreatePost = ({ onClose, onClick, visible }: proposSiderbar
       )}
       {isVisible && (
         <li
+       
           className={style.li}
           onClick={() => {
             handleToggleDisplayCreatePost();
