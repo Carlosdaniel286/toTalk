@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { SiderProvider ,GetPostProvider,EditPostProvider} from "@/contexts";
+import { GetPostProvider,EditPostProvider} from "@/contexts";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -19,9 +19,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <EditPostProvider>
        <GetPostProvider>
-       <SiderProvider>
+       
         {children}
-      </SiderProvider>
+      
       </GetPostProvider>
       </EditPostProvider>
         </body>

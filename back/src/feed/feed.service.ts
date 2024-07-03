@@ -19,7 +19,8 @@ export class FeedService {
         },
         id: true,
         content: true,
-        createdAt: true
+        createdAt: true,
+        countComments:true
       },
     })
     const formatPost = this.formData.serializeData(posts,authorId)

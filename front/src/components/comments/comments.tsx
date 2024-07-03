@@ -6,17 +6,25 @@ import { propsPost } from "@/@types/post"
 import { useState } from "react"
 
 
-export const Comments =({content,id,style,onClick,onClickDelete,onClickEdit}:propsPost)=>{
+export const Comments =({
+  content,
+  style,
+  onClick,
+  onClickDelete,
+  onClickEdit,
+  countComments,
+  isCreator
+}:propsPost)=>{
 
   return(
     < >
      <Post
       content={content}
       onClickEdit={onClickEdit}
-      id={id}
+      countComments={countComments}
       onClick={onClick}
       onClickDelete={onClickDelete}
-      isCreator={content.isCreator}
+      isCreator={isCreator}
       style={{
         border:'0px',
         wordBreak:"break-word",

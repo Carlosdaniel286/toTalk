@@ -16,13 +16,9 @@ import { apiEditPost } from '../../[feed]/api/apiEditPost';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import './alert.css'
 import Swals from 'sweetalert2';
-import Swal from 'react-sweetalert2';
+import { useCommentCount } from '@/contexts';
 import { useMediaQuery } from 'react-responsive';
-type UpdatePosts = {
-    content: string | null,
-    key: string | null,
-    id: number | null,
-};
+
 
 export default function RenderComments() {
   const {
@@ -30,6 +26,10 @@ export default function RenderComments() {
     setPost,
     commentList,
     contentComments,
+    comments,
+    setComments,
+    setPostUnique,
+    postUnique,
     setContentComments,
     apiCreateComment,
     onClose,
@@ -43,17 +43,7 @@ export default function RenderComments() {
   const type = slug[0].toString();
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 600px)' });
   const [showEditComments, setShowEditComments] = useState(false);
-  const [postUnique, setPostUnique] = useState<UpdatePosts>({
-    content: null,
-    key: null,
-    id: null,
-  });
-
-  const [comments, setComments] = useState<UpdatePosts>({
-    content: null,
-    key: null,
-    id: null,
-  });
+  const {commentCount,updateCommentCount}=useCommentCount()
 
   const handlePublication = useCallback((content: string) => {
     setPostUnique((prev) => ({ ...prev, content }));
@@ -126,6 +116,7 @@ export default function RenderComments() {
         {post && (
           <div key={`${post.id}/${postUnique.key}`}>
             <Post
+             countComments={commentCount}
               style={{
                 borderBottom: '1px solid rgba(185, 180, 180, 0.4)',
                 width: '100%',
@@ -201,6 +192,7 @@ export default function RenderComments() {
             <div key={`${item.id}-${comments.key}`}>
               <Comments
                 content={item}
+                countComments={item.countComments}
                 style={{ marginTop: '10px', maxWidth: '650px' }}
                 onClickDelete={async () => {
                   Swals.fire({

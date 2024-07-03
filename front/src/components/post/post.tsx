@@ -24,11 +24,12 @@ export function Post({
    typePost,
    isCreator,
    onClickDelete,
-   onClickEdit
+   onClickEdit,
+   countComments
   }: propsPost) {
  const { options, setOptions, optionsRef, showFullContent } = usePostCustom(content?.content, renderFullPost);
  
- 
+
  
  return (
      
@@ -86,11 +87,15 @@ export function Post({
               sx={{ cursor: 'pointer', fontSize: '1.1rem' }}
               onClick={onClick}
             />
+             <P style={{ fontSize: '1rem', color: 'rgb(185, 180, 180)', fontFamily: 'myFontRegular' }}>
+              {countComments}
+             </P>
           </div>
         )}
         <div className={styles.info}>
           {/* Ícone de curtida */}
           <FavoriteBorderIcon sx={{ cursor: 'pointer', fontSize: '1.1rem' }} color='error' />
+          
           {/* Contador de curtidas */}
           <P style={{ fontSize: '1rem', color: 'rgb(185, 180, 180)', fontFamily: 'myFontRegular' }}>10</P>
         </div>

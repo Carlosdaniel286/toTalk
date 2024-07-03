@@ -6,6 +6,7 @@ export interface propsPost {
   onClick?: () => void;
   renderFullPost?: boolean;
   isCreator:boolean;
+  countComments:number 
   typePost?:'post'|'comments',
   onClickDelete?: () => void;
   onClickEdit?: () => void;
@@ -25,7 +26,8 @@ export type posts = newPost&{
     published: boolean,
     author:string,
     postId?:string,
-    isCreator:boolean
+    isCreator:boolean,
+    countComments:number
   }
 
   

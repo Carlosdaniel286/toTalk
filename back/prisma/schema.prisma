@@ -28,8 +28,10 @@ model Post {
   author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId  Int
   comments  Comment[]
-  likes     Int      @default(0)
-  quantityComments Int      @default(0)
+  likes     Likes[]
+  quantityComments QuantityComments[]
+  countLike Int @default(0)
+  countComments Int @default(0)
   @@map("post")
 }
 
@@ -38,13 +40,34 @@ model Comment {
   content    String    @db.Text
   createdAt  DateTime? @default(now())
   post       Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId     Int
+  postId     Int       
   author     User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId   Int
-  parentId   Int?
+  parentId   Int?     
   parent     Comment?  @relation("CommentReplies",fields: [parentId], references: [id],onDelete: Cascade)
   replies    Comment[] @relation("CommentReplies")
-  quantityComments Int      @default(0)
-  likes     Int      @default(0)
+  quantityComments QuantityComments[]
+  likes     Likes[]
+  countLike Int @default(0)
+  countComments Int @default(0)
   @@map("comment")
+}
+
+model QuantityComments {
+  id  Int @id @default(autoincrement())
+  postId Int
+  commentId Int?
+  post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  comments  Comment?    @relation(fields: [commentId], references: [id], onDelete: Cascade)
+ // @@unique([postId, commentId])
+  @@map("quantityComments")
+}
+model Likes {
+  id  Int @id @default(autoincrement())
+  postId Int
+  commentId Int 
+  post      Post?      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  comments  Comment?    @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  @@unique([postId, commentId])
+  @@map("likes")
 }

@@ -4,4 +4,5 @@ export  interface  Published {
     createdAt:string
     author:string,
     isCreator:boolean
+    countComments:number
 }

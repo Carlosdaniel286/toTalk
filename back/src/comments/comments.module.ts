@@ -1,5 +1,5 @@
 import { CommentQueryService } from './comments.service.query';
-import { CommentLikesService } from './comments.service.likes';
+import { Count } from './comments.service.likes';
 import { Module } from '@nestjs/common';
 import { CommentsGateway } from './comments/comments.gateway';
 import { CommentsService } from './comments.service';
@@ -18,7 +18,7 @@ import { SelectFieldsService } from 'src/common/select-fields.service';
     CreatePostDto,
     FormatData,
     SelectFieldsService,
-    CommentLikesService,
+    Count,
     CommentQueryService
   ],
   controllers:[CommentController]

@@ -14,7 +14,8 @@ export class SelectFieldsService {
       id: true,
       content: true,
       createdAt: true,
-      postId:filed?false:true
+      postId:filed?false:true,
+      countComments:true
     };
   }
 }

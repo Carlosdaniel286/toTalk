@@ -1,10 +1,10 @@
-import { useSidebar,SiderProvider } from "./siderbar";
+import { useCommentCount,CommentCountProvider } from "./commentCount";
 import { useUpdatePost ,GetPostProvider } from "./updatePosts";
 import { useEditPostContext,EditPostProvider } from "./editPost";
 
 export{
-    useSidebar,
-    SiderProvider,
+   useCommentCount,
+   CommentCountProvider,
     GetPostProvider,
     useUpdatePost,
     useEditPostContext,

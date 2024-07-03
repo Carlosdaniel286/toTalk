@@ -5,7 +5,7 @@ import { Comments } from './interface/comments';
 import { FormatData } from 'src/common/formatData/formatData';
 import { SelectFieldsService } from 'src/common/select-fields.service';
 import { Published } from 'src/@interface/post.interface';
-import { CommentLikesService } from './comments.service.likes';
+import { Count } from './comments.service.likes';
 import { UpdatePost } from 'src/posts/dto/create-post.dto/edite-post.dto';
 import { CommentsUpdateDto } from './dto/edit.comments.dto';
 
@@ -17,18 +17,25 @@ export class CommentsService {
     private prisma: PrismaService,
     private readonly formData: FormatData,
     private readonly selectFieldsService: SelectFieldsService,
-    private readonly commentLikesService: CommentLikesService
+    private readonly commentLikesService: Count
   ) {}
 
   async createComments(createCommentDto: Comments, authorId: number): Promise<Published> {
     try {
       const formartComments = { ...createCommentDto, authorId: authorId };
+      console.log(createCommentDto)
       const comment = await this.prisma.comment.create({
         data:formartComments,
-         select:this.selectFieldsService.getDataSelectFields()
+         select:this.selectFieldsService.getDataSelectFields(),
+        
       });
-      await  this.commentLikesService.updateLikes(comment.id,createCommentDto.parentId)
-     return this.formData.formatUniqueData(comment,authorId);
+    
+      await  this.commentLikesService.countComments(createCommentDto.postId,createCommentDto.parentId)
+      
+      return this.formData.formatUniqueData(comment,authorId);
+    
+    
+    
     } catch (err) {
       console.log(err);
       if (err instanceof Prisma.PrismaClientKnownRequestError) {
@@ -69,6 +76,8 @@ export class CommentsService {
         },
       });
       if (!comment) throw new Error('sem posts');
+     this.commentLikesService.decrementComment(comment.postId,comment.parentId)
+     console.log(comment)
       return 'Comentário deletado!'
     } catch (err) {
       throw new HttpException('Erro desconhecido', HttpStatus.NOT_FOUND);

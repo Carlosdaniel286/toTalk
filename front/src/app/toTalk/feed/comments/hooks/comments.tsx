@@ -7,7 +7,13 @@ import { useParams } from "next/navigation";
 import { apiSearchPost } from "../api/seachPost";
 import { apiDeleteComments } from '../api/delete.comments';
 import { isEmpty } from "@/functions/validations/validation";
-
+import { v4 as uuidv4 } from 'uuid';
+import { useCommentCount } from "@/contexts";
+type UpdatePosts = {
+    content: string | null,
+    key: string | null,
+    id: number | null,
+};
 export function useCustomComments() {
     const [commentList, setCommentList] = useState<comments[]>([]);
     const [post, setPost] = useState<posts | null>(null);
@@ -17,6 +23,19 @@ export function useCustomComments() {
     const type = params.slug[0].toString();
     const id = params.slug[1].toString();
 
+    const [postUnique, setPostUnique] = useState<UpdatePosts>({
+        content: null,
+        key: null,
+        id: null,
+      });
+    
+      const [comments, setComments] = useState<UpdatePosts>({
+        content: null,
+        key: null,
+        id: null,
+      });
+      const {updateCommentCount}=useCommentCount()
+   
     const toggleClose = useCallback(() => {
         setClose(prev => !prev);
     }, []);
@@ -32,9 +51,10 @@ export function useCustomComments() {
             setPost(response);
             const object = type === 'comment' ? { parentId: Number(id) } : { postId: Number(id) };
             const event = type === 'comment' ? 'getResponseComments' : 'getcomment';
-
+           if(response)updateCommentCount(response.countComments)
             socket.emit(event, object);
             socket.on(event, (comments: comments[]) => {
+                
                 setCommentList(comments);
             });
 
@@ -52,6 +72,7 @@ export function useCustomComments() {
             content: contentComments,
             parentId: type === 'post' ? undefined : slugId,
         };
+        updateCommentCount('add')
         socket.emit('comment', formComments);
     }, [id, type, contentComments, post?.postId]);
 
@@ -66,8 +87,13 @@ export function useCustomComments() {
 
     useEffect(() => {
         const handleNewComment = (comment: comments) => {
+              const key = uuidv4();
             setCommentList(prevComments => [comment, ...prevComments]);
             setContentComments('');
+            setComments({
+                ...comments,
+                key
+                });
         };
 
         socket.on('getResponseComments', (comments: comments[]) => {
@@ -95,6 +121,10 @@ export function useCustomComments() {
         onClick: handleCommentCreate,
         deleteComment,
         setPost,
-        setCommentList
+        setCommentList,
+        postUnique, 
+        setPostUnique,
+        comments, 
+        setComments
     };
 }

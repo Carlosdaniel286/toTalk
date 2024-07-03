@@ -14,7 +14,7 @@ import { getPosts } from './api/api.getPosts';
 import { v4 as uuidv4 } from 'uuid';
 import Swal from 'sweetalert2';
 import { useMediaQuery } from 'react-responsive';
-
+import { useCommentCount } from '@/contexts';
 export default function Feed() {
   const router = useRouter();
   
@@ -65,7 +65,7 @@ export default function Feed() {
     setContent(updatedContent);
     setDisplayEditPost(false);
   };
-
+  const {commentCount}=useCommentCount()
   // Estado e função para exibir o formulário de edição de post
   const [displayEditPost, setDisplayEditPost] = useState<boolean>(false);
 
@@ -99,6 +99,7 @@ export default function Feed() {
                   onClickEdit={() => handleEditButtonClick(item)}
                   isCreator={item.isCreator}
                   content={item}
+                  countComments={item.countComments}
                   style={{
                     maxWidth: '650px',
                     borderBottom: index === content.length - 1 ? '1px solid rgb(185, 180, 180, 0.4)' : undefined,

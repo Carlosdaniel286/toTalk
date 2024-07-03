@@ -9,7 +9,7 @@ import { SxProps } from '@mui/material/styles';
 import Textarea from '@mui/joy/Textarea';
 import { isEmpty } from '@/functions/validations/validation';
 
-type Comments = Omit<propsPost, 'content'|'isCreator'> & {
+type Comments = Omit<propsPost, 'content'|'isCreator'|'countComments'> & {
   onClose?: () => void;
   buttonClose?:boolean;
   maxRows?: number;
