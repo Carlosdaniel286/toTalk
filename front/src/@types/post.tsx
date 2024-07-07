@@ -2,6 +2,8 @@ import { CSSProperties } from "react"
 
 export interface propsPost {
   content?: posts;
+  liked?:boolean;
+  countLiked?:number,
   style?: React.CSSProperties;
   onClick?: () => void;
   renderFullPost?: boolean;

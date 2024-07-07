@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class SelectFieldsService {
   getDataSelectFields(filed?:'post') {
-    return {
+    const data = {
       author: {
         select: {
           name: true,
@@ -14,8 +14,14 @@ export class SelectFieldsService {
       id: true,
       content: true,
       createdAt: true,
-      postId:filed?false:true,
+      postId:true,
       countComments:true
     };
+    if(filed=='post'){
+      const{postId,...object}=data
+      return object
+    }
+    return data
   }
+  
 }

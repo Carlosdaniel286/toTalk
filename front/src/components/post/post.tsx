@@ -11,7 +11,7 @@ import styles from './style/post.module.css';
 import { usePostCustom } from './hooks/hookPosts';
 import { propsPost } from '@/@types/post';
 
-
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 
 
 
@@ -25,7 +25,9 @@ export function Post({
    isCreator,
    onClickDelete,
    onClickEdit,
-   countComments
+   countComments,
+   liked,
+   countLiked
   }: propsPost) {
  const { options, setOptions, optionsRef, showFullContent } = usePostCustom(content?.content, renderFullPost);
  
@@ -75,29 +77,65 @@ export function Post({
         {/* Conteúdo do post */}
         <P id={styles.content} style={{ fontFamily: 'myFontRegular' }}>{showFullContent.content}</P>
         {/* Texto de "ver mais" se o conteúdo for longo */}
-        <P id={styles.more} style={{ color: 'rgb(68, 65, 65)', fontSize: '1rem' }} onClick={onClick}>
+        <P id={styles.more} style={{ 
+          color: 'rgb(68, 65, 65)', 
+          fontSize: '1rem',
+          
+          
+          }} onClick={onClick}>
         {content && content.content.length <= 600 ? '' : showFullContent.textFull} 
         </P>
       </div>
       <div className={styles.containerReaction}>
-        {/* Ícone de comentário, renderizado condicionalmente */}
-        {typePost !== 'comments' && (
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+        
+       
+          <div className={styles.comments}
+          
+          >
             <ChatBubbleOutlineIcon
-              sx={{ cursor: 'pointer', fontSize: '1.1rem' }}
+              sx={{ cursor: 'pointer', fontSize: '1.1rem',color: 'rgb(185, 180, 180)' }}
+              
               onClick={onClick}
             />
-             <P style={{ fontSize: '1rem', color: 'rgb(185, 180, 180)', fontFamily: 'myFontRegular' }}>
+             <P style={{ fontSize: '1rem', color: 'rgb(185, 180, 180)', 
+              fontFamily: 'myFontRegular',
+              marginLeft:'10px' 
+              
+              }}>
               {countComments}
              </P>
           </div>
-        )}
+        
         <div className={styles.info}>
-          {/* Ícone de curtida */}
-          <FavoriteBorderIcon sx={{ cursor: 'pointer', fontSize: '1.1rem' }} color='error' />
-          
-          {/* Contador de curtidas */}
-          <P style={{ fontSize: '1rem', color: 'rgb(185, 180, 180)', fontFamily: 'myFontRegular' }}>10</P>
+         {liked? (
+          <FavoriteRoundedIcon 
+           cursor={'pointer'}
+           
+           sx={{ cursor: 'pointer', 
+            fontSize: '1.1rem' ,
+            fill:'red',
+            marginLeft:'10px' 
+          }}
+          // FavoriteBorderIcon 
+          />
+          ):(
+            <FavoriteBorderIcon  
+           cursor={'pointer'}
+          sx={{ cursor: 'pointer', 
+            fontSize: '1.1rem' ,
+            fill:'rgb(185, 180, 180)',
+            marginLeft:'10px' 
+          }}
+           
+          />
+        )}
+         
+          <P style={{
+             fontSize: '1rem', 
+             color: 'rgb(185, 180, 180)', 
+             fontFamily: 'myFontRegular' ,
+             marginLeft:'10px'
+             }}>{countLiked?countLiked:0}</P>
         </div>
       </div>
     </div>

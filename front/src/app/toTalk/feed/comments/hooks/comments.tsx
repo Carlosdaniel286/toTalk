@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState, useCallback } from "react";
+
 import { socket } from "../api/socket";
 import { comments } from "@/@types/comments";
 import { posts } from "@/@types/post";
@@ -72,7 +73,7 @@ export function useCustomComments() {
             content: contentComments,
             parentId: type === 'post' ? undefined : slugId,
         };
-        updateCommentCount('add')
+        updateCommentCount('increment')
         socket.emit('comment', formComments);
     }, [id, type, contentComments, post?.postId]);
 
@@ -80,6 +81,7 @@ export function useCustomComments() {
         try {
             await apiDeleteComments(id);
             setCommentList(prevComments => prevComments.filter(comment => comment.id !== id));
+            updateCommentCount('decrement')
         } catch (error) {
             console.error('Failed to delete comment', error);
         }

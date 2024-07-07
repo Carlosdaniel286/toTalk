@@ -59,7 +59,7 @@ model QuantityComments {
   commentId Int?
   post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   comments  Comment?    @relation(fields: [commentId], references: [id], onDelete: Cascade)
- // @@unique([postId, commentId])
+ 
   @@map("quantityComments")
 }
 model Likes {

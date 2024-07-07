@@ -123,6 +123,7 @@ export default function RenderComments() {
                 maxWidth: '650px',
               }}
               content={post}
+              liked={true}
               isCreator={post.isCreator}
               renderFullPost={true}
               onClick={onClose}

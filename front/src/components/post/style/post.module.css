@@ -32,6 +32,7 @@
    
    
 }
+
 .option{
     display: flex;
     box-sizing: border-box;
@@ -79,10 +80,14 @@
     width: 100px;
     height: 40px;
     margin-left: 33px;
-    
-    
-    
+   
 }
+.comments{
+    display: flex;
+    align-items:flex-end;
+    box-sizing: border-box;
+    
+ }
 .contentPost p{
   font-family:'myFont';
   word-break: keep-all;
@@ -110,6 +115,5 @@
 .info{
     display: flex;
     align-items:flex-end;
-   
     box-sizing: border-box;
 }

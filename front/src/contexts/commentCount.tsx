@@ -11,7 +11,7 @@ type CommentCountProviderProps = {
 // Define a interface para o contexto de contagem de comentários
 interface CommentCountContext {
     commentCount: number;
-    updateCommentCount: (value: number|'add') => void;
+    updateCommentCount: (value: number|'increment'|'decrement') => void;
 }
 
 // Cria o contexto para a contagem de comentários
@@ -22,9 +22,11 @@ export const CommentCountProvider = ({ children }: CommentCountProviderProps) =>
     const [commentCount, setCommentCount] = useState<number>(0);
 
     // Função para atualizar a contagem de comentários
-    const updateCommentCount = (value: number|'add') => {
+    const updateCommentCount = (value: number|'increment'|'decrement') => {
         if(typeof value =="number") return setCommentCount(value);
-        setCommentCount(prevCount => prevCount + 1);
+        if(value =='increment')return setCommentCount(prevCount => prevCount + 1);
+        setCommentCount(prevCount => prevCount - 1);
+       
         
        
     };
