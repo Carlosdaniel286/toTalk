@@ -20,7 +20,8 @@ export class FeedService {
         id: true,
         content: true,
         createdAt: true,
-        countComments:true
+        countComments:true,
+        countLike:true
       },
     })
     const formatPost = this.formData.serializeData(posts,authorId)

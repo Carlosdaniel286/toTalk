@@ -2,7 +2,7 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { PrismaService } from '../prisma.service'; // ajuste o caminho conforme a estrutura do seu projeto
 
 @Injectable()
-export class Count {
+export class CountComments {
   constructor(private prisma: PrismaService) {}
 
   async countComments(postId:number,commentId?:number): Promise<void> {

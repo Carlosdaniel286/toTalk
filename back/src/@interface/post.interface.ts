@@ -5,6 +5,7 @@ export  interface  Published {
     author:string,
     isCreator:boolean
     countComments:number
+    countLike:number
 }
 // Define a interface para o autor de um post
 export interface Author {
@@ -18,6 +19,7 @@ export interface Author {
     content: string; // Conteúdo do post
     createdAt: Date; // Data de criação do post
     countComments: number; // Contagem de comentários no post
-    author: Author; // Informações sobre o autor do post
+    author: Author;
+    countLike:number
   }
   

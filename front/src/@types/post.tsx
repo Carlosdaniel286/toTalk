@@ -12,7 +12,8 @@ export interface propsPost {
   typePost?:'post'|'comments',
   onClickDelete?: () => void;
   onClickEdit?: () => void;
- 
+  onDecrementLike?:()=> void;
+  onIncrementLike?:()=>void;
  
 }
 
@@ -29,7 +30,8 @@ export type posts = newPost&{
     author:string,
     postId?:string,
     isCreator:boolean,
-    countComments:number
+    countComments:number,
+    countLike:number
   }
 
   

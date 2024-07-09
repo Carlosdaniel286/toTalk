@@ -37,6 +37,9 @@ export default function RenderComments() {
     onClick,
     deleteComment,
     setCommentList,
+   
+    incrementLikeComments,
+    decrementLikeComments
   } = useCustomComments();
   const router = useRouter();
   const { slug } = useParams();
@@ -53,7 +56,7 @@ export default function RenderComments() {
   useEffect(() => {
     console.log(`${post?.id}-${comments.key}`);
   }, [post, postUnique,comments]);
-
+ console.log(commentList)
   const handleEdit = async (key: string) => {
     if (postUnique.content && postUnique.id) {
       if (type === 'post') {
@@ -194,6 +197,14 @@ export default function RenderComments() {
               <Comments
                 content={item}
                 countComments={item.countComments}
+                countLiked={item.countLike}
+                onIncrementLike={(()=>{
+                  incrementLikeComments(item.id)
+                  
+                })}
+                onDecrementLike={(()=>{
+                  decrementLikeComments(item.id)
+                })}
                 style={{ marginTop: '10px', maxWidth: '650px' }}
                 onClickDelete={async () => {
                   Swals.fire({

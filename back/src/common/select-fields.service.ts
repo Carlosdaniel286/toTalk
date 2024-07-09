@@ -15,7 +15,8 @@ export class SelectFieldsService {
       content: true,
       createdAt: true,
       postId:true,
-      countComments:true
+      countComments:true,
+      countLike:true
     };
     if(filed=='post'){
       const{postId,...object}=data

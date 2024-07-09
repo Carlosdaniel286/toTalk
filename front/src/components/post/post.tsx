@@ -1,5 +1,5 @@
 'use client';
-
+///like/comments/:commentsId
 // Importando ícones do Material UI
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
@@ -10,32 +10,28 @@ import { P } from '../p/p';
 import styles from './style/post.module.css';
 import { usePostCustom } from './hooks/hookPosts';
 import { propsPost } from '@/@types/post';
-
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 
-
-
-
 export function Post({
-   style,
-   content, 
-    onClick, 
-   renderFullPost, 
-   typePost,
-   isCreator,
-   onClickDelete,
-   onClickEdit,
-   countComments,
-   liked,
-   countLiked
-  }: propsPost) {
- const { options, setOptions, optionsRef, showFullContent } = usePostCustom(content?.content, renderFullPost);
+  style,
+  content,
+  onClick,
+  renderFullPost,
+  typePost,
+  isCreator,
+  onClickDelete,
+  onClickEdit,
+  countComments,
+  onIncrementLike,
+  onDecrementLike,
+  countLiked,
+}: propsPost) {
+  const { options, setOptions, optionsRef, showFullContent } = usePostCustom(content?.content, renderFullPost);
+  const showLiked = countLiked?countLiked:0
  
-
  
- return (
-     
-    <div  className={styles.BodyPost} style={style}>
+  return (
+    <div className={styles.BodyPost} style={style}>
       <header className={styles.header}>
         <div className={styles.user}>
           {/* Ícone de perfil do usuário */}
@@ -49,24 +45,21 @@ export function Post({
         <div className={styles.option}>
           {/* Renderização condicional do menu de opções */}
           {options && isCreator && (
-               <div className={styles.options}
-                ref={optionsRef}
-               >
-                <Options
-                  styles={{ height: '100%' }}
-                  onClickDelete={(()=>{
-                    setOptions(!options)
-                    if(onClickDelete)onClickDelete()
-                   })}
-                  onClosed={() => setOptions(!options)}
-                  onClickEdit={(()=>{
-                    setOptions(!options)
-                    if(onClickEdit)onClickEdit()
-                      
-                  })}
-                />
-              </div>
-             )}
+            <div className={styles.options} ref={optionsRef}>
+              <Options
+                styles={{ height: '100%' }}
+                onClickDelete={() => {
+                  setOptions(!options);
+                  if (onClickDelete) onClickDelete();
+                }}
+                onClosed={() => setOptions(!options)}
+                onClickEdit={() => {
+                  setOptions(!options);
+                  if (onClickEdit) onClickEdit();
+                }}
+              />
+            </div>
+          )}
           {/* Ícone do menu de opções */}
           <div onClick={() => setOptions(!options)}>
             <MenuIcon sx={{ cursor: 'pointer' }} />
@@ -75,70 +68,70 @@ export function Post({
       </header>
       <div className={styles.contentPost}>
         {/* Conteúdo do post */}
-        <P id={styles.content} style={{ fontFamily: 'myFontRegular' }}>{showFullContent.content}</P>
+        <P id={styles.content} style={{ fontFamily: 'myFontRegular' }}>
+          {showFullContent.content}
+        </P>
         {/* Texto de "ver mais" se o conteúdo for longo */}
-        <P id={styles.more} style={{ 
-          color: 'rgb(68, 65, 65)', 
-          fontSize: '1rem',
-          
-          
-          }} onClick={onClick}>
-        {content && content.content.length <= 600 ? '' : showFullContent.textFull} 
+        <P
+          id={styles.more}
+          style={{ color: 'rgb(68, 65, 65)', fontSize: '1rem' }}
+          onClick={onClick}
+        >
+          {content && content.content.length <= 600 ? '' : showFullContent.textFull}
         </P>
       </div>
       <div className={styles.containerReaction}>
-        
-       
-          <div className={styles.comments}
-          
-          >
-            <ChatBubbleOutlineIcon
-              sx={{ cursor: 'pointer', fontSize: '1.1rem',color: 'rgb(185, 180, 180)' }}
-              
-              onClick={onClick}
-            />
-             <P style={{ fontSize: '1rem', color: 'rgb(185, 180, 180)', 
+        <div className={styles.comments}>
+          <ChatBubbleOutlineIcon
+            sx={{ cursor: 'pointer', fontSize: '1.1rem', color: 'rgb(185, 180, 180)' }}
+            onClick={onClick}
+          />
+          <P
+            style={{
+              fontSize: '1rem',
+              color: 'rgb(185, 180, 180)',
               fontFamily: 'myFontRegular',
-              marginLeft:'10px' 
-              
-              }}>
-              {countComments}
-             </P>
-          </div>
-        
+              marginLeft: '10px',
+            }}
+          >
+            {countComments}
+          </P>
+        </div>
         <div className={styles.info}>
-         {liked? (
-          <FavoriteRoundedIcon 
-           cursor={'pointer'}
-           
-           sx={{ cursor: 'pointer', 
-            fontSize: '1.1rem' ,
-            fill:'red',
-            marginLeft:'10px' 
-          }}
-          // FavoriteBorderIcon 
-          />
-          ):(
-            <FavoriteBorderIcon  
-           cursor={'pointer'}
-          sx={{ cursor: 'pointer', 
-            fontSize: '1.1rem' ,
-            fill:'rgb(185, 180, 180)',
-            marginLeft:'10px' 
-          }}
-           
-          />
-        )}
-         
-          <P style={{
-             fontSize: '1rem', 
-             color: 'rgb(185, 180, 180)', 
-             fontFamily: 'myFontRegular' ,
-             marginLeft:'10px'
-             }}>{countLiked?countLiked:0}</P>
+          {showLiked>0 ? (
+            <FavoriteRoundedIcon
+            onClick={onDecrementLike}
+              sx={{
+                cursor: 'pointer',
+                fontSize: '1.1rem',
+                fill: 'red',
+                marginLeft: '10px',
+              }}
+              
+            />
+          ) : (
+            <FavoriteBorderIcon
+            onClick={onIncrementLike}
+              sx={{
+                cursor: 'pointer',
+                fontSize: '1.1rem',
+                fill: 'rgb(185, 180, 180)',
+                marginLeft: '10px',
+              }}
+            />
+          )}
+          <P
+            style={{
+              fontSize: '1rem',
+              color: 'rgb(185, 180, 180)',
+              fontFamily: 'myFontRegular',
+              marginLeft: '10px',
+            }}
+          >
+            {showLiked}
+          </P>
         </div>
       </div>
     </div>
-       
   );
 }

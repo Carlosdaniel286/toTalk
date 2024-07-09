@@ -13,7 +13,8 @@ export class FormatData {
         content: post.content,
         isCreator:authorId==post.author.id?true:false,
         createdAt: format(new Date(post.createdAt), 'dd/MM/yyyy HH:mm:ss', { locale: ptBR }),
-        countComments:post.countComments
+        countComments:post.countComments,
+        countLike:post.countLike
     }))
    
     return [...copiedPosts]
@@ -23,7 +24,8 @@ export class FormatData {
             author:published.author.name, 
             isCreator:authorId==published.author.id?true:false,
             createdAt: format(new Date(published.createdAt), 'dd/MM/yyyy HH:mm:ss', { locale: ptBR }),
-            countComments:published.countComments
+            countComments:published.countComments,
+            countLike:published.countLike
         }
       }
 }

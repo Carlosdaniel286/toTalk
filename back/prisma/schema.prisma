@@ -5,6 +5,7 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+  
 }
 
 model User {
@@ -16,6 +17,7 @@ model User {
   password  String
   posts     Post[]
   comments  Comment[]
+  likes     Likes[]
 
   @@map("user")
 }
@@ -59,15 +61,19 @@ model QuantityComments {
   commentId Int?
   post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   comments  Comment?    @relation(fields: [commentId], references: [id], onDelete: Cascade)
- 
+  
   @@map("quantityComments")
 }
+
 model Likes {
-  id  Int @id @default(autoincrement())
-  postId Int
-  commentId Int 
-  post      Post?      @relation(fields: [postId], references: [id], onDelete: Cascade)
-  comments  Comment?    @relation(fields: [commentId], references: [id], onDelete: Cascade)
-  @@unique([postId, commentId])
+  id         Int     @id @default(autoincrement())
+  author     User    @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId   Int
+  postId     Int?
+  commentId  Int?
+   post       Post?   @relation(fields: [postId], references: [id], onDelete: Cascade)
+   comment    Comment?@relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+ // @@unique([authorId, commentId]) // Adicionando restrição de unicidade
   @@map("likes")
 }

@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Param, Delete ,Req, Put} from "@nestjs/common"
+import { Body, Controller, Get, Param, Delete ,Req, Put, Post} from "@nestjs/common"
 import { CommentsService } from "./comments.service"
 import { TypeToken } from "src/common/logger-middleware/interface/interface.token"
 import { CommentsUpdateDto } from "./dto/edit.comments.dto"
+
 @Controller()
 export class CommentController {
   constructor(
@@ -26,4 +27,5 @@ export class CommentController {
     console.log(commentsUpdateDto);
        return await this.commentsService.editComments(commentsUpdateDto,commentsId)
      }
+    
 }

@@ -4,14 +4,21 @@ import { Overlay } from "@/components/overlay/overlay"
 import style from './create.style.module.css'
 import { ChangeEvent } from "react"
 import { useMediaQuery } from "react-responsive"
-
-type CreateComments={
+import { propsPost } from "@/@types/post"
+type CreateComments ={
  onClose?:()=>void
  onClick?:()=>void
  onChange?:(ev:ChangeEvent<HTMLTextAreaElement>)=>void
- value?:string
+ value?:string,
+ 
 }
-export function CreateComments({onClick,onClose,onChange,value}:CreateComments) {
+export function CreateComments({
+  onClick,
+  onClose,
+  onChange,
+  value,
+
+}:CreateComments) {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 600px)' });
    return(
     <Overlay

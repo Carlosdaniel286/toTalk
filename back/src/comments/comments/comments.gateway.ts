@@ -7,13 +7,14 @@ import { Comments } from '../interface/comments';
 import { CommentsService } from '../comments.service';
 import { TypeToken } from 'src/common/logger-middleware/interface/interface.token';
 import { CommentQueryService } from '../comments.service.query';
-
+import { CountLikes } from "../comments.service.countLikes"
 @UseGuards(SocketAuthGuard)
 @WebSocketGateway({cors:corsOptions})
 export class CommentsGateway {
   constructor(
     private readonly commentsService:CommentsService,
-    private readonly commentQueryService:CommentQueryService
+    private readonly commentQueryService:CommentQueryService,
+    private readonly countLikes:CountLikes
   ){}
   @WebSocketServer()
   server: Server;
@@ -41,7 +42,22 @@ export class CommentsGateway {
     const commented = await this.commentQueryService.getAllCommentsOfReponse(createCommentDto.parentId,authorId.userId)
     this.server.emit('getResponseComments',  commented);
 }
-
+@SubscribeMessage('incrementLikeComments')
+async addLike( @MessageBody() commentsId:number, @ConnectedSocket() client: Socket){
+  const authorId:TypeToken =client['user']
+  console.log('incrementLikeComments')
+  console.log(commentsId)
+  const postId =  await this.countLikes.incrementLikesComments(authorId.userId,commentsId)
+   this.server.emit(`incrementLikeComments${postId}`,  commentsId);
+  }
+  @SubscribeMessage('decrementLikeComments')
+  async deleteLike( @MessageBody() commentsId:number, @ConnectedSocket() client: Socket){
+    const authorId:TypeToken =client['user']
+    console.log('decrementLikeComments')
+  console.log(commentsId)
+  const postId = await this.countLikes.decrementLikeComments(authorId.userId,commentsId)
+     this.server.emit(`decrementLikeComments${postId}`,  commentsId);
+    }
 
 
 }

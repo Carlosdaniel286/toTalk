@@ -23,7 +23,42 @@ export function useCustomComments() {
     const params = useParams();
     const type = params.slug[0].toString();
     const id = params.slug[1].toString();
-
+    
+   
+   
+    const incrementLikeComments = (commentsId:number) => {
+        socket.emit('incrementLikeComments', commentsId);
+        socket.on(`incrementLikeComments${id}`, (commentsId:number) => {
+           const comments = [...commentList];
+            const updateLike = comments.map((item) => {
+              if (item.id === Number(commentsId)) { // Convertendo para número se necessário
+                return { ...item, countLike: item.countLike + 1 };
+              }
+              return item;
+            });
+            setCommentList(updateLike);
+            
+           
+        });
+    }
+    //decrementLikeComments
+    const decrementLikeComments = (commentsId:number) => {
+        socket.emit('decrementLikeComments', commentsId);
+        socket.on(`decrementLikeComments${id}`, (commentsId:number) => {
+           
+            const comments = [...commentList];
+            const updateLike = comments.map((item) => {
+              if (item.id === Number(commentsId)) { // Convertendo para número se necessário
+                return { ...item, countLike: item.countLike - 1 };
+              }
+              return item;
+            });
+            setCommentList(updateLike);
+            
+        }); 
+    }
+    
+    
     const [postUnique, setPostUnique] = useState<UpdatePosts>({
         content: null,
         key: null,
@@ -56,7 +91,7 @@ export function useCustomComments() {
             socket.emit(event, object);
             socket.on(event, (comments: comments[]) => {
                 
-                setCommentList(comments);
+               setCommentList(comments);
             });
 
         } catch (error) {
@@ -88,6 +123,7 @@ export function useCustomComments() {
     }, []);
 
     useEffect(() => {
+        console.log(commentList)
         const handleNewComment = (comment: comments) => {
               const key = uuidv4();
             setCommentList(prevComments => [comment, ...prevComments]);
@@ -101,8 +137,12 @@ export function useCustomComments() {
         socket.on('getResponseComments', (comments: comments[]) => {
             setCommentList(comments);
         });
+        
+//decrementLikeComments
 
-        socket.on('comment', handleNewComment);
+   
+
+socket.on('comment', handleNewComment);
 
         fetchPost();
 
@@ -127,6 +167,9 @@ export function useCustomComments() {
         postUnique, 
         setPostUnique,
         comments, 
-        setComments
+        setComments,
+        incrementLikeComments,
+        decrementLikeComments,
+        
     };
 }

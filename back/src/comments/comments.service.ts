@@ -5,7 +5,7 @@ import { Comments } from './interface/comments';
 import { FormatData } from 'src/common/formatData/formatData';
 import { SelectFieldsService } from 'src/common/select-fields.service';
 import { Published } from 'src/@interface/post.interface';
-import { Count } from './comments.service.likes';
+import { CountComments } from './comments.service.countComments.ts';
 import { UpdatePost } from 'src/posts/dto/create-post.dto/edite-post.dto';
 import { CommentsUpdateDto } from './dto/edit.comments.dto';
 
@@ -17,7 +17,7 @@ export class CommentsService {
     private prisma: PrismaService,
     private readonly formData: FormatData,
     private readonly selectFieldsService: SelectFieldsService,
-    private readonly commentLikesService: Count
+    private readonly commentLikesService: CountComments
   ) {}
 
   async createComments(createCommentDto: Comments, authorId: number): Promise<Published> {
